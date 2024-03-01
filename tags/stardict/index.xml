@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>StarDict on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/stardict/</link>
+    <description>Recent content in StarDict on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 25 Jan 2023 13:21:35 +0800</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/stardict/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>用 Rust 重写星际译王</title>
+      <link>https://vaaandark.top/posts/rewrite-stardict-in-rust/</link>
+      <pubDate>Wed, 25 Jan 2023 13:21:35 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/rewrite-stardict-in-rust/</guid>
+      <description>&lt;p&gt;我经常有在终端查单词的需求，之前使用的是自己写的网络爬虫，原理是构造网址 &amp;ldquo;&lt;a href=&#34;https://www.youdao.com/result?word=%7B%7D&amp;amp;lang=en%22&#34;&gt;https://www.youdao.com/result?word={}&amp;amp;lang=en&amp;quot;&lt;/a&gt; 并访问，再通过解析 Html 文件获得单词解释。一个朋友说他用的是 sdcv ，星际译王的终端版本，可以支持离线词典。我也时常脱机工作，对离线词典的需求也不小，所以打算自己写一个支持 StarDict 格式离线词典的软件。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

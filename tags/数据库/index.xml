@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>数据库 on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+    <description>Recent content in 数据库 on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 19 Jun 2023 16:19:07 +0800</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>数据库复习之关系代数</title>
+      <link>https://vaaandark.top/posts/review-for-database-on-relation-algebra/</link>
+      <pubDate>Mon, 19 Jun 2023 16:19:07 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/review-for-database-on-relation-algebra/</guid>
+      <description>&lt;h1 id=&#34;关系代数&#34;&gt;关系代数&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&#34;https://zh.wikipedia.org/wiki/%E5%85%B3%E7%B3%BB%E4%BB%A3%E6%95%B0_(%E6%95%B0%E6%8D%AE%E5%BA%93)&#34;&gt;关系代数（数据库）&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;计算机科学家 Codd 对关系代数的形成作出了很大的贡献，他的代数的六个原始运算是「选择」、「投影」、「笛卡尔积」、「并集」、「差集」、「重命名」。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>SQLite 入门（持续更新）</title>
+      <link>https://vaaandark.top/posts/sqlite-introduction/</link>
+      <pubDate>Thu, 05 Jan 2023 17:37:03 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/sqlite-introduction/</guid>
+      <description>&lt;p&gt;最近想写一个小工具，需要用到 SQLite 。之前只会一点点的 &lt;code&gt;INSERT&lt;/code&gt; 和 &lt;code&gt;DELETE&lt;/code&gt; ，现在想正式入门。&lt;/p&gt;
+&lt;h2 id=&#34;点命令&#34;&gt;点命令&lt;/h2&gt;
+&lt;p&gt;点命令不以 &lt;code&gt;;&lt;/code&gt; 结束，它们一般并不直接操作数据库。&lt;/p&gt;
+&lt;p&gt;可以使用 &lt;code&gt;.help&lt;/code&gt; 来看可以使用的点命令。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

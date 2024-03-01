@@ -1,0 +1,620 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>技术 on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/categories/%E6%8A%80%E6%9C%AF/</link>
+    <description>Recent content in 技术 on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 27 Mar 2024 20:02:33 +0800</lastBuildDate>
+    <atom:link href="https://vaaandark.top/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>求 n 个数中前 k 小的数</title>
+      <link>https://vaaandark.top/posts/the-smallest-k-numbers/</link>
+      <pubDate>Wed, 27 Mar 2024 20:02:33 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/the-smallest-k-numbers/</guid>
+      <description>&lt;p&gt;面试时遇到的一道题：给出给出 n 个数，求出前 k 小的数字。&lt;/p&gt;
+&lt;p&gt;输入是 n + 1 行：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;第一行是 n 和 k&lt;/li&gt;
+&lt;li&gt;之后 n 行是这个数列&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;输出是 k 个数。&lt;/p&gt;
+&lt;p&gt;当时没想出来怎么做，直接嗯排序，然后输出，OJ 的时限比较宽容，竟然过了😄。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>华科 OS 实验的 RISC-V 代理内核是如何启动的？</title>
+      <link>https://vaaandark.top/posts/how-riscv-pke-startup/</link>
+      <pubDate>Sat, 02 Mar 2024 01:32:50 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/how-riscv-pke-startup/</guid>
+      <description>&lt;p&gt;代码仓库为 &lt;a href=&#34;https://gitee.com/hustos/riscv-pke&#34;&gt;hustos riscv-pke&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;以下内容基于 lab2 代码&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;入口在哪&#34;&gt;入口在哪？&lt;/h3&gt;
+&lt;p&gt;入口为 &lt;code&gt;kernel/machine/mentry.S&lt;/code&gt; 的 &lt;code&gt;_mentry&lt;/code&gt; ，它调用了 &lt;code&gt;kernel/machine/minit.c&lt;/code&gt; 的 &lt;code&gt;m_start(uintptr_t hartid, uintptr_t dtb)&lt;/code&gt; ，两个参数并没有在 &lt;code&gt;_mentry&lt;/code&gt; 中设置，这是因为 spike 会自动设置 &lt;code&gt;a0&lt;/code&gt; 寄存器为 CPU id ，设置 &lt;code&gt;a1&lt;/code&gt; 寄存器为设备树字符串，这刚好也符合 RV 的传参规则。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>MIT6.S081 Lab:Fixup Xargs</title>
+      <link>https://vaaandark.top/posts/mit6.s081-labfixup-xargs/</link>
+      <pubDate>Mon, 26 Feb 2024 23:41:18 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/mit6.s081-labfixup-xargs/</guid>
+      <description>&lt;p&gt;昨天朋友跟我说我的 MIT6.S081 lab1 的 &lt;code&gt;xargs&lt;/code&gt; 命令的代码无法通过，看到他的测试方法才知道原来是这样测试的，感觉之前写的测的都太简略了。&lt;/p&gt;
+&lt;p&gt;例如测试 &lt;code&gt;xargs&lt;/code&gt; 命令这一关可以这样测试：&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>恶补 CPU 知识之 Cache 和 TLB</title>
+      <link>https://vaaandark.top/posts/relearning-cpu-2-cache-and-tlb/</link>
+      <pubDate>Sun, 18 Feb 2024 21:30:43 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/relearning-cpu-2-cache-and-tlb/</guid>
+      <description>&lt;p&gt;即是知识回顾，也是最近学到知识的拓展延伸。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ARMv6 Manual: &amp;ldquo;The only architecturally-guaranteed way to invalidate all aliases of a physical address from a VIPT instruction cache is to invalidate the entire instruction cache.&amp;rdquo;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;cache-的基本情况&#34;&gt;Cache 的基本情况&lt;/h2&gt;
+&lt;p&gt;Cache 也就是缓存，作为高速的 CPU 和低速的内存之间的缓冲，用于加速访问。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>恶补 CPU 知识之分支预测</title>
+      <link>https://vaaandark.top/posts/relearning-cpu-1-branch-prediction/</link>
+      <pubDate>Sun, 18 Feb 2024 12:44:41 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/relearning-cpu-1-branch-prediction/</guid>
+      <description>&lt;h2 id=&#34;前因&#34;&gt;前因&lt;/h2&gt;
+&lt;p&gt;最近看了一篇介绍 Ventana 的 Veyron V1 核心的博客 &lt;a href=&#34;https://blog.eastonman.com/blog/2024/02/hot-chips-2023-ventanas-unconventional-veyron-v1/&#34;&gt;HotChips 2023: Ventana 不寻常的 Veyron V1&lt;/a&gt; ，里面出现了很多我没听说过或者不甚了解的名词，在阅读这篇博客和查找资料的过程中，我学到了很多新的 CPU 知识。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Pthread</title>
+      <link>https://vaaandark.top/posts/pthread/</link>
+      <pubDate>Sat, 23 Dec 2023 22:03:25 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/pthread/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;赛博考古：Linux 支持 POSIX 线程标准的前世今生&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;线程是什么&#34;&gt;线程是什么&lt;/h2&gt;
+&lt;p&gt;操作系统能够进行运算调度的最小单位。在一般的操作系统上，它被包含在进程之中，是进程中的实际运作单位。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>为什么 Rust std fs 慢于 Python</title>
+      <link>https://vaaandark.top/posts/rust-slower-than-python/</link>
+      <pubDate>Thu, 30 Nov 2023 16:45:58 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/rust-slower-than-python/</guid>
+      <description>&lt;p&gt;看到了 &lt;a href=&#34;https://github.com/Xuanwo/&#34;&gt;xuanwo&lt;/a&gt; 的一篇 &lt;a href=&#34;https://xuanwo.io/2023/04-rust-std-fs-slower-than-python/&#34;&gt;博客&lt;/a&gt;，感觉很有意思。&lt;/p&gt;
+&lt;p&gt;完整读一遍也可以，不过也可以看我的省流。&lt;/p&gt;
+&lt;h2 id=&#34;python-io-比-c--rust-io-更快&#34;&gt;Python IO 比 C / Rust IO 更快&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;有人发现在 AMD Ryzen 9 5900X 和 AMD Ryzen 7 5700X 上访问页对齐的前10个 byte 会比其他偏移有更多的 L1 prefetch 和 load 的 miss 。&lt;/li&gt;
+&lt;li&gt;学过 x86 汇编的应该知道不同于 RISC ，x86 是有专门用于复制字符串的指令的。有人发现上述问题的底层原因来自于 AMD 对 FSRM(Fast Short REP MOV) 的实现，&lt;strong&gt;逆天的是在 Zen 3 上，访问页对齐的数据比不对齐慢&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;更有趣的事情&#34;&gt;更有趣的事情&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;作者发现将 C 的分配器换成 jemalloc 后速度就可以击败 Python 了，我个人猜测可能是 mmap 后分配的页对齐的内存使用了更多（也就是大于 glibc 的 10 byte）来存 meta data ，恰巧避免了这个硬件 bug 。&lt;/li&gt;
+&lt;li&gt;有人使用 eBPF profile 发现 Rust 和 Python 的 fs read 在系统调用的延迟上存在差距，Rust 更慢。&lt;/li&gt;
+&lt;li&gt;为了解决这个奇怪的性能问题，作者（开源大手子漩涡）和他的开源伙伴（包括了热心网友、国内开源大佬依云和一些内核开发者）使用了 strace, perf, eBPF 等各种性能分析工具，以及分析了各种可能导致性能问题的原因（内存大页、CPU 核亲和性、mmap 分配匿名内存、Linux 启动选项例如 Enable Mitigations、系统调用延迟等）。&lt;/li&gt;
+&lt;li&gt;有 &lt;a href=&#34;https://github.com/Enter-tainer&#34;&gt;朋友&lt;/a&gt; 告诉我「Intel 前几天刚出了 &lt;code&gt;rep mov&lt;/code&gt; 导致的 Dos 漏洞」。&lt;/li&gt;
+&lt;li&gt;好消息是 FSRM 是微码实现，也许在未来的某一次更新就修好了🥰。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;相关链接&#34;&gt;相关链接&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://bugs.launchpad.net/ubuntu/+source/glibc/+bug/2030515&#34;&gt;Terrible memcpy performance on Zen 3 when using rep movsb&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+    <item>
+      <title>Cargo Runner</title>
+      <link>https://vaaandark.top/posts/cargo-runner/</link>
+      <pubDate>Sun, 22 Oct 2023 11:36:13 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/cargo-runner/</guid>
+      <description>&lt;p&gt;最近在完成一个使用 Rust 语言编写 Linux 内核引导程序的项目 &lt;a href=&#34;github.com/vaaandark/lboot&#34;&gt;lboot&lt;/a&gt; ，其核心代码和原理在之前的博客中介绍过 &lt;a href=&#34;https://vaaandark.top/posts/how-uefi-startup-linux/&#34;&gt;UEFI 如何启动 Linux&lt;/a&gt; 。&lt;/p&gt;
+&lt;p&gt;因为不可能直接在 UEFI 环境下进行代码开发，所以我使用的是交叉编译的方法，目标平台是 &lt;code&gt;x86_64-unknown-uefi&lt;/code&gt; 和 &lt;code&gt;aarch64-unknown-uefi&lt;/code&gt; 。这就带来了一个问题，使用命令 &lt;code&gt;cargo run&lt;/code&gt; 不能直接运行代码，必须使用 qemu 来模拟目标架构的执行。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>UEFI 如何启动 Linux</title>
+      <link>https://vaaandark.top/posts/how-uefi-startup-linux/</link>
+      <pubDate>Sat, 30 Sep 2023 19:59:34 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/how-uefi-startup-linux/</guid>
+      <description>&lt;p&gt;之前讲到了 Linux 是如何启动的，现在就写一个 UEFI 程序可以启动 Linux ，语言选择的是非常火热的 Rust 。&lt;/p&gt;
+&lt;p&gt;Linux Kernel 经过了这么多年的发展，其实完全有着 boot 的能力，使用 UEFI 启动 Kernel 其实是非常简单的一件事情，不再需要像以前 BIOS 启动老版本内核一样要把内核加载到某个内存地址，把参数放到某个内存地址，再将这个地址放到寄存器中等等复杂操作。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Linux ，启动！</title>
+      <link>https://vaaandark.top/posts/linux-startup/</link>
+      <pubDate>Sat, 09 Sep 2023 08:15:06 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/linux-startup/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;&amp;ldquo;pull oneself up by one&amp;rsquo;s bootstraps.&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;拽着鞋带把自己拉起来&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;大家在安装 Arch Linux 或者其他 Linux 发行版时，可能会看到很多有关启动或者引导的名词，例如 BIOS 、UEFI 、GRUB 、ESP 、GPT 、LBA 、MBR 等等。有些名词比较熟悉，有些就会一头雾水，今天就来讲讲这些名词。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>PAC2023娱乐赛</title>
+      <link>https://vaaandark.top/posts/pac2023-game/</link>
+      <pubDate>Thu, 06 Jul 2023 23:55:08 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/pac2023-game/</guid>
+      <description>&lt;p&gt;7.6 举办了 PAC2023 的开幕赛，以轻松娱乐为主，我还没有体验过在短时间内完成优化工作（不过今天的工作量倒也不大）。这场娱乐赛给了我别样的体验，也让我发现了我有好的好多不足，以及一些以前没有注意到的坏习惯。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>数据库复习之关系代数</title>
+      <link>https://vaaandark.top/posts/review-for-database-on-relation-algebra/</link>
+      <pubDate>Mon, 19 Jun 2023 16:19:07 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/review-for-database-on-relation-algebra/</guid>
+      <description>&lt;h1 id=&#34;关系代数&#34;&gt;关系代数&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&#34;https://zh.wikipedia.org/wiki/%E5%85%B3%E7%B3%BB%E4%BB%A3%E6%95%B0_(%E6%95%B0%E6%8D%AE%E5%BA%93)&#34;&gt;关系代数（数据库）&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;计算机科学家 Codd 对关系代数的形成作出了很大的贡献，他的代数的六个原始运算是「选择」、「投影」、「笛卡尔积」、「并集」、「差集」、「重命名」。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>CPU 流水线</title>
+      <link>https://vaaandark.top/posts/cpu-pipeline/</link>
+      <pubDate>Sat, 22 Apr 2023 17:29:49 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/cpu-pipeline/</guid>
+      <description>&lt;h1 id=&#34;流水线级&#34;&gt;流水线级&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;一条流水线的每个分步骤被称为流水线级。它们被流水线寄存器分开。下文中没有说明是流水线寄存器的都是普通 CPU 寄存器。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;现代计算机流水线级数已经达到了 10-20 级，在 2000-2010 年间，流水线级数的竞赛达到了最高峰，那时候的处理器甚至可以有高达 31 级的流水线。但是超深的流水线带来的是结构上的复杂和显著增大的动态调度模块设计难度，因此，从那以后就没有再出现过使用这么多级流水线的 CPU 了。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>CS246 Finding Similar Items: Locality Sensitive Hashing</title>
+      <link>https://vaaandark.top/posts/cs246-finding-similar-itemslocality-sensitive-hashing/</link>
+      <pubDate>Wed, 15 Mar 2023 16:44:34 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/cs246-finding-similar-itemslocality-sensitive-hashing/</guid>
+      <description>&lt;p&gt;最近在上大数据分析的课程，老师使用的是斯坦福大学的教材和 PPT ，感觉挺有趣的，记录一下其中的一些算法。&lt;/p&gt;
+&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
+&lt;p&gt;很多问题可以被归化为寻找相似集合的问题：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;论文差重&lt;/li&gt;
+&lt;li&gt;寻找购买相似商品的人群&lt;/li&gt;
+&lt;li&gt;寻找有相似特征的图片&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;不妨将这次的目的设置为：&lt;strong&gt;给定大量的文档，发现其中有抄袭嫌疑的&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>MIT6.S081 Lab: Xv6 and Unix Utilities</title>
+      <link>https://vaaandark.top/posts/mit6.s081-labxv6-and-unix-utilities/</link>
+      <pubDate>Thu, 02 Mar 2023 23:14:38 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/mit6.s081-labxv6-and-unix-utilities/</guid>
+      <description>&lt;p&gt;这是 MIT6.S081 的第一个 Lab ，目的是为了让学生熟悉 Xv6 和 Unix 的一些实用程序，例如 &lt;code&gt;sleep&lt;/code&gt; &lt;code&gt;find&lt;/code&gt; &lt;code&gt;xargs&lt;/code&gt; 等。&lt;/p&gt;
+&lt;h2 id=&#34;sleep&#34;&gt;sleep&lt;/h2&gt;
+&lt;p&gt;这一关是实现 &lt;code&gt;sleep&lt;/code&gt; 命令。由于在 &lt;code&gt;user/user.h&lt;/code&gt; 目录中给出来了可以直接由 C 语言调用的函数 &lt;code&gt;int sleep(int)&lt;/code&gt; ，这一关非常简单：&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Awesome WM 基于迭代器的小组件</title>
+      <link>https://vaaandark.top/posts/awesomewm-widget-with-iterator/</link>
+      <pubDate>Sat, 25 Feb 2023 13:26:44 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/awesomewm-widget-with-iterator/</guid>
+      <description>&lt;p&gt;由于 i3wm 支持的功能有限，定制性并没有那么强大，最近换成使用 Awesome WM 了，它使用 Lua 作为配置语言，所以可配置性极强。举个例子，i3wm 配置无法像真正的编程语言一样使用 &lt;code&gt;if ... else&lt;/code&gt; 语句等，但 Awesome WM 可以，对于同一个快捷键就可以在不同时候有不同的功能。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Btrfs 为什么是神？</title>
+      <link>https://vaaandark.top/posts/why-btrfs-is-awesome/</link>
+      <pubDate>Sat, 25 Feb 2023 13:06:17 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/why-btrfs-is-awesome/</guid>
+      <description>&lt;p&gt;最近发现 Windows 这几个月开机不超过 10 次，寻思着将 Windows 中的空间挪一点到 Linux 中来。说干就干，在 Windows 里面划出来了 80 GB 的空间。&lt;/p&gt;
+&lt;p&gt;遗憾地，这 80 GB 空间物理上在我需要扩容的空间的前面，由于开头的扇区存放有很多元数据，因此是不能简单扩容的，只能寻求其他的方法。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Rust 自引用结构</title>
+      <link>https://vaaandark.top/posts/rust-self-referencing-structure/</link>
+      <pubDate>Thu, 23 Feb 2023 21:44:37 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/rust-self-referencing-structure/</guid>
+      <description>&lt;p&gt;今天和朋友交流的时候遇到了自引用问题，之前就在看 &lt;em&gt;Rust Bible&lt;/em&gt; 的时候看到过，但是一直没用 Rust 写过什么数据结构，所以没有使用这个的机会，所以今天就来尝试一下。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>MIT6.S081 实验环境配置</title>
+      <link>https://vaaandark.top/posts/mit6.s081-setup-environment/</link>
+      <pubDate>Tue, 21 Feb 2023 14:59:14 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/mit6.s081-setup-environment/</guid>
+      <description>&lt;p&gt;最近开始学习操作系统的相关知识，选择学 MIT6.S081 的课程。&lt;/p&gt;
+&lt;p&gt;首先在 &lt;a href=&#34;https://pdos.csail.mit.edu/6.S081/2020/labs/util.html&#34;&gt;课程官方网站&lt;/a&gt; 上拉取仓库配置环境。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-console&#34; data-lang=&#34;console&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ git clone git://g.csail.mit.edu/xv6-labs-2020
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ &lt;span style=&#34;color:#fff;font-weight:bold&#34;&gt;cd&lt;/span&gt; xv6-labs-2020
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ git checkout util
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ make qemu
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;make&lt;/code&gt; 时发现有报错：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-console&#34; data-lang=&#34;console&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;user/sh.c: In function ‘runcmd’:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;user/sh.c:58:1: error: infinite recursion detected [-Werror=infinite-recursion]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   58 | runcmd(struct cmd *cmd)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      | ^~~~~~
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;打开该文件发现：&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Lua 打印 Table</title>
+      <link>https://vaaandark.top/posts/lua-print-table/</link>
+      <pubDate>Sat, 11 Feb 2023 14:36:27 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/lua-print-table/</guid>
+      <description>&lt;p&gt;之前在 Lua 代码的编写中写过一些打印表的函数用于调试，这次在看 z.lua 的实现中看到了非常完美的打印表的方法，于是在将代码改得更规范后记录一下：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;使用 &lt;code&gt;luacheck&lt;/code&gt; 检查 Lua 代码中的错误和不规范之处&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Lua 中的三目运算</title>
+      <link>https://vaaandark.top/posts/lua-ternary-arithmetic/</link>
+      <pubDate>Thu, 09 Feb 2023 13:52:51 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/lua-ternary-arithmetic/</guid>
+      <description>&lt;p&gt;在看 &lt;a href=&#34;https://github.com/skywind3000&#34;&gt;skywind3000&lt;/a&gt; 大神写的 z.lua 时发现了神秘写法：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;os.argv = arg ~= &lt;span style=&#34;color:#fff;font-weight:bold&#34;&gt;nil&lt;/span&gt; and arg or {}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;os.path.sep = windows and &lt;span style=&#34;color:#0ff;font-weight:bold&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#0ff;font-weight:bold&#34;&gt;\\&lt;/span&gt;&lt;span style=&#34;color:#0ff;font-weight:bold&#34;&gt;&amp;#39;&lt;/span&gt; or &lt;span style=&#34;color:#0ff;font-weight:bold&#34;&gt;&amp;#39;/&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;不需要怎么思考就能知道这个是三目运算。但是在我认知中，Lua 是不支持三目运算符的，定睛一看才发现这个是通过 Lua 布尔运算中的短路特性模拟的三目运算。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>用 Rust 重写星际译王</title>
+      <link>https://vaaandark.top/posts/rewrite-stardict-in-rust/</link>
+      <pubDate>Wed, 25 Jan 2023 13:21:35 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/rewrite-stardict-in-rust/</guid>
+      <description>&lt;p&gt;我经常有在终端查单词的需求，之前使用的是自己写的网络爬虫，原理是构造网址 &amp;ldquo;&lt;a href=&#34;https://www.youdao.com/result?word=%7B%7D&amp;amp;lang=en%22&#34;&gt;https://www.youdao.com/result?word={}&amp;amp;lang=en&amp;quot;&lt;/a&gt; 并访问，再通过解析 Html 文件获得单词解释。一个朋友说他用的是 sdcv ，星际译王的终端版本，可以支持离线词典。我也时常脱机工作，对离线词典的需求也不小，所以打算自己写一个支持 StarDict 格式离线词典的软件。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Mailx 和 Swaks 的使用</title>
+      <link>https://vaaandark.top/posts/mailx-and-swaks/</link>
+      <pubDate>Wed, 18 Jan 2023 21:12:39 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/mailx-and-swaks/</guid>
+      <description>&lt;p&gt;按照 Mailx 自己的介绍，它是一个增强了的 Mail 命令，提供了更多的功能。&lt;/p&gt;
+&lt;p&gt;常规用法是： &lt;code&gt;mailx -s &amp;quot;{{subject}}&amp;quot; {{to_addr}}&lt;/code&gt;，通过配置之后可以使用邮箱运营商的服务器发送邮件。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>SQLite 入门（持续更新）</title>
+      <link>https://vaaandark.top/posts/sqlite-introduction/</link>
+      <pubDate>Thu, 05 Jan 2023 17:37:03 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/sqlite-introduction/</guid>
+      <description>&lt;p&gt;最近想写一个小工具，需要用到 SQLite 。之前只会一点点的 &lt;code&gt;INSERT&lt;/code&gt; 和 &lt;code&gt;DELETE&lt;/code&gt; ，现在想正式入门。&lt;/p&gt;
+&lt;h2 id=&#34;点命令&#34;&gt;点命令&lt;/h2&gt;
+&lt;p&gt;点命令不以 &lt;code&gt;;&lt;/code&gt; 结束，它们一般并不直接操作数据库。&lt;/p&gt;
+&lt;p&gt;可以使用 &lt;code&gt;.help&lt;/code&gt; 来看可以使用的点命令。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>内联汇编</title>
+      <link>https://vaaandark.top/posts/inline-assembly/</link>
+      <pubDate>Mon, 02 Jan 2023 16:27:19 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/inline-assembly/</guid>
+      <description>&lt;p&gt;高中第一次看到在 C 语言中嵌入汇编语言时，我就觉得它非常好玩，到大学刚开学的时候，我甚至有使用它的需求，可惜直到现在我才抽出时间开始学习它。&lt;/p&gt;
+&lt;h2 id=&#34;分类&#34;&gt;分类&lt;/h2&gt;
+&lt;p&gt;在 GNU 的 GCC 中，内联汇编被分为两类：&lt;strong&gt;Basic asm&lt;/strong&gt; 和 &lt;strong&gt;Extended asm&lt;/strong&gt; 。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>校园网自动认证</title>
+      <link>https://vaaandark.top/posts/hust-network-login/</link>
+      <pubDate>Fri, 25 Nov 2022 16:01:20 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/hust-network-login/</guid>
+      <description>&lt;p&gt;自己的 Wi-Fi6 漏油器用着还行，校园网带宽可以跑满，但是我的这个型号并不能刷 openwrt ，所以不能 ssh 连接，更不能在上面跑同学们写的那些自动认证脚本。&lt;/p&gt;
+&lt;p&gt;去年折腾 Arduino 和 nodemcu 时想到可以利用 esp8266 的联网功能让它来代替进行认证工作。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>量子计算机</title>
+      <link>https://vaaandark.top/posts/quantum-computer/</link>
+      <pubDate>Mon, 21 Nov 2022 11:51:23 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/quantum-computer/</guid>
+      <description>&lt;h2 id=&#34;representation-of-data&#34;&gt;Representation of Data&lt;/h2&gt;
+&lt;h3 id=&#34;qubits&#34;&gt;Qubits&lt;/h3&gt;
+&lt;p&gt;A bit of data is represented by a single atom that is in one of two states denoted by $\ket0$ and $\ket1$.  A single bit of this form is known as a &lt;strong&gt;qubit&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;在量子计算机中，一个原子可以通过 $\ket0$ 和 $\ket1$ 其中之一的状态来表示一个比特位的数据。一个形如这样的比特位被称为&lt;strong&gt;量子位&lt;/strong&gt;。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>物理双偏振实验画图</title>
+      <link>https://vaaandark.top/posts/dual-polarization-experiment-drawing/</link>
+      <pubDate>Sun, 20 Nov 2022 12:32:04 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/dual-polarization-experiment-drawing/</guid>
+      <description>&lt;p&gt;上次物理实验做的是双偏振，实验资料中推荐使用 origin 画图，我既不想使用 Windows 也不想多下载一个软件，因此我打算用 matplotlib 画图。&lt;/p&gt;
+&lt;h2 id=&#34;代码&#34;&gt;代码&lt;/h2&gt;
+&lt;p&gt;第一个实验画图是很简单的线性回归计算：&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>ARM与80X86的异同</title>
+      <link>https://vaaandark.top/posts/differences-between-arm-and-80x86/</link>
+      <pubDate>Tue, 08 Nov 2022 20:35:20 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/differences-between-arm-and-80x86/</guid>
+      <description>&lt;p&gt;今天初步认识了 ARM 汇编。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;cpu-内寄存器&#34;&gt;CPU 内寄存器&lt;/h2&gt;
+&lt;p&gt;aarch64 有 31 个 64 位通用寄存器，它们的名字是为 xn（n 为 0-30 的整数），不像 80X86 一样暗示了它们的用途。&lt;/p&gt;
+&lt;p&gt;类似 rax 和 eax 的关系，它们对应的 32 位寄存器叫做 wn（n 为 0-30 的整数）。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>QEMU配置openEuler的aarch64开发环境</title>
+      <link>https://vaaandark.top/posts/setup-qemu-for-openeuler-aarch64/</link>
+      <pubDate>Mon, 07 Nov 2022 16:43:28 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/setup-qemu-for-openeuler-aarch64/</guid>
+      <description>&lt;p&gt;还是计算机系统基础，即将对 arm 架构展开学习，使用的是华为的打开欧拉(openEuler)操作发行版。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;进入镜像&#34;&gt;进入镜像&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;首先下载虚拟机镜像，老师发的我安装不了，就在清华的镜像站下载了。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-console&#34; data-lang=&#34;console&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ aria2c -x &lt;span style=&#34;color:#ff0;font-weight:bold&#34;&gt;15&lt;/span&gt; -s &lt;span style=&#34;color:#ff0;font-weight:bold&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#0ff;font-weight:bold&#34;&gt;&amp;#34;https://mirrors.tuna.tsinghua.edu.cn/openeuler/openEuler-20.03-LTS/virtual_machine_img/aarch64/openEuler-20.03-LTS.aarch64.qcow2.xz&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;li&gt;先调整一下镜像的磁盘大小。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-console&#34; data-lang=&#34;console&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ qemu-img resize openEuler-20.03-LTS.aarch64.qcow2 +20G
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;启动镜像，注意需要使用引导文件。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-console&#34; data-lang=&#34;console&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;qemu-system-aarch64 -m 4096 \
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        -cpu cortex-a57 \
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        -smp 4 \
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        -M virt \
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        -bios edk2-aarch64-code.fd \
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        -hda openEuler-20.03-LTS.aarch64.qcow2 \
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        -nographic \
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;配置网络&#34;&gt;配置网络&lt;/h2&gt;
+&lt;p&gt;配置网络这部分，尤其是网卡那部分我不是很懂，基本上是照着教程来做。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>CSAPP Bomb Lab</title>
+      <link>https://vaaandark.top/posts/csapp-bomb-lab/</link>
+      <pubDate>Sat, 29 Oct 2022 22:24:22 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/csapp-bomb-lab/</guid>
+      <description>&lt;p&gt;之前的 Bomb Lab 没有做，现在刚好在上计算机系统基础这门课，学校使用了 CSAPP 的 Bomb Lab ，可以补交一下 CSAPP 的作业，也可以学习一下 GDB 的使用。&lt;/p&gt;
+&lt;h2 id=&#34;实验简述&#34;&gt;实验简述&lt;/h2&gt;
+&lt;p&gt;遗憾地，CSAPP 的 Bomb Lab 早已提供的是 Linux 的 64 位可执行程序，而我校的 Lab 还是 32 位的 Windows PE32 。不过我还是找老师要到了它的 Linux 版本，不过也是 ELF32 ，可执行文件的名字叫&lt;code&gt;bomb_32&lt;/code&gt;。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>稍微深入VLA</title>
+      <link>https://vaaandark.top/posts/dive-in-vla/</link>
+      <pubDate>Thu, 20 Oct 2022 10:50:10 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/dive-in-vla/</guid>
+      <description>&lt;p&gt;最近在学习汇编语言，和朋友聊天时聊到了 C 语言中的变长数组，想知道在汇编后是什么样子的。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;变长数组variable-length-array&#34;&gt;变长数组(Variable-length array)&lt;/h2&gt;
+&lt;p&gt;可变长数组是指在计算机程序设计中，数组对象的长度在运行时（而不是编译时）确定。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>80X86汇编语言学习</title>
+      <link>https://vaaandark.top/posts/80x86-learning/</link>
+      <pubDate>Tue, 27 Sep 2022 14:47:57 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/80x86-learning/</guid>
+      <description>&lt;p&gt;汇编语言学习笔记&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;预备知识&#34;&gt;预备知识&lt;/h2&gt;
+&lt;h3 id=&#34;intel-机器&#34;&gt;Intel 机器&lt;/h3&gt;
+&lt;h4 id=&#34;微型计算机的构成&#34;&gt;微型计算机的构成&lt;/h4&gt;
+&lt;p&gt;&lt;img alt=&#34;微型计算机的构成&#34; loading=&#34;lazy&#34; src=&#34;https://vaaandark.top/image/asm-intel-x86.png&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;80x86-微处理器的基本结构&#34;&gt;80X86 微处理器的基本结构&lt;/h4&gt;
+&lt;p&gt;&lt;img alt=&#34;80X86微处理器的基本结构&#34; loading=&#34;lazy&#34; src=&#34;https://vaaandark.top/image/asm-80x86.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;数据寄存器组&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;数据寄存器组&#34; loading=&#34;lazy&#34; src=&#34;https://vaaandark.top/image/asm-data-registers.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;段寄存器组&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;段寄存器组&#34; loading=&#34;lazy&#34; src=&#34;https://vaaandark.top/image/asm-seg-registers.png&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;80x86-的三种工作方式&#34;&gt;80X86 的三种工作方式&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;实地址模式&lt;/li&gt;
+&lt;li&gt;保护模式&lt;/li&gt;
+&lt;li&gt;虚拟 8086 方式（V86方式）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;数据在计算机内的表示形式&#34;&gt;数据在计算机内的表示形式&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;有符号数、无符号数、浮点数等相关知识见 CSAPP&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>垃圾回收</title>
+      <link>https://vaaandark.top/posts/gc/</link>
+      <pubDate>Sat, 17 Sep 2022 11:27:19 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/gc/</guid>
+      <description>&lt;p&gt;之前学习了 Lua 的 Table 和协程，对 Lua 中另一个重要模块 GC 还有很多疑问，这次就来学习一下。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;gc-简介与策略分类&#34;&gt;GC 简介与策略分类&lt;/h2&gt;
+&lt;p&gt;在计算机科学中，垃圾收集(GC)是一种自动内存管理形式。垃圾收集器尝试回收程序分配但不再引用的内存；这样的内存被称为垃圾。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>FreeDOS和masm开发环境配置</title>
+      <link>https://vaaandark.top/posts/freedos-and-masm-environment/</link>
+      <pubDate>Fri, 16 Sep 2022 16:22:34 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/freedos-and-masm-environment/</guid>
+      <description>&lt;p&gt;正在上计算机系统基础，目前主要是在讲汇编语言，使用的开发环境自然是又老又臭的 DOS 加上 MASM 。之前我看到过 FreeDOS 这个自由的 DOS 发行版，打算试吃一下，之后的汇编实验也将在这上面进行。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>如何使用Lua写一个NeoVim插件</title>
+      <link>https://vaaandark.top/posts/how-to-write-a-plugin-for-neovim-in-lua/</link>
+      <pubDate>Thu, 18 Aug 2022 17:18:42 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/how-to-write-a-plugin-for-neovim-in-lua/</guid>
+      <description>&lt;p&gt;之前学习了如何写 Lua 程序，又因为 NeoVim 的插件可以用 Lua 写，所以想学习一下插件开发。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;插件目录结构&#34;&gt;插件目录结构&lt;/h2&gt;
+&lt;p&gt;我们的插件应当有至少两个目录：&lt;code&gt;plugin&lt;/code&gt;用于放&lt;code&gt;main&lt;/code&gt;代码文件，&lt;code&gt;lua&lt;/code&gt;放其余的所有代码。当然，如果我们真的想把所有代码放在同一个文件里面，这也是可以的。但是请不要这样。因此，使用&lt;code&gt;plugin/whid.vim&lt;/code&gt;和&lt;code&gt;lua/whid.lua&lt;/code&gt;这两个文件就可以了。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>说说链表</title>
+      <link>https://vaaandark.top/posts/facts-about-linklist/</link>
+      <pubDate>Sun, 14 Aug 2022 16:01:24 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/facts-about-linklist/</guid>
+      <description>&lt;p&gt;最近看到了一些关于侵入式和非侵入式链表的讨论，决定研究一下它们两个。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;侵入式和非侵入式链表的区别&#34;&gt;侵入式和非侵入式链表的区别&lt;/h2&gt;
+&lt;p&gt;这里的侵入是相对于链表的指针域来说，所以最主要的区别就是非侵入式的链表容器中保存了一份用户传入的值。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>OpenMP进阶</title>
+      <link>https://vaaandark.top/posts/openmp-advance/</link>
+      <pubDate>Tue, 02 Aug 2022 22:08:34 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/openmp-advance/</guid>
+      <description>&lt;p&gt;继续学习 OpenMP 的使用，尤其是一些较新版本。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;openmp-40&#34;&gt;OpenMP 4.0&lt;/h2&gt;
+&lt;h3 id=&#34;controlling-openmp-thread-affinity&#34;&gt;Controlling OpenMP thread Affinity&lt;/h3&gt;
+&lt;p&gt;因为很多硬件如今是 NUMA 结构，分配线程的位置可以很大程度上影响性能。&lt;/p&gt;
+&lt;p&gt;与核绑定有关的 OpenMP 结构 proc_bind (master | close | spread)&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>OpenMP入门</title>
+      <link>https://vaaandark.top/posts/openmp-introduction/</link>
+      <pubDate>Fri, 29 Jul 2022 09:03:18 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/openmp-introduction/</guid>
+      <description>&lt;p&gt;写 OpenMP 的时候总是感觉怪怪的，不知道什么时候该用什么，所以最近系统化地看一遍 OpenMP 的使用，主体为 OpenMP 2.0 和 3.0。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;what-is-openmp&#34;&gt;What is OpenMP?&lt;/h2&gt;
+&lt;h3 id=&#34;openmp-model&#34;&gt;OpenMP Model&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;每个线程都有可以访问全局的共享内存。&lt;/li&gt;
+&lt;li&gt;数据可以是共享的也可以是私有的。&lt;/li&gt;
+&lt;li&gt;共享的数据可以被所有线程访问。&lt;/li&gt;
+&lt;li&gt;私有数据只能被拥有它的线程访问。&lt;/li&gt;
+&lt;li&gt;数据的传递对于编程者是透明的。&lt;/li&gt;
+&lt;li&gt;同步会发生，但是它大部分时候是隐式的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img alt=&#34;OpenMP Model&#34; loading=&#34;lazy&#34; src=&#34;https://vaaandark.top/image/openmp-model.png&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Lua Coroutine</title>
+      <link>https://vaaandark.top/posts/lua-coroutine/</link>
+      <pubDate>Fri, 13 May 2022 15:19:09 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/lua-coroutine/</guid>
+      <description>&lt;p&gt;Lua 的一大特色就是协程的使用，在解释型语言中，如果不考虑嵌入到较为低级的语言（如 C 语言）中，就只需要操作调用栈并保存好上下文状态即可。但是 Lua 并不是一门纯粹依靠字节码的解释型语言，它常常与 C 语言反复嵌套，甚至出现 C 中调用 Lua ，Lua 中再调用 C 代码，，，的情况。一旦 Lua 调用的 C 库企图中断线程，再想恢复，就会是一个难题。好在 Lua 巧妙地解决了这些问题。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Lua Table</title>
+      <link>https://vaaandark.top/posts/lua-table/</link>
+      <pubDate>Wed, 11 May 2022 23:49:28 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/lua-table/</guid>
+      <description>&lt;p&gt;之前学习 Lua 的时候就对它的 Table 很感兴趣，最近在看 Lua 解释器的源码，因此就想研究一下具体是怎么实现这个 Lua 之中最为重要的数据结构的。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;lua-table-简介&#34;&gt;Lua Table 简介&lt;/h2&gt;
+&lt;p&gt;在 Lua 语言之中，数组是 table ，字典是 table ，就连对象、模块、包也是通过 table 实现的：&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>C语言异常处理</title>
+      <link>https://vaaandark.top/posts/c-exception/</link>
+      <pubDate>Tue, 03 May 2022 19:36:40 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/c-exception/</guid>
+      <description>&lt;p&gt;C 语言没有原生支持异常处理，但是可以使用&lt;code&gt;setjmp&lt;/code&gt;和&lt;code&gt;longjmp&lt;/code&gt;函数实现类似&lt;code&gt;try ... except&lt;/code&gt;的功能。&lt;/p&gt;
+&lt;p&gt;本文主要参考：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;C Interfaces and Implementation&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;&lt;a href=&#34;https://www.hpl.hp.com/techreports/Compaq-DEC/SRC-RR-40.pdf&#34;&gt;Implementing exceptions in C&lt;/a&gt;&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;setjmph&#34;&gt;setjmp.h&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;setjmp.h&lt;/code&gt;是 C 标准函数库中提供“非本地跳转”的头文件：控制流偏离了通常的子程序调用与返回序列。互补的两个函数&lt;code&gt;setjmp&lt;/code&gt;与&lt;code&gt;longjmp&lt;/code&gt;提供了这种功能。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Rust闭包</title>
+      <link>https://vaaandark.top/posts/rust-closure/</link>
+      <pubDate>Tue, 26 Apr 2022 23:15:48 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/rust-closure/</guid>
+      <description>&lt;p&gt;Rust 支持函数式编程，因此高阶函数、闭包等特性都不可或缺。&lt;/p&gt;
+&lt;p&gt;本文主要参考了 &lt;em&gt;&lt;strong&gt;Rust Course&lt;/strong&gt;&lt;/em&gt; 和 Rust 标准库文档。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;什么是闭包&#34;&gt;什么是闭包&lt;/h2&gt;
+&lt;p&gt;闭包是在支持头等函数的编程语言中实现词法绑定的一种技术，与函数不同的是，它可以捕捉自由变量，这意味着即使脱离了闭包创建时的上下文也能正常运行。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Rust迭代器</title>
+      <link>https://vaaandark.top/posts/rust-iterator/</link>
+      <pubDate>Mon, 25 Apr 2022 23:22:24 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/rust-iterator/</guid>
+      <description>&lt;p&gt;最近一直在学习 Rust 语言，深感它的学习曲线很陡峭，因此会写几篇博客记录一下学习进度。&lt;/p&gt;
+&lt;p&gt;本文主要参考了 &lt;em&gt;&lt;strong&gt;Rust Course&lt;/strong&gt;&lt;/em&gt; 和 Rust 标准库文档。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;什么是迭代器&#34;&gt;什么是迭代器&lt;/h2&gt;
+&lt;p&gt;迭代器（iterator），是确使用户可在容器对象（container，例如链表或数组）上遍访的对象，设计人员使用此接口无需关心容器对象的内存分配的实现细节。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>华科寝室简易门禁</title>
+      <link>https://vaaandark.top/posts/simple-entrance-guard-in-hust/</link>
+      <pubDate>Tue, 29 Mar 2022 19:14:13 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/simple-entrance-guard-in-hust/</guid>
+      <description>&lt;p&gt;华科宿舍的大门门禁用学生卡开，而每个寝室的门却只能使用钥匙打开。这就导致了每次出门都要带上学生卡和钥匙，每次回来都要先掏出卡，再掏出钥匙。这样实在是麻烦，因此我有了用校园卡就能打开宿舍门的想法。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Lua入门</title>
+      <link>https://vaaandark.top/posts/lua-introduction/</link>
+      <pubDate>Wed, 23 Mar 2022 23:40:09 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/lua-introduction/</guid>
+      <description>&lt;p&gt;最近对脚本语言 Lua 很感兴趣，其一是因为它可以很方便地调用 C 语言库，其二是因为它是很多现代化工具的配置语言（比如 NeoVim ），另外 Lua 的源代码不是很长，因此研究学习难度会比其他语言更低。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>一些Vim使用技巧（持续更新）</title>
+      <link>https://vaaandark.top/posts/vim-practice/</link>
+      <pubDate>Sun, 20 Feb 2022 10:53:42 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/vim-practice/</guid>
+      <description>&lt;p&gt;最近翻看了一下 &lt;strong&gt;《Vim使用技巧》&lt;/strong&gt; 这本书，然后就发现我对 &lt;strong&gt;Vim&lt;/strong&gt; 快捷键的了解很不深入。不过即使如此，我日常使用 &lt;strong&gt;Vim&lt;/strong&gt; 写代码的效率也高于使用其他编辑器了，足见 &lt;strong&gt;Vim&lt;/strong&gt; 模式之奇。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>gitignore文件如何书写</title>
+      <link>https://vaaandark.top/posts/how-to-write-gitignore/</link>
+      <pubDate>Tue, 08 Feb 2022 13:32:19 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/how-to-write-gitignore/</guid>
+      <description>&lt;p&gt;之前使用&lt;code&gt;git&lt;/code&gt;基本只是把它当作提交到 &lt;strong&gt;GitHub&lt;/strong&gt; 上的工具，最多使用到的功能就是恢复误删的文件而已。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;在我之前的&lt;code&gt;git&lt;/code&gt;命令使用之中，基本上用的就是&lt;code&gt;git clone&lt;/code&gt;、&lt;code&gt;git add .&lt;/code&gt;、&lt;code&gt;git commit -m&lt;/code&gt;以及&lt;code&gt;git commit push&lt;/code&gt;。由于基本上是无脑&lt;code&gt;add&lt;/code&gt;，因此&lt;code&gt;.gitigore&lt;/code&gt;的文件书写比较重要。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>CSAPP Data Lab</title>
+      <link>https://vaaandark.top/posts/csapp-data-lab/</link>
+      <pubDate>Wed, 02 Feb 2022 13:06:25 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/csapp-data-lab/</guid>
+      <description>&lt;p&gt;最近本来在看 &lt;em&gt;&lt;strong&gt;CSAPP&lt;/strong&gt;&lt;/em&gt; 后面的内容，但突然发现自己前面可能还有一些知识掌握不完全，因此做一下 Lab 检验一下。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h1 id=&#34;准备工作&#34;&gt;准备工作&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;在 CSAPP 的官网上找到 Lab，下载 Self-Study Handout。&lt;/li&gt;
+&lt;li&gt;在下载目录下解压文件&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;tar -xf datalab-handout.tar
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;尝试执行自动测评脚本&lt;code&gt;driver.pl&lt;/code&gt;结果发现没有32位环境，于是用&lt;code&gt;dnf&lt;/code&gt;安装需要的库，折腾了一会发现还是不太行。请教了大佬 &lt;a href=&#34;https://www.cnblogs.com/jyi2ya&#34;&gt;&lt;strong&gt;jyi2ya&lt;/strong&gt;&lt;/a&gt;，他告诉我可以直接在&lt;code&gt;makefile&lt;/code&gt;里面把编译条件改为&lt;code&gt;-m64&lt;/code&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;题目与题解&#34;&gt;题目与题解&lt;/h1&gt;
+&lt;h2 id=&#34;int-部分&#34;&gt;int 部分&lt;/h2&gt;
+&lt;h3 id=&#34;bitxor&#34;&gt;bitXor&lt;/h3&gt;
+&lt;p&gt;只用&lt;code&gt;~&lt;/code&gt;和&lt;code&gt;&amp;amp;&lt;/code&gt;实现&lt;code&gt;^&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>斐波那契堆</title>
+      <link>https://vaaandark.top/posts/fibonacci-heap/</link>
+      <pubDate>Mon, 31 Jan 2022 12:51:49 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/fibonacci-heap/</guid>
+      <description>&lt;p&gt;联创 Lab 组新人任务第一弹。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;关于斐波那契堆&#34;&gt;关于斐波那契堆&lt;/h2&gt;
+&lt;h3 id=&#34;结构与特点&#34;&gt;结构与特点&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;斐波那契堆是由一组最小堆有序树构成的。每个节点的度数为其子节点的数目。树的度数为其根节点的度数。&lt;/li&gt;
+&lt;li&gt;斐波那契堆中的树都是有根的但是无序。每个节点x包含指向父节点的指针p[x]和指向任意一个子结点的child[x]。x的所有子节点都用双向循环链表链接起来，叫做x的子链表。子链表中的每一个节点y都有指向它的左兄弟的left[y]和右兄弟的right[y]。如果节点y是x仅有的子节点，则left[y]=right[y]=y。&lt;/li&gt;
+&lt;li&gt;斐波那契堆中所有树的根节点也用一个双向循环链表链接起来。&lt;/li&gt;
+&lt;li&gt;使用一个指针指向斐波那契堆中最小元素。
+斐波那契堆将操作尽可能地延后，它的插入是懒惰的，只有在不得不进行合并操作时才进行合并。在极端情况下，它甚至是一个长度很大的链表。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;插入操作&#34;&gt;插入操作&lt;/h3&gt;
+&lt;p&gt;将一个节点直接插入到根链表中，并比较键值的大小，如果新节点的键值小于原有节点的键值，就将斐波那契堆的指向最小节点的指针指向它。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>左偏红黑树</title>
+      <link>https://vaaandark.top/posts/llrb/</link>
+      <pubDate>Mon, 31 Jan 2022 12:51:39 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/llrb/</guid>
+      <description>&lt;p&gt;联创 Lab 组新人任务第一弹。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;关于llrb&#34;&gt;关于LLRB&lt;/h2&gt;
+&lt;h3 id=&#34;定义&#34;&gt;定义&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;根节点是黑色的。&lt;/li&gt;
+&lt;li&gt;红色节点的儿子一定是黑色的。&lt;/li&gt;
+&lt;li&gt;任意节点到任意叶子的最短路径上都有相同数量的黑色节点。&lt;/li&gt;
+&lt;li&gt;黑色节点的儿子要么全是黑色，要么只有左儿子是黑色。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;前三点与红黑树的性质相同，第四点为左偏红黑树的特殊性质，这导致了它的操作相对红黑树更加简单。&lt;/li&gt;
+&lt;li&gt;左偏红黑树也可以认为其相邻节点的边是有颜色的。&lt;/li&gt;
+&lt;li&gt;空节点的颜色认为是黑色。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;插入操作&#34;&gt;插入操作&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;可以先就像向二叉查找树中插入节点一样操作，插入时将其颜色赋为红色。如果插入时是黑色，这会导致破坏了LLRB的平衡性质。&lt;/li&gt;
+&lt;li&gt;保持住了黑色平衡性质之后再来调整其他结构性质，要对连续两个红色节点、只有右儿子是红色节点进行旋转，对左右儿子都是红色的节点进行颜色翻转（拆分2-3-4树中的4-node）。&lt;/li&gt;
+&lt;li&gt;其操作可以是递归的，编写代码也将更加容易实现。
+优先保持平衡性质的原因有：在一开始插入时保持平衡性质最容易实现（只需要给新节点赋红色），此时若优先考虑其他性质，会导致需要考虑的情况过多，而且在后续进行修补（旋转、颜色翻转）的时候不会破坏其平衡性质。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;删除操作&#34;&gt;删除操作&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;依然优先考虑其平衡性质，删除的节点需要是红色的，因此思路就是先将需要删除的节点变成红色的。&lt;/li&gt;
+&lt;li&gt;此时需要考虑的是，如何将红色节点向下移动（向左下或右下）。当左右儿子都不是红色时也不用担心，可以通过颜色翻转实现，翻转后需要考虑移动的另一个方向是否会出现不满足左倾红黑树的情况，并对其进行修补。&lt;/li&gt;
+&lt;li&gt;由于LLRB的左偏特性，因此会出现想要向右下移动时，左儿子是红色而右儿子是黑色，因此需要对该节点进行右旋，让向右下的路径上出现红色。&lt;/li&gt;
+&lt;li&gt;当找到删除的目标节点后，如果是一个叶子节点，直接删去，如果是一个内部节点，便从它的右儿子的分支中找到最小节点与之替换，再删掉。&lt;/li&gt;
+&lt;li&gt;在向上返回的途中修补节点。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;4&lt;/strong&gt; 中判断是否为叶子节点不应该用它是否有左儿子来判断，而是用它是否有右儿子来判断，因为在前一步中有右旋操作。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

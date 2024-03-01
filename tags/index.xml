@@ -1,0 +1,607 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>tags on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/</link>
+    <description>Recent content in tags on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 27 Dec 2024 20:07:44 +0800</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>工作</title>
+      <link>https://vaaandark.top/tags/%E5%B7%A5%E4%BD%9C/</link>
+      <pubDate>Fri, 27 Dec 2024 20:07:44 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E5%B7%A5%E4%BD%9C/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>生活</title>
+      <link>https://vaaandark.top/tags/%E7%94%9F%E6%B4%BB/</link>
+      <pubDate>Fri, 27 Dec 2024 20:07:44 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E7%94%9F%E6%B4%BB/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>文学</title>
+      <link>https://vaaandark.top/tags/%E6%96%87%E5%AD%A6/</link>
+      <pubDate>Fri, 27 Dec 2024 20:07:44 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E6%96%87%E5%AD%A6/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>学业</title>
+      <link>https://vaaandark.top/tags/%E5%AD%A6%E4%B8%9A/</link>
+      <pubDate>Fri, 27 Dec 2024 20:07:44 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E5%AD%A6%E4%B8%9A/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>音乐</title>
+      <link>https://vaaandark.top/tags/%E9%9F%B3%E4%B9%90/</link>
+      <pubDate>Fri, 27 Dec 2024 20:07:44 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E9%9F%B3%E4%B9%90/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>阅读</title>
+      <link>https://vaaandark.top/tags/%E9%98%85%E8%AF%BB/</link>
+      <pubDate>Fri, 27 Dec 2024 20:07:44 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E9%98%85%E8%AF%BB/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>C&#43;&#43;</title>
+      <link>https://vaaandark.top/tags/c&#43;&#43;/</link>
+      <pubDate>Wed, 27 Mar 2024 20:02:33 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/c&#43;&#43;/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>数据结构与算法</title>
+      <link>https://vaaandark.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Wed, 27 Mar 2024 20:02:33 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>算法</title>
+      <link>https://vaaandark.top/tags/%E7%AE%97%E6%B3%95/</link>
+      <pubDate>Wed, 27 Mar 2024 20:02:33 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E7%AE%97%E6%B3%95/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>社会</title>
+      <link>https://vaaandark.top/tags/%E7%A4%BE%E4%BC%9A/</link>
+      <pubDate>Sat, 16 Mar 2024 01:58:33 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E7%A4%BE%E4%BC%9A/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>诗歌</title>
+      <link>https://vaaandark.top/tags/%E8%AF%97%E6%AD%8C/</link>
+      <pubDate>Sat, 16 Mar 2024 01:58:33 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E8%AF%97%E6%AD%8C/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>C语言</title>
+      <link>https://vaaandark.top/tags/c%E8%AF%AD%E8%A8%80/</link>
+      <pubDate>Sat, 02 Mar 2024 01:32:50 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/c%E8%AF%AD%E8%A8%80/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>PKE</title>
+      <link>https://vaaandark.top/tags/pke/</link>
+      <pubDate>Sat, 02 Mar 2024 01:32:50 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/pke/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>RISC-V</title>
+      <link>https://vaaandark.top/tags/risc-v/</link>
+      <pubDate>Sat, 02 Mar 2024 01:32:50 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/risc-v/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>操作系统</title>
+      <link>https://vaaandark.top/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</link>
+      <pubDate>Sat, 02 Mar 2024 01:32:50 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>华科计科实验</title>
+      <link>https://vaaandark.top/tags/%E5%8D%8E%E7%A7%91%E8%AE%A1%E7%A7%91%E5%AE%9E%E9%AA%8C/</link>
+      <pubDate>Sat, 02 Mar 2024 01:32:50 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E5%8D%8E%E7%A7%91%E8%AE%A1%E7%A7%91%E5%AE%9E%E9%AA%8C/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>汇编语言</title>
+      <link>https://vaaandark.top/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/</link>
+      <pubDate>Sat, 02 Mar 2024 01:32:50 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>系统调用</title>
+      <link>https://vaaandark.top/tags/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/</link>
+      <pubDate>Sat, 02 Mar 2024 01:32:50 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>MIT6.S081</title>
+      <link>https://vaaandark.top/tags/mit6.s081/</link>
+      <pubDate>Mon, 26 Feb 2024 23:41:18 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/mit6.s081/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Cache</title>
+      <link>https://vaaandark.top/tags/cache/</link>
+      <pubDate>Sun, 18 Feb 2024 21:30:43 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/cache/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>CPU</title>
+      <link>https://vaaandark.top/tags/cpu/</link>
+      <pubDate>Sun, 18 Feb 2024 21:30:43 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/cpu/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>TLB</title>
+      <link>https://vaaandark.top/tags/tlb/</link>
+      <pubDate>Sun, 18 Feb 2024 21:30:43 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/tlb/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>处理器</title>
+      <link>https://vaaandark.top/tags/%E5%A4%84%E7%90%86%E5%99%A8/</link>
+      <pubDate>Sun, 18 Feb 2024 21:30:43 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E5%A4%84%E7%90%86%E5%99%A8/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>高性能</title>
+      <link>https://vaaandark.top/tags/%E9%AB%98%E6%80%A7%E8%83%BD/</link>
+      <pubDate>Sun, 18 Feb 2024 21:30:43 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E9%AB%98%E6%80%A7%E8%83%BD/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>流水线</title>
+      <link>https://vaaandark.top/tags/%E6%B5%81%E6%B0%B4%E7%BA%BF/</link>
+      <pubDate>Sun, 18 Feb 2024 21:30:43 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E6%B5%81%E6%B0%B4%E7%BA%BF/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>分支预测</title>
+      <link>https://vaaandark.top/tags/%E5%88%86%E6%94%AF%E9%A2%84%E6%B5%8B/</link>
+      <pubDate>Sun, 18 Feb 2024 12:44:41 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E5%88%86%E6%94%AF%E9%A2%84%E6%B5%8B/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Glibc</title>
+      <link>https://vaaandark.top/tags/glibc/</link>
+      <pubDate>Sat, 23 Dec 2023 22:03:25 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/glibc/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>HPC</title>
+      <link>https://vaaandark.top/tags/hpc/</link>
+      <pubDate>Sat, 23 Dec 2023 22:03:25 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/hpc/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Linux</title>
+      <link>https://vaaandark.top/tags/linux/</link>
+      <pubDate>Sat, 23 Dec 2023 22:03:25 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/linux/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>EBPF</title>
+      <link>https://vaaandark.top/tags/ebpf/</link>
+      <pubDate>Thu, 30 Nov 2023 16:45:58 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/ebpf/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>IO</title>
+      <link>https://vaaandark.top/tags/io/</link>
+      <pubDate>Thu, 30 Nov 2023 16:45:58 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/io/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Perf</title>
+      <link>https://vaaandark.top/tags/perf/</link>
+      <pubDate>Thu, 30 Nov 2023 16:45:58 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/perf/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Profile</title>
+      <link>https://vaaandark.top/tags/profile/</link>
+      <pubDate>Thu, 30 Nov 2023 16:45:58 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/profile/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Python</title>
+      <link>https://vaaandark.top/tags/python/</link>
+      <pubDate>Thu, 30 Nov 2023 16:45:58 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/python/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Rust</title>
+      <link>https://vaaandark.top/tags/rust/</link>
+      <pubDate>Thu, 30 Nov 2023 16:45:58 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/rust/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Stace</title>
+      <link>https://vaaandark.top/tags/stace/</link>
+      <pubDate>Thu, 30 Nov 2023 16:45:58 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/stace/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Cargo</title>
+      <link>https://vaaandark.top/tags/cargo/</link>
+      <pubDate>Sun, 22 Oct 2023 11:36:13 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/cargo/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>UEFI</title>
+      <link>https://vaaandark.top/tags/uefi/</link>
+      <pubDate>Sat, 30 Sep 2023 19:59:34 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/uefi/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>计算机足球队</title>
+      <link>https://vaaandark.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%B6%B3%E7%90%83%E9%98%9F/</link>
+      <pubDate>Tue, 29 Aug 2023 21:57:09 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%B6%B3%E7%90%83%E9%98%9F/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>并行</title>
+      <link>https://vaaandark.top/tags/%E5%B9%B6%E8%A1%8C/</link>
+      <pubDate>Thu, 06 Jul 2023 23:55:08 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E5%B9%B6%E8%A1%8C/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>复习</title>
+      <link>https://vaaandark.top/tags/%E5%A4%8D%E4%B9%A0/</link>
+      <pubDate>Mon, 19 Jun 2023 16:19:07 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E5%A4%8D%E4%B9%A0/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>数据库</title>
+      <link>https://vaaandark.top/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</link>
+      <pubDate>Mon, 19 Jun 2023 16:19:07 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>CSAPP</title>
+      <link>https://vaaandark.top/tags/csapp/</link>
+      <pubDate>Sat, 22 Apr 2023 17:29:49 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/csapp/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>CS246</title>
+      <link>https://vaaandark.top/tags/cs246/</link>
+      <pubDate>Wed, 15 Mar 2023 16:44:34 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/cs246/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>大数据</title>
+      <link>https://vaaandark.top/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/</link>
+      <pubDate>Wed, 15 Mar 2023 16:44:34 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>数据挖掘</title>
+      <link>https://vaaandark.top/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/</link>
+      <pubDate>Wed, 15 Mar 2023 16:44:34 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>窗口管理器</title>
+      <link>https://vaaandark.top/tags/%E7%AA%97%E5%8F%A3%E7%AE%A1%E7%90%86%E5%99%A8/</link>
+      <pubDate>Sat, 25 Feb 2023 13:26:44 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E7%AA%97%E5%8F%A3%E7%AE%A1%E7%90%86%E5%99%A8/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>工具</title>
+      <link>https://vaaandark.top/tags/%E5%B7%A5%E5%85%B7/</link>
+      <pubDate>Sat, 25 Feb 2023 13:26:44 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E5%B7%A5%E5%85%B7/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>桌面环境</title>
+      <link>https://vaaandark.top/tags/%E6%A1%8C%E9%9D%A2%E7%8E%AF%E5%A2%83/</link>
+      <pubDate>Sat, 25 Feb 2023 13:26:44 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E6%A1%8C%E9%9D%A2%E7%8E%AF%E5%A2%83/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>文件系统</title>
+      <link>https://vaaandark.top/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</link>
+      <pubDate>Sat, 25 Feb 2023 13:06:17 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E6%96%87%E4%BB%B6%E7%B3%BB%E7%BB%9F/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>编程语言</title>
+      <link>https://vaaandark.top/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/</link>
+      <pubDate>Thu, 23 Feb 2023 21:44:37 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Lua</title>
+      <link>https://vaaandark.top/tags/lua/</link>
+      <pubDate>Sat, 11 Feb 2023 14:36:27 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/lua/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>数据结构</title>
+      <link>https://vaaandark.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</link>
+      <pubDate>Sat, 11 Feb 2023 14:36:27 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>StarDict</title>
+      <link>https://vaaandark.top/tags/stardict/</link>
+      <pubDate>Wed, 25 Jan 2023 13:21:35 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/stardict/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>英文</title>
+      <link>https://vaaandark.top/tags/%E8%8B%B1%E6%96%87/</link>
+      <pubDate>Wed, 25 Jan 2023 13:21:35 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E8%8B%B1%E6%96%87/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>GCC</title>
+      <link>https://vaaandark.top/tags/gcc/</link>
+      <pubDate>Mon, 02 Jan 2023 16:27:19 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/gcc/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Bilibili</title>
+      <link>https://vaaandark.top/tags/bilibili/</link>
+      <pubDate>Sat, 31 Dec 2022 00:34:32 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/bilibili/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>嵌入式</title>
+      <link>https://vaaandark.top/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/</link>
+      <pubDate>Fri, 25 Nov 2022 16:01:20 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E5%B5%8C%E5%85%A5%E5%BC%8F/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>网络</title>
+      <link>https://vaaandark.top/tags/%E7%BD%91%E7%BB%9C/</link>
+      <pubDate>Fri, 25 Nov 2022 16:01:20 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E7%BD%91%E7%BB%9C/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>科普</title>
+      <link>https://vaaandark.top/tags/%E7%A7%91%E6%99%AE/</link>
+      <pubDate>Mon, 21 Nov 2022 11:51:23 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E7%A7%91%E6%99%AE/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>量子计算机</title>
+      <link>https://vaaandark.top/tags/%E9%87%8F%E5%AD%90%E8%AE%A1%E7%AE%97%E6%9C%BA/</link>
+      <pubDate>Mon, 21 Nov 2022 11:51:23 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E9%87%8F%E5%AD%90%E8%AE%A1%E7%AE%97%E6%9C%BA/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>量子力学</title>
+      <link>https://vaaandark.top/tags/%E9%87%8F%E5%AD%90%E5%8A%9B%E5%AD%A6/</link>
+      <pubDate>Mon, 21 Nov 2022 11:51:23 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E9%87%8F%E5%AD%90%E5%8A%9B%E5%AD%A6/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>物理</title>
+      <link>https://vaaandark.top/tags/%E7%89%A9%E7%90%86/</link>
+      <pubDate>Mon, 21 Nov 2022 11:51:23 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E7%89%A9%E7%90%86/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>可视化</title>
+      <link>https://vaaandark.top/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/</link>
+      <pubDate>Sun, 20 Nov 2022 12:32:04 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Arm</title>
+      <link>https://vaaandark.top/tags/arm/</link>
+      <pubDate>Tue, 08 Nov 2022 20:35:20 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/arm/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>环境配置</title>
+      <link>https://vaaandark.top/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</link>
+      <pubDate>Mon, 07 Nov 2022 16:43:28 +0800</pubDate>
+      <guid>https://vaaandark.top/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>C罗</title>
+      <link>https://vaaandark.top/tags/c%E7%BD%97/</link>
+      <pubDate>Sun, 06 Nov 2022 23:50:00 +0000</pubDate>
+      <guid>https://vaaandark.top/tags/c%E7%BD%97/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>曼联</title>
+      <link>https://vaaandark.top/tags/%E6%9B%BC%E8%81%94/</link>
+      <pubDate>Sun, 06 Nov 2022 23:50:00 +0000</pubDate>
+      <guid>https://vaaandark.top/tags/%E6%9B%BC%E8%81%94/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>英超</title>
+      <link>https://vaaandark.top/tags/%E8%8B%B1%E8%B6%85/</link>
+      <pubDate>Sun, 06 Nov 2022 23:50:00 +0000</pubDate>
+      <guid>https://vaaandark.top/tags/%E8%8B%B1%E8%B6%85/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>反汇编</title>
+      <link>https://vaaandark.top/tags/%E5%8F%8D%E6%B1%87%E7%BC%96/</link>
+      <pubDate>Sat, 29 Oct 2022 22:24:22 +0000</pubDate>
+      <guid>https://vaaandark.top/tags/%E5%8F%8D%E6%B1%87%E7%BC%96/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>GC</title>
+      <link>https://vaaandark.top/tags/gc/</link>
+      <pubDate>Sat, 17 Sep 2022 11:27:19 +0000</pubDate>
+      <guid>https://vaaandark.top/tags/gc/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Lisp</title>
+      <link>https://vaaandark.top/tags/lisp/</link>
+      <pubDate>Sat, 17 Sep 2022 11:27:19 +0000</pubDate>
+      <guid>https://vaaandark.top/tags/lisp/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>编译原理</title>
+      <link>https://vaaandark.top/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/</link>
+      <pubDate>Sat, 17 Sep 2022 11:27:19 +0000</pubDate>
+      <guid>https://vaaandark.top/tags/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>汇编</title>
+      <link>https://vaaandark.top/tags/%E6%B1%87%E7%BC%96/</link>
+      <pubDate>Fri, 16 Sep 2022 16:22:34 +0000</pubDate>
+      <guid>https://vaaandark.top/tags/%E6%B1%87%E7%BC%96/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>NeoVim</title>
+      <link>https://vaaandark.top/tags/neovim/</link>
+      <pubDate>Thu, 18 Aug 2022 17:18:42 +0000</pubDate>
+      <guid>https://vaaandark.top/tags/neovim/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Vim</title>
+      <link>https://vaaandark.top/tags/vim/</link>
+      <pubDate>Thu, 18 Aug 2022 17:18:42 +0000</pubDate>
+      <guid>https://vaaandark.top/tags/vim/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>插件</title>
+      <link>https://vaaandark.top/tags/%E6%8F%92%E4%BB%B6/</link>
+      <pubDate>Thu, 18 Aug 2022 17:18:42 +0000</pubDate>
+      <guid>https://vaaandark.top/tags/%E6%8F%92%E4%BB%B6/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>工程师</title>
+      <link>https://vaaandark.top/tags/%E5%B7%A5%E7%A8%8B%E5%B8%88/</link>
+      <pubDate>Mon, 15 Aug 2022 12:27:41 +0000</pubDate>
+      <guid>https://vaaandark.top/tags/%E5%B7%A5%E7%A8%8B%E5%B8%88/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>现象</title>
+      <link>https://vaaandark.top/tags/%E7%8E%B0%E8%B1%A1/</link>
+      <pubDate>Mon, 15 Aug 2022 12:27:41 +0000</pubDate>
+      <guid>https://vaaandark.top/tags/%E7%8E%B0%E8%B1%A1/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>线程</title>
+      <link>https://vaaandark.top/tags/%E7%BA%BF%E7%A8%8B/</link>
+      <pubDate>Fri, 13 May 2022 15:19:09 +0000</pubDate>
+      <guid>https://vaaandark.top/tags/%E7%BA%BF%E7%A8%8B/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>协程</title>
+      <link>https://vaaandark.top/tags/%E5%8D%8F%E7%A8%8B/</link>
+      <pubDate>Fri, 13 May 2022 15:19:09 +0000</pubDate>
+      <guid>https://vaaandark.top/tags/%E5%8D%8F%E7%A8%8B/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>Git</title>
+      <link>https://vaaandark.top/tags/git/</link>
+      <pubDate>Tue, 08 Feb 2022 13:32:19 +0000</pubDate>
+      <guid>https://vaaandark.top/tags/git/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>版本控制</title>
+      <link>https://vaaandark.top/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/</link>
+      <pubDate>Tue, 08 Feb 2022 13:32:19 +0000</pubDate>
+      <guid>https://vaaandark.top/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>编码</title>
+      <link>https://vaaandark.top/tags/%E7%BC%96%E7%A0%81/</link>
+      <pubDate>Wed, 02 Feb 2022 13:06:25 +0000</pubDate>
+      <guid>https://vaaandark.top/tags/%E7%BC%96%E7%A0%81/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>布尔代数</title>
+      <link>https://vaaandark.top/tags/%E5%B8%83%E5%B0%94%E4%BB%A3%E6%95%B0/</link>
+      <pubDate>Wed, 02 Feb 2022 13:06:25 +0000</pubDate>
+      <guid>https://vaaandark.top/tags/%E5%B8%83%E5%B0%94%E4%BB%A3%E6%95%B0/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

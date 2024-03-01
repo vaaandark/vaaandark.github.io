@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>UEFI on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/uefi/</link>
+    <description>Recent content in UEFI on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 30 Sep 2023 19:59:34 +0800</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/uefi/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>UEFI 如何启动 Linux</title>
+      <link>https://vaaandark.top/posts/how-uefi-startup-linux/</link>
+      <pubDate>Sat, 30 Sep 2023 19:59:34 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/how-uefi-startup-linux/</guid>
+      <description>&lt;p&gt;之前讲到了 Linux 是如何启动的，现在就写一个 UEFI 程序可以启动 Linux ，语言选择的是非常火热的 Rust 。&lt;/p&gt;
+&lt;p&gt;Linux Kernel 经过了这么多年的发展，其实完全有着 boot 的能力，使用 UEFI 启动 Kernel 其实是非常简单的一件事情，不再需要像以前 BIOS 启动老版本内核一样要把内核加载到某个内存地址，把参数放到某个内存地址，再将这个地址放到寄存器中等等复杂操作。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Linux ，启动！</title>
+      <link>https://vaaandark.top/posts/linux-startup/</link>
+      <pubDate>Sat, 09 Sep 2023 08:15:06 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/linux-startup/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;&amp;ldquo;pull oneself up by one&amp;rsquo;s bootstraps.&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;拽着鞋带把自己拉起来&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;大家在安装 Arch Linux 或者其他 Linux 发行版时，可能会看到很多有关启动或者引导的名词，例如 BIOS 、UEFI 、GRUB 、ESP 、GPT 、LBA 、MBR 等等。有些名词比较熟悉，有些就会一头雾水，今天就来讲讲这些名词。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

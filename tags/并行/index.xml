@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>并行 on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/%E5%B9%B6%E8%A1%8C/</link>
+    <description>Recent content in 并行 on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 06 Jul 2023 23:55:08 +0800</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/%E5%B9%B6%E8%A1%8C/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>PAC2023娱乐赛</title>
+      <link>https://vaaandark.top/posts/pac2023-game/</link>
+      <pubDate>Thu, 06 Jul 2023 23:55:08 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/pac2023-game/</guid>
+      <description>&lt;p&gt;7.6 举办了 PAC2023 的开幕赛，以轻松娱乐为主，我还没有体验过在短时间内完成优化工作（不过今天的工作量倒也不大）。这场娱乐赛给了我别样的体验，也让我发现了我有好的好多不足，以及一些以前没有注意到的坏习惯。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>OpenMP进阶</title>
+      <link>https://vaaandark.top/posts/openmp-advance/</link>
+      <pubDate>Tue, 02 Aug 2022 22:08:34 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/openmp-advance/</guid>
+      <description>&lt;p&gt;继续学习 OpenMP 的使用，尤其是一些较新版本。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;openmp-40&#34;&gt;OpenMP 4.0&lt;/h2&gt;
+&lt;h3 id=&#34;controlling-openmp-thread-affinity&#34;&gt;Controlling OpenMP thread Affinity&lt;/h3&gt;
+&lt;p&gt;因为很多硬件如今是 NUMA 结构，分配线程的位置可以很大程度上影响性能。&lt;/p&gt;
+&lt;p&gt;与核绑定有关的 OpenMP 结构 proc_bind (master | close | spread)&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>OpenMP入门</title>
+      <link>https://vaaandark.top/posts/openmp-introduction/</link>
+      <pubDate>Fri, 29 Jul 2022 09:03:18 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/openmp-introduction/</guid>
+      <description>&lt;p&gt;写 OpenMP 的时候总是感觉怪怪的，不知道什么时候该用什么，所以最近系统化地看一遍 OpenMP 的使用，主体为 OpenMP 2.0 和 3.0。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;what-is-openmp&#34;&gt;What is OpenMP?&lt;/h2&gt;
+&lt;h3 id=&#34;openmp-model&#34;&gt;OpenMP Model&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;每个线程都有可以访问全局的共享内存。&lt;/li&gt;
+&lt;li&gt;数据可以是共享的也可以是私有的。&lt;/li&gt;
+&lt;li&gt;共享的数据可以被所有线程访问。&lt;/li&gt;
+&lt;li&gt;私有数据只能被拥有它的线程访问。&lt;/li&gt;
+&lt;li&gt;数据的传递对于编程者是透明的。&lt;/li&gt;
+&lt;li&gt;同步会发生，但是它大部分时候是隐式的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img alt=&#34;OpenMP Model&#34; loading=&#34;lazy&#34; src=&#34;https://vaaandark.top/image/openmp-model.png&#34;&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

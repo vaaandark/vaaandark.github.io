@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>GCC on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/gcc/</link>
+    <description>Recent content in GCC on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 02 Jan 2023 16:27:19 +0800</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/gcc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>内联汇编</title>
+      <link>https://vaaandark.top/posts/inline-assembly/</link>
+      <pubDate>Mon, 02 Jan 2023 16:27:19 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/inline-assembly/</guid>
+      <description>&lt;p&gt;高中第一次看到在 C 语言中嵌入汇编语言时，我就觉得它非常好玩，到大学刚开学的时候，我甚至有使用它的需求，可惜直到现在我才抽出时间开始学习它。&lt;/p&gt;
+&lt;h2 id=&#34;分类&#34;&gt;分类&lt;/h2&gt;
+&lt;p&gt;在 GNU 的 GCC 中，内联汇编被分为两类：&lt;strong&gt;Basic asm&lt;/strong&gt; 和 &lt;strong&gt;Extended asm&lt;/strong&gt; 。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

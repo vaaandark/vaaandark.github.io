@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>CS246 Finding Similar Items: Locality Sensitive Hashing | vaaandark&#39;s blog</title>
+<meta name="keywords" content="CS246, 大数据, 数据挖掘">
+<meta name="description" content="最近在上大数据分析的课程，老师使用的是斯坦福大学的教材和 PPT ，感觉挺有趣的，记录一下其中的一些算法。
+背景
+很多问题可以被归化为寻找相似集合的问题：
+
+论文差重
+寻找购买相似商品的人群
+寻找有相似特征的图片
+
+不妨将这次的目的设置为：给定大量的文档，发现其中有抄袭嫌疑的">
+<meta name="author" content="vaaandark">
+<link rel="canonical" href="https://vaaandark.top/posts/cs246-finding-similar-itemslocality-sensitive-hashing/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.556a50c7c92c2556e588f602528ac3c41884cdb6e537ce0647b5e200cd1c2094.css" integrity="sha256-VWpQx8ksJVbliPYCUorDxBiEzbblN84GR7XiAM0cIJQ=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="apple-touch-icon" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="mask-icon" href="https://vaaandark.top/image/vaaandark.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://vaaandark.top/posts/cs246-finding-similar-itemslocality-sensitive-hashing/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://vaaandark.top/posts/cs246-finding-similar-itemslocality-sensitive-hashing/">
+  <meta property="og:site_name" content="vaaandark&#39;s blog">
+  <meta property="og:title" content="CS246 Finding Similar Items: Locality Sensitive Hashing">
+  <meta property="og:description" content="最近在上大数据分析的课程，老师使用的是斯坦福大学的教材和 PPT ，感觉挺有趣的，记录一下其中的一些算法。
+背景 很多问题可以被归化为寻找相似集合的问题：
+论文差重 寻找购买相似商品的人群 寻找有相似特征的图片 不妨将这次的目的设置为：给定大量的文档，发现其中有抄袭嫌疑的">
+  <meta property="og:locale" content="zh-CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2023-03-15T16:44:34+08:00">
+    <meta property="article:modified_time" content="2023-03-15T16:44:34+08:00">
+    <meta property="article:tag" content="CS246">
+    <meta property="article:tag" content="大数据">
+    <meta property="article:tag" content="数据挖掘">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="CS246 Finding Similar Items: Locality Sensitive Hashing">
+<meta name="twitter:description" content="最近在上大数据分析的课程，老师使用的是斯坦福大学的教材和 PPT ，感觉挺有趣的，记录一下其中的一些算法。
+背景
+很多问题可以被归化为寻找相似集合的问题：
+
+论文差重
+寻找购买相似商品的人群
+寻找有相似特征的图片
+
+不妨将这次的目的设置为：给定大量的文档，发现其中有抄袭嫌疑的">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://vaaandark.top/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "CS246 Finding Similar Items: Locality Sensitive Hashing",
+      "item": "https://vaaandark.top/posts/cs246-finding-similar-itemslocality-sensitive-hashing/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CS246 Finding Similar Items: Locality Sensitive Hashing",
+  "name": "CS246 Finding Similar Items: Locality Sensitive Hashing",
+  "description": "最近在上大数据分析的课程，老师使用的是斯坦福大学的教材和 PPT ，感觉挺有趣的，记录一下其中的一些算法。\n背景 很多问题可以被归化为寻找相似集合的问题：\n论文差重 寻找购买相似商品的人群 寻找有相似特征的图片 不妨将这次的目的设置为：给定大量的文档，发现其中有抄袭嫌疑的\n",
+  "keywords": [
+    "CS246", "大数据", "数据挖掘"
+  ],
+  "articleBody": "最近在上大数据分析的课程，老师使用的是斯坦福大学的教材和 PPT ，感觉挺有趣的，记录一下其中的一些算法。\n背景 很多问题可以被归化为寻找相似集合的问题：\n论文差重 寻找购买相似商品的人群 寻找有相似特征的图片 不妨将这次的目的设置为：给定大量的文档，发现其中有抄袭嫌疑的\n但问题是，一个集合中的元素非常多，如果要直接比对，其复杂度可以达到 $O(N^2)$ ，这在大数据尺度明显是不能接受的。\n前置知识 数据之间的距离：\n也可以说是用数据之间的相似度，一般距离越远，相似度越低\n向量的思想：使用角度度量 集合的思想：使用雅卡尔距离度量 点的思想：使用欧氏距离度量 雅卡尔指数可以度量有限样本集合的相似度，定义为两个集合交集大小和并集大小之比：\n$$ J(A, B) = \\frac{\\lvert A \\cap B\\rvert}{\\lvert B \\cup A\\rvert} = \\frac{\\lvert A \\cap B\\rvert}{\\lvert A \\rvert + \\lvert B \\rvert - \\lvert A \\cap B \\rvert} $$\n雅卡尔距离用于度量样本集之间的不相似度，定义为 1 减去雅卡尔系数：\n$$ d_J(A, B) = 1 - J(A, B) = \\frac{\\lvert A \\cup B \\rvert - \\lvert A \\cap B \\rvert}{\\lvert A \\cup B \\rvert} $$\n也可以叫雅卡尔距离为两集合的对称差。\n哈希函数是一种从任何数据中创建小的数字「指纹」的方法。\n我们如果能够找到一种哈希函数，可以在压缩集合成为「指纹」的同时保留其特征，能够用于比较集合之间的相似度，就可以减小计算量了。这也就引出了 Min-Hash 这个算法。\nShingling 何为 Shingling 将文档转化为单词的集合。\n如何转化是个问题，可以有以下的方法：\n直接将文档拆分成很多个单个单词的集合 从文章中提取出关键单词 但以上两种方法都会损失掉单词的顺序信息。而这里要介绍的方法 Shingling 就可以避免。\n这里使用的单词 Shingling 意思为「叠瓦」，非常有意思。说起「叠瓦」，可能会让人想到「叠瓦盘」。\nSMR 叠瓦式磁盘是一种采用新型磁存储技术的高容量磁盘。SMR 盘将盘片上的数据磁道部分重叠，就像屋顶上的瓦片一样，这种技术被称为叠瓦式磁记录技术。该技术在制造工艺方面的变动非常微小，但却可以大幅提高磁盘存储密度。\n在这里的 Shingling 也是类似的，举个例子：\n文档 $D_1 = abcab$ ，使用 2-shingles 就可以获得 $S(D_1) = {ab, bc, ca}$\n如此一来就可以保留原来文档中单词的顺序信息。\n对 Shingle 压缩 由于两篇文档大部分的 Shingle 都会是不同的，因此可以使用 Hash 压缩 Shingle 到相同的宽度的数字类型。\n之后当我们需要比较两个 Shingle 集合的相似程度时，就可以使用之前的雅卡尔距离来估算。\n不过这样还是有很大的计算量，我们需要下文说的 Min-Hash 算法\n对于短篇，k 可以取 5 对于长篇，k 可以取 10 仅作参考，要依据具体情况取舍\nMin-Hash 算法 需求 使用雅卡尔算法比较 Shingle 的哈希依然是缓慢的。假设有 N 篇文档，则需要比较 $N(N-1)/2$ 次，当 $N = 1 million$ 时，需要比较 $5 * 10 ^11$ 次，以一天有 $10^5$ 秒，每秒可以比较 $10^6$ 估算，这将花费五天。如果 N 再大一个数量级，将会花费超过一年的时间。\nMin-Hash 的思想，将大的集合转换成小的「签名」，每个签名中都包含了可以计算相似程度的信息。\n首先需要将集合转换为位数组（0 和 1 组成），0 代表集合中没有这个元素，1 代表集合中有这个元素。\n如此一来，交集就是「按位与运算」，并集就是「按位或运算」。\n再将集合转换为矩阵，每一行表示某一元素（shingles）在不同集合（documents）中是否存在。换言之，每一列表示某一集合包含了哪些元素。\nD1 D2 … Dn E1 0 0 … 1 E2 1 1 … 0 … … … … … En 0 1 … 0 假设有一个哈希函数 h ，可以满足：\n$h(C)$ 足够小，可以将大量的 shingles 放入内存中 签名 $h(C_1)$ 与 $h(C_2)$ 的相似程度等同于 $sim(C_1, C_2)$ $sim(C_1, C_2)$ 表示 $C_1$ 和 $C_2$ 的雅卡尔系数 $\\frac{\\lvert A \\cap B\\rvert}{\\lvert B \\cup A\\rvert}$\n理想状态下，我们找到的函数 $h(\\cdot)$ 满足：\n当 $sim(C_1, C_2)$ 很高时，有很大概率 $h(C_1) = h(C_2)$ 当 $sim(C_1, C_2)$ 很低时，有很大概率 $h(C_1) \\neq h(C_2)$ 基本思路 选择一个可以将集合打乱的随机函数 $\\pi$ ，它做到 $Pr(h_{\\pi}(C_1) = h_{\\pi}(C_2)) = sim(C_1, C_2)$ ，满足了我们的需求。\n证明 证明一：\n集合 $X$ 是一个文档，$y \\in X$\n$Pr[\\pi(y) = min(\\pi(X))] = 1/\\lvert X \\rvert$\n这里的 $\\pi(y) = min(\\pi(X))$ 表示在使用 $\\pi$ 打乱 X 后，X 中的元素 y 排在第一位。由于每个元素在随机打乱后排在第一位的概率都是均等的，因此等式右边是 $1/\\lvert X \\rvert$ 。\n容易得到 $Pr(min({\\pi}(C_1)) = min({\\pi}(C_2))) = \\frac{\\lvert A \\cap B\\rvert}{\\lvert B \\cup A\\rvert} = sim(C_1, C_2)$\n证明二：\n可以将两个集合中是否有某种公共元素的情况分为四类\nD1 D2 A 1 1 B 1 0 C 0 1 D 0 0 假设 [a-d] 表示这四类情况的个数\n可以发现 $sim(C_1, C_2) = a/(a +b +c)$\n如果将两个集合以相同的方式打乱，再从上向下扫描，第一个碰到的含有 1 的行是 A 类，则说明 $h(D_1) = h(D_2)$ 。\n示例 如果我们取 100 个 $\\pi$ 函数用来打乱，可以为每个文档生成 100 个签名，那就可以把大量的数据压缩到可以接受的程度了。\n在书中有关于 Min-Hash 实现时需要注意的问题，可以以后再水一篇博客\nLocality Sensitive Hashing 基本思路 找到相似度至少为 $s$ 的文档。\n即使我们已经将所有的文档转换成了很小的签名，然而文档一一配对比较的数量还是太多了，我们依然需要「哈希」和「桶」这两位老朋友。\n可以使用一个函数 $f(\\cdot)$ ，$f(x, y)$ 可以分辨 x 和 y 是不是相似文档的候选者。\n使用哈希函数将矩阵的列分装到不同的「桶」中 所有装在相同的「桶」中的文档是候选者 我们可以把一列分成不同的条带（band），然后进行多次哈希操作。\n分成更小的条带作用是提高效率\n只要有一次被分配到相同的「桶」，就可以成为候选者\n「假阴性」和「假阳性」 「假阴性」：本应被选入而没有被选入\n「假阳性」：本不应被选入而被选入\n在一个条带中的 r 行都匹配的概率为 $s^r$ 在一个条带中至少有一行不匹配的概率为 $1 - s^r$ 在所有条带中都有至少一行不匹配的概率为 $(1 - s^r)^b$ 至少有一个条带的 r 行都匹配（成为候选者）的概率为 $1 - (1 - s^r)^b$ 以 s 为横坐标，成为候选者的概率为纵座标，b 和 r 为常量，可以获得一条 S 型曲线。\n当 b 取值为 1 时，S 型曲线将会退化成为过原点的直线\n取候选者概率为 0.5 ，即 $1 - (1 - s^r)^b = 1/2$\n计算得到 $s = (1 - (\\frac{1}{2})^{\\frac{1}{b}})^{\\frac{1}{r}}$\n由于 $(\\frac{1}{2})^{\\frac{1}{b}}$ 比较接近 0 ，可以利用等价无穷小来估算 $s \\sim (\\frac{1}{b})^{\\frac{1}{r}}$\n在我们的场景下（不可放过抄袭），好的条带划分应该减少假阴性并平衡假阳性的数量。\n假设划分成为 b 个条带，每个条带有 r 行，假设需要比较的两列相似度为 s 。\n参考资料 CS246 Jaccard index MinHash SMR Latex mathematical symbols ",
+  "wordCount" : "2273",
+  "inLanguage": "zh",
+  "datePublished": "2023-03-15T16:44:34+08:00",
+  "dateModified": "2023-03-15T16:44:34+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "vaaandark"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://vaaandark.top/posts/cs246-finding-similar-itemslocality-sensitive-hashing/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "vaaandark's blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://vaaandark.top/image/vaaandark.png"
+    }
+  }
+}
+</script>
+
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [["$", "$"]],
+    },
+    displayMath: [
+      ["$$", "$$"],
+      ["\[\[", "\]\]"],
+    ],
+    svg: {
+      fontCache: "global",
+    },
+  };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+></script>
+
+
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://vaaandark.top/" accesskey="h" title="vaaandark&#39;s blog (Alt + H)">
+                <img src="https://vaaandark.top/image/vaaandark.png" alt="" aria-label="logo"
+                    height="35">vaaandark&#39;s blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://vaaandark.top/" title="🏠主页">
+                    <span>🏠主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/posts/" title="Posts">
+                    <span>📄 归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/categories/" title="categories">
+                    <span>📂 分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/tags/" title="tags">
+                    <span>🔖 标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/about/" title="关于我">
+                    <span>🙋 关于</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/links/" title="友链">
+                    <span>🤝 友链</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://vaaandark.top/">主页</a>&nbsp;»&nbsp;<a href="https://vaaandark.top/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      CS246 Finding Similar Items: Locality Sensitive Hashing
+    </h1>
+    <div class="post-meta"><span title='2023-03-15 16:44:34 +0800 CST'>2023 3月 15</span>&nbsp;·&nbsp;5 分钟&nbsp;·&nbsp;vaaandark
+
+</div>
+  </header> <div class="toc">
+    <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e8%83%8c%e6%99%af" aria-label="背景">背景</a></li>
+                <li>
+                    <a href="#%e5%89%8d%e7%bd%ae%e7%9f%a5%e8%af%86" aria-label="前置知识">前置知识</a></li>
+                <li>
+                    <a href="#shingling" aria-label="Shingling">Shingling</a><ul>
+                        
+                <li>
+                    <a href="#%e4%bd%95%e4%b8%ba-shingling" aria-label="何为 Shingling">何为 Shingling</a></li>
+                <li>
+                    <a href="#%e5%af%b9-shingle-%e5%8e%8b%e7%bc%a9" aria-label="对 Shingle 压缩">对 Shingle 压缩</a></li></ul>
+                </li>
+                <li>
+                    <a href="#min-hash-%e7%ae%97%e6%b3%95" aria-label="Min-Hash 算法">Min-Hash 算法</a><ul>
+                        
+                <li>
+                    <a href="#%e9%9c%80%e6%b1%82" aria-label="需求">需求</a></li>
+                <li>
+                    <a href="#%e5%9f%ba%e6%9c%ac%e6%80%9d%e8%b7%af" aria-label="基本思路">基本思路</a></li>
+                <li>
+                    <a href="#%e8%af%81%e6%98%8e" aria-label="证明">证明</a></li>
+                <li>
+                    <a href="#%e7%a4%ba%e4%be%8b" aria-label="示例">示例</a></li></ul>
+                </li>
+                <li>
+                    <a href="#locality-sensitive-hashing" aria-label="Locality Sensitive Hashing">Locality Sensitive Hashing</a><ul>
+                        
+                <li>
+                    <a href="#%e5%9f%ba%e6%9c%ac%e6%80%9d%e8%b7%af-1" aria-label="基本思路">基本思路</a></li>
+                <li>
+                    <a href="#%e5%81%87%e9%98%b4%e6%80%a7%e5%92%8c%e5%81%87%e9%98%b3%e6%80%a7" aria-label="「假阴性」和「假阳性」">「假阴性」和「假阳性」</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99" aria-label="参考资料">参考资料</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>最近在上大数据分析的课程，老师使用的是斯坦福大学的教材和 PPT ，感觉挺有趣的，记录一下其中的一些算法。</p>
+<h2 id="背景">背景<a hidden class="anchor" aria-hidden="true" href="#背景">#</a></h2>
+<p>很多问题可以被归化为寻找相似集合的问题：</p>
+<ul>
+<li>论文差重</li>
+<li>寻找购买相似商品的人群</li>
+<li>寻找有相似特征的图片</li>
+</ul>
+<p>不妨将这次的目的设置为：<strong>给定大量的文档，发现其中有抄袭嫌疑的</strong></p>
+<p>但问题是，一个集合中的元素非常多，如果要直接比对，其复杂度可以达到 $O(N^2)$ ，这在大数据尺度明显是不能接受的。</p>
+<h2 id="前置知识">前置知识<a hidden class="anchor" aria-hidden="true" href="#前置知识">#</a></h2>
+<p>数据之间的距离：</p>
+<blockquote>
+<p>也可以说是用数据之间的相似度，一般距离越远，相似度越低</p>
+</blockquote>
+<ul>
+<li>向量的思想：使用角度度量</li>
+<li>集合的思想：使用雅卡尔距离度量</li>
+<li>点的思想：使用欧氏距离度量</li>
+</ul>
+<p><strong>雅卡尔指数</strong>可以度量有限样本集合的相似度，定义为两个集合交集大小和并集大小之比：</p>
+<p>$$
+J(A, B) = \frac{\lvert A \cap B\rvert}{\lvert B \cup A\rvert} = \frac{\lvert A \cap B\rvert}{\lvert A \rvert + \lvert B \rvert - \lvert A \cap B \rvert}
+$$</p>
+<p><strong>雅卡尔距离</strong>用于度量样本集之间的不相似度，定义为 1 减去雅卡尔系数：</p>
+<p>$$
+d_J(A, B) = 1 - J(A, B) = \frac{\lvert A \cup B \rvert - \lvert A \cap B \rvert}{\lvert A \cup B \rvert}
+$$</p>
+<p>也可以叫雅卡尔距离为两集合的对称差。</p>
+<hr>
+<p>哈希函数是一种从任何数据中创建小的数字「指纹」的方法。</p>
+<p>我们如果能够找到一种哈希函数，可以在压缩集合成为「指纹」的同时保留其特征，能够用于比较集合之间的相似度，就可以减小计算量了。这也就引出了 Min-Hash 这个算法。</p>
+<h2 id="shingling">Shingling<a hidden class="anchor" aria-hidden="true" href="#shingling">#</a></h2>
+<h3 id="何为-shingling">何为 Shingling<a hidden class="anchor" aria-hidden="true" href="#何为-shingling">#</a></h3>
+<p>将文档转化为单词的集合。</p>
+<p>如何转化是个问题，可以有以下的方法：</p>
+<ul>
+<li>直接将文档拆分成很多个单个单词的集合</li>
+<li>从文章中提取出关键单词</li>
+</ul>
+<p>但以上两种方法都会损失掉单词的顺序信息。而这里要介绍的方法 Shingling 就可以避免。</p>
+<p>这里使用的单词 Shingling 意思为「叠瓦」，非常有意思。说起「叠瓦」，可能会让人想到「叠瓦盘」。</p>
+<blockquote>
+<p>SMR 叠瓦式磁盘是一种采用新型磁存储技术的高容量磁盘。SMR 盘将盘片上的数据磁道部分重叠，就像屋顶上的瓦片一样，这种技术被称为叠瓦式磁记录技术。该技术在制造工艺方面的变动非常微小，但却可以大幅提高磁盘存储密度。</p>
+</blockquote>
+<p><img alt="SMR" loading="lazy" src="/image/SMR.png"></p>
+<p>在这里的 Shingling 也是类似的，举个例子：</p>
+<p>文档 $D_1 = abcab$ ，使用 2-shingles 就可以获得 $S(D_1) = {ab, bc, ca}$</p>
+<p>如此一来就可以保留原来文档中单词的顺序信息。</p>
+<h3 id="对-shingle-压缩">对 Shingle 压缩<a hidden class="anchor" aria-hidden="true" href="#对-shingle-压缩">#</a></h3>
+<p>由于两篇文档大部分的 Shingle 都会是不同的，因此可以使用 Hash 压缩 Shingle 到相同的宽度的数字类型。</p>
+<p>之后当我们需要比较两个 Shingle 集合的相似程度时，就可以使用之前的雅卡尔距离来估算。</p>
+<blockquote>
+<p>不过这样还是有很大的计算量，我们需要下文说的 Min-Hash 算法</p>
+</blockquote>
+<ul>
+<li>对于短篇，k 可以取 5</li>
+<li>对于长篇，k 可以取 10</li>
+</ul>
+<blockquote>
+<p>仅作参考，要依据具体情况取舍</p>
+</blockquote>
+<h2 id="min-hash-算法">Min-Hash 算法<a hidden class="anchor" aria-hidden="true" href="#min-hash-算法">#</a></h2>
+<h3 id="需求">需求<a hidden class="anchor" aria-hidden="true" href="#需求">#</a></h3>
+<p>使用雅卡尔算法比较 Shingle 的哈希依然是缓慢的。假设有 N 篇文档，则需要比较 $N(N-1)/2$ 次，当 $N = 1 million$ 时，需要比较 $5 * 10 ^11$ 次，以一天有 $10^5$ 秒，每秒可以比较 $10^6$ 估算，这将花费五天。如果 N 再大一个数量级，将会花费超过一年的时间。</p>
+<p>Min-Hash 的思想，将大的集合转换成小的「签名」，每个签名中都包含了可以计算相似程度的信息。</p>
+<p>首先需要将集合转换为位数组（0 和 1 组成），0 代表集合中没有这个元素，1 代表集合中有这个元素。</p>
+<p>如此一来，交集就是「按位与运算」，并集就是「按位或运算」。</p>
+<p>再将集合转换为矩阵，每一行表示某一元素（shingles）在不同集合（documents）中是否存在。换言之，每一列表示某一集合包含了哪些元素。</p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th>D1</th>
+          <th>D2</th>
+          <th>&hellip;</th>
+          <th>Dn</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>E1</td>
+          <td>0</td>
+          <td>0</td>
+          <td>&hellip;</td>
+          <td>1</td>
+      </tr>
+      <tr>
+          <td>E2</td>
+          <td>1</td>
+          <td>1</td>
+          <td>&hellip;</td>
+          <td>0</td>
+      </tr>
+      <tr>
+          <td>&hellip;</td>
+          <td>&hellip;</td>
+          <td>&hellip;</td>
+          <td>&hellip;</td>
+          <td>&hellip;</td>
+      </tr>
+      <tr>
+          <td>En</td>
+          <td>0</td>
+          <td>1</td>
+          <td>&hellip;</td>
+          <td>0</td>
+      </tr>
+  </tbody>
+</table>
+<p>假设有一个哈希函数 h ，可以满足：</p>
+<ol>
+<li>$h(C)$ 足够小，可以将大量的 shingles 放入内存中</li>
+<li>签名 $h(C_1)$ 与 $h(C_2)$ 的相似程度等同于 $sim(C_1, C_2)$</li>
+</ol>
+<blockquote>
+<p>$sim(C_1, C_2)$ 表示 $C_1$ 和 $C_2$ 的雅卡尔系数 $\frac{\lvert A \cap B\rvert}{\lvert B \cup A\rvert}$</p>
+</blockquote>
+<p>理想状态下，我们找到的函数 $h(\cdot)$ 满足：</p>
+<ul>
+<li>当 $sim(C_1, C_2)$ 很高时，有很大概率 $h(C_1) = h(C_2)$</li>
+<li>当 $sim(C_1, C_2)$ 很低时，有很大概率 $h(C_1) \neq h(C_2)$</li>
+</ul>
+<h3 id="基本思路">基本思路<a hidden class="anchor" aria-hidden="true" href="#基本思路">#</a></h3>
+<p>选择一个可以将集合打乱的随机函数 $\pi$ ，它做到 $Pr(h_{\pi}(C_1) = h_{\pi}(C_2)) = sim(C_1, C_2)$ ，满足了我们的需求。</p>
+<h3 id="证明">证明<a hidden class="anchor" aria-hidden="true" href="#证明">#</a></h3>
+<p><strong>证明一</strong>：</p>
+<p>集合 $X$ 是一个文档，$y \in X$</p>
+<p>$Pr[\pi(y) = min(\pi(X))] = 1/\lvert X \rvert$</p>
+<p>这里的 $\pi(y) = min(\pi(X))$ 表示在使用 $\pi$ 打乱 X 后，X 中的元素 y 排在第一位。由于每个元素在随机打乱后排在第一位的概率都是均等的，因此等式右边是 $1/\lvert X \rvert$ 。</p>
+<p>容易得到 $Pr(min({\pi}(C_1)) = min({\pi}(C_2))) = \frac{\lvert A \cap B\rvert}{\lvert B \cup A\rvert} = sim(C_1, C_2)$</p>
+<hr>
+<p><strong>证明二</strong>：</p>
+<p>可以将两个集合中是否有某种公共元素的情况分为四类</p>
+<table>
+  <thead>
+      <tr>
+          <th></th>
+          <th>D1</th>
+          <th>D2</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>A</td>
+          <td>1</td>
+          <td>1</td>
+      </tr>
+      <tr>
+          <td>B</td>
+          <td>1</td>
+          <td>0</td>
+      </tr>
+      <tr>
+          <td>C</td>
+          <td>0</td>
+          <td>1</td>
+      </tr>
+      <tr>
+          <td>D</td>
+          <td>0</td>
+          <td>0</td>
+      </tr>
+  </tbody>
+</table>
+<blockquote>
+<p>假设 [a-d] 表示这四类情况的个数</p>
+</blockquote>
+<p>可以发现 $sim(C_1, C_2) = a/(a +b +c)$</p>
+<p>如果将两个集合以相同的方式打乱，再从上向下扫描，第一个碰到的含有 1 的行是 A 类，则说明 $h(D_1) = h(D_2)$ 。</p>
+<h3 id="示例">示例<a hidden class="anchor" aria-hidden="true" href="#示例">#</a></h3>
+<p><img alt="example" loading="lazy" src="/image/min-hashing-example.png"></p>
+<p>如果我们取 100 个 $\pi$ 函数用来打乱，可以为每个文档生成 100 个签名，那就可以把大量的数据压缩到可以接受的程度了。</p>
+<blockquote>
+<p>在书中有关于 Min-Hash 实现时需要注意的问题，可以以后再水一篇博客</p>
+</blockquote>
+<h2 id="locality-sensitive-hashing">Locality Sensitive Hashing<a hidden class="anchor" aria-hidden="true" href="#locality-sensitive-hashing">#</a></h2>
+<h3 id="基本思路-1">基本思路<a hidden class="anchor" aria-hidden="true" href="#基本思路-1">#</a></h3>
+<p>找到相似度至少为 $s$ 的文档。</p>
+<p>即使我们已经将所有的文档转换成了很小的签名，然而文档一一配对比较的数量还是太多了，我们依然需要「哈希」和「桶」这两位老朋友。</p>
+<p>可以使用一个函数 $f(\cdot)$ ，$f(x, y)$ 可以分辨 x 和 y 是不是相似文档的候选者。</p>
+<ul>
+<li>使用哈希函数将矩阵的列分装到不同的「桶」中</li>
+<li>所有装在相同的「桶」中的文档是候选者</li>
+</ul>
+<p>我们可以把一列分成不同的条带（band），然后进行多次哈希操作。</p>
+<blockquote>
+<p>分成更小的条带作用是提高效率</p>
+</blockquote>
+<p><img alt="lsh-bands" loading="lazy" src="/image/lsh-bands.png"></p>
+<p>只要有一次被分配到相同的「桶」，就可以成为候选者</p>
+<p><img alt="lsh-bands1" loading="lazy" src="/image/lsh-bands_1.png"></p>
+<h3 id="假阴性和假阳性">「假阴性」和「假阳性」<a hidden class="anchor" aria-hidden="true" href="#假阴性和假阳性">#</a></h3>
+<p>「假阴性」：本应被选入而没有被选入</p>
+<p>「假阳性」：本不应被选入而被选入</p>
+<ol>
+<li>在一个条带中的 r 行都匹配的概率为 $s^r$</li>
+<li>在一个条带中至少有一行不匹配的概率为 $1 - s^r$</li>
+<li>在所有条带中都有至少一行不匹配的概率为 $(1 - s^r)^b$</li>
+<li>至少有一个条带的 r 行都匹配（成为候选者）的概率为 $1 - (1 - s^r)^b$</li>
+</ol>
+<p>以 s 为横坐标，成为候选者的概率为纵座标，b 和 r 为常量，可以获得一条 S 型曲线。</p>
+<p><img alt="lsh-s-curve" loading="lazy" src="/image/lsh-s-curve.png"></p>
+<blockquote>
+<p>当 b 取值为 1 时，S 型曲线将会退化成为过原点的直线</p>
+</blockquote>
+<p>取候选者概率为 0.5 ，即 $1 - (1 - s^r)^b = 1/2$</p>
+<p>计算得到 $s = (1 - (\frac{1}{2})^{\frac{1}{b}})^{\frac{1}{r}}$</p>
+<p>由于 $(\frac{1}{2})^{\frac{1}{b}}$ 比较接近 0 ，可以利用等价无穷小来估算 $s \sim (\frac{1}{b})^{\frac{1}{r}}$</p>
+<hr>
+<p>在我们的场景下（不可放过抄袭），好的条带划分应该减少假阴性并平衡假阳性的数量。</p>
+<p>假设划分成为 b 个条带，每个条带有 r 行，假设需要比较的两列相似度为 s 。</p>
+<p><img alt="lsh-s-curve1" loading="lazy" src="/image/lsh-s-curve_1.png"></p>
+<h2 id="参考资料">参考资料<a hidden class="anchor" aria-hidden="true" href="#参考资料">#</a></h2>
+<ul>
+<li><a href="http://www.mmds.org">CS246</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Jaccard_index">Jaccard index</a></li>
+<li><a href="https://en.wikipedia.org/wiki/MinHash">MinHash</a></li>
+<li><a href="https://en.wikipedia.org/wiki/Shingled_magnetic_recording">SMR</a></li>
+<li><a href="https://oeis.org/wiki/List_of_LaTeX_mathematical_symbols">Latex mathematical symbols</a></li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://vaaandark.top/tags/cs246/">CS246</a></li>
+      <li><a href="https://vaaandark.top/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a></li>
+      <li><a href="https://vaaandark.top/tags/%E6%95%B0%E6%8D%AE%E6%8C%96%E6%8E%98/">数据挖掘</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://vaaandark.top/posts/cpu-pipeline/">
+    <span class="title">« 上一页</span>
+    <br>
+    <span>CPU 流水线</span>
+  </a>
+  <a class="next" href="https://vaaandark.top/posts/mit6.s081-labxv6-and-unix-utilities/">
+    <span class="title">下一页 »</span>
+    <br>
+    <span>MIT6.S081 Lab: Xv6 and Unix Utilities</span>
+  </a>
+</nav>
+
+
+<ul class="share-buttons">
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share CS246 Finding Similar Items: Locality Sensitive Hashing on x"
+            href="https://x.com/intent/tweet/?text=CS246%20Finding%20Similar%20Items%3a%20Locality%20Sensitive%20Hashing&amp;url=https%3a%2f%2fvaaandark.top%2fposts%2fcs246-finding-similar-itemslocality-sensitive-hashing%2f&amp;hashtags=CS246%2c%e5%a4%a7%e6%95%b0%e6%8d%ae%2c%e6%95%b0%e6%8d%ae%e6%8c%96%e6%8e%98">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M512 62.554 L 512 449.446 C 512 483.97 483.97 512 449.446 512 L 62.554 512 C 28.03 512 0 483.97 0 449.446 L 0 62.554 C 0 28.03 28.029 0 62.554 0 L 449.446 0 C 483.971 0 512 28.03 512 62.554 Z M 269.951 190.75 L 182.567 75.216 L 56 75.216 L 207.216 272.95 L 63.9 436.783 L 125.266 436.783 L 235.9 310.383 L 332.567 436.783 L 456 436.783 L 298.367 228.367 L 432.367 75.216 L 371.033 75.216 Z M 127.633 110 L 164.101 110 L 383.481 400.065 L 349.5 400.065 Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share CS246 Finding Similar Items: Locality Sensitive Hashing on linkedin"
+            href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fvaaandark.top%2fposts%2fcs246-finding-similar-itemslocality-sensitive-hashing%2f&amp;title=CS246%20Finding%20Similar%20Items%3a%20Locality%20Sensitive%20Hashing&amp;summary=CS246%20Finding%20Similar%20Items%3a%20Locality%20Sensitive%20Hashing&amp;source=https%3a%2f%2fvaaandark.top%2fposts%2fcs246-finding-similar-itemslocality-sensitive-hashing%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share CS246 Finding Similar Items: Locality Sensitive Hashing on reddit"
+            href="https://reddit.com/submit?url=https%3a%2f%2fvaaandark.top%2fposts%2fcs246-finding-similar-itemslocality-sensitive-hashing%2f&title=CS246%20Finding%20Similar%20Items%3a%20Locality%20Sensitive%20Hashing">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share CS246 Finding Similar Items: Locality Sensitive Hashing on facebook"
+            href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fvaaandark.top%2fposts%2fcs246-finding-similar-itemslocality-sensitive-hashing%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share CS246 Finding Similar Items: Locality Sensitive Hashing on whatsapp"
+            href="https://api.whatsapp.com/send?text=CS246%20Finding%20Similar%20Items%3a%20Locality%20Sensitive%20Hashing%20-%20https%3a%2f%2fvaaandark.top%2fposts%2fcs246-finding-similar-itemslocality-sensitive-hashing%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share CS246 Finding Similar Items: Locality Sensitive Hashing on telegram"
+            href="https://telegram.me/share/url?text=CS246%20Finding%20Similar%20Items%3a%20Locality%20Sensitive%20Hashing&amp;url=https%3a%2f%2fvaaandark.top%2fposts%2fcs246-finding-similar-itemslocality-sensitive-hashing%2f">
+            <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share CS246 Finding Similar Items: Locality Sensitive Hashing on ycombinator"
+            href="https://news.ycombinator.com/submitlink?t=CS246%20Finding%20Similar%20Items%3a%20Locality%20Sensitive%20Hashing&u=https%3a%2f%2fvaaandark.top%2fposts%2fcs246-finding-similar-itemslocality-sensitive-hashing%2f">
+            <svg version="1.1" xml:space="preserve" width="30px" height="30px" viewBox="0 0 512 512" fill="currentColor"
+                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
+                <path
+                    d="M449.446 0C483.971 0 512 28.03 512 62.554L512 449.446C512 483.97 483.97 512 449.446 512L62.554 512C28.03 512 0 483.97 0 449.446L0 62.554C0 28.03 28.029 0 62.554 0L449.446 0ZM183.8767 87.9921H121.8427L230.6673 292.4508V424.0079H281.3328V292.4508L390.1575 87.9921H328.1233L256 238.2489z" />
+            </svg>
+        </a>
+    </li>
+</ul>
+
+  </footer><script src="https://giscus.app/client.js"
+        data-repo="vaaandark/vaaandark.github.io"
+        data-repo-id="R_kgDOGsxTxw"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOGsxTx84CmAQ1"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+</script>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://vaaandark.top/">vaaandark&#39;s blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

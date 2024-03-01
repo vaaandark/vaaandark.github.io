@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>编码 on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/%E7%BC%96%E7%A0%81/</link>
+    <description>Recent content in 编码 on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 02 Feb 2022 13:06:25 +0000</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/%E7%BC%96%E7%A0%81/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CSAPP Data Lab</title>
+      <link>https://vaaandark.top/posts/csapp-data-lab/</link>
+      <pubDate>Wed, 02 Feb 2022 13:06:25 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/csapp-data-lab/</guid>
+      <description>&lt;p&gt;最近本来在看 &lt;em&gt;&lt;strong&gt;CSAPP&lt;/strong&gt;&lt;/em&gt; 后面的内容，但突然发现自己前面可能还有一些知识掌握不完全，因此做一下 Lab 检验一下。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h1 id=&#34;准备工作&#34;&gt;准备工作&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;在 CSAPP 的官网上找到 Lab，下载 Self-Study Handout。&lt;/li&gt;
+&lt;li&gt;在下载目录下解压文件&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;tar -xf datalab-handout.tar
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;尝试执行自动测评脚本&lt;code&gt;driver.pl&lt;/code&gt;结果发现没有32位环境，于是用&lt;code&gt;dnf&lt;/code&gt;安装需要的库，折腾了一会发现还是不太行。请教了大佬 &lt;a href=&#34;https://www.cnblogs.com/jyi2ya&#34;&gt;&lt;strong&gt;jyi2ya&lt;/strong&gt;&lt;/a&gt;，他告诉我可以直接在&lt;code&gt;makefile&lt;/code&gt;里面把编译条件改为&lt;code&gt;-m64&lt;/code&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;题目与题解&#34;&gt;题目与题解&lt;/h1&gt;
+&lt;h2 id=&#34;int-部分&#34;&gt;int 部分&lt;/h2&gt;
+&lt;h3 id=&#34;bitxor&#34;&gt;bitXor&lt;/h3&gt;
+&lt;p&gt;只用&lt;code&gt;~&lt;/code&gt;和&lt;code&gt;&amp;amp;&lt;/code&gt;实现&lt;code&gt;^&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

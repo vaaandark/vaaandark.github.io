@@ -1,0 +1,777 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>CSAPP Data Lab | vaaandark&#39;s blog</title>
+<meta name="keywords" content="CSAPP, 布尔代数, 编码, C语言">
+<meta name="description" content="最近本来在看 CSAPP 后面的内容，但突然发现自己前面可能还有一些知识掌握不完全，因此做一下 Lab 检验一下。
+
+准备工作
+
+在 CSAPP 的官网上找到 Lab，下载 Self-Study Handout。
+在下载目录下解压文件
+
+tar -xf datalab-handout.tar
+
+尝试执行自动测评脚本driver.pl结果发现没有32位环境，于是用dnf安装需要的库，折腾了一会发现还是不太行。请教了大佬 jyi2ya，他告诉我可以直接在makefile里面把编译条件改为-m64。
+
+题目与题解
+int 部分
+bitXor
+只用~和&amp;实现^">
+<meta name="author" content="vaaandark">
+<link rel="canonical" href="https://vaaandark.top/posts/csapp-data-lab/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.556a50c7c92c2556e588f602528ac3c41884cdb6e537ce0647b5e200cd1c2094.css" integrity="sha256-VWpQx8ksJVbliPYCUorDxBiEzbblN84GR7XiAM0cIJQ=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="apple-touch-icon" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="mask-icon" href="https://vaaandark.top/image/vaaandark.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://vaaandark.top/posts/csapp-data-lab/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://vaaandark.top/posts/csapp-data-lab/">
+  <meta property="og:site_name" content="vaaandark&#39;s blog">
+  <meta property="og:title" content="CSAPP Data Lab">
+  <meta property="og:description" content="最近本来在看 CSAPP 后面的内容，但突然发现自己前面可能还有一些知识掌握不完全，因此做一下 Lab 检验一下。
+准备工作 在 CSAPP 的官网上找到 Lab，下载 Self-Study Handout。 在下载目录下解压文件 tar -xf datalab-handout.tar 尝试执行自动测评脚本driver.pl结果发现没有32位环境，于是用dnf安装需要的库，折腾了一会发现还是不太行。请教了大佬 jyi2ya，他告诉我可以直接在makefile里面把编译条件改为-m64。 题目与题解 int 部分 bitXor 只用~和&amp;实现^">
+  <meta property="og:locale" content="zh-CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-02-02T13:06:25+00:00">
+    <meta property="article:modified_time" content="2022-02-02T13:06:25+00:00">
+    <meta property="article:tag" content="CSAPP">
+    <meta property="article:tag" content="布尔代数">
+    <meta property="article:tag" content="编码">
+    <meta property="article:tag" content="C语言">
+    <meta property="og:image" content="https://vaaandark.top/image/data_lab.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://vaaandark.top/image/data_lab.jpg">
+<meta name="twitter:title" content="CSAPP Data Lab">
+<meta name="twitter:description" content="最近本来在看 CSAPP 后面的内容，但突然发现自己前面可能还有一些知识掌握不完全，因此做一下 Lab 检验一下。
+
+准备工作
+
+在 CSAPP 的官网上找到 Lab，下载 Self-Study Handout。
+在下载目录下解压文件
+
+tar -xf datalab-handout.tar
+
+尝试执行自动测评脚本driver.pl结果发现没有32位环境，于是用dnf安装需要的库，折腾了一会发现还是不太行。请教了大佬 jyi2ya，他告诉我可以直接在makefile里面把编译条件改为-m64。
+
+题目与题解
+int 部分
+bitXor
+只用~和&amp;实现^">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://vaaandark.top/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "CSAPP Data Lab",
+      "item": "https://vaaandark.top/posts/csapp-data-lab/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "CSAPP Data Lab",
+  "name": "CSAPP Data Lab",
+  "description": "最近本来在看 CSAPP 后面的内容，但突然发现自己前面可能还有一些知识掌握不完全，因此做一下 Lab 检验一下。\n准备工作 在 CSAPP 的官网上找到 Lab，下载 Self-Study Handout。 在下载目录下解压文件 tar -xf datalab-handout.tar 尝试执行自动测评脚本driver.pl结果发现没有32位环境，于是用dnf安装需要的库，折腾了一会发现还是不太行。请教了大佬 jyi2ya，他告诉我可以直接在makefile里面把编译条件改为-m64。 题目与题解 int 部分 bitXor 只用~和\u0026amp;实现^\n",
+  "keywords": [
+    "CSAPP", "布尔代数", "编码", "C语言"
+  ],
+  "articleBody": "最近本来在看 CSAPP 后面的内容，但突然发现自己前面可能还有一些知识掌握不完全，因此做一下 Lab 检验一下。\n准备工作 在 CSAPP 的官网上找到 Lab，下载 Self-Study Handout。 在下载目录下解压文件 tar -xf datalab-handout.tar 尝试执行自动测评脚本driver.pl结果发现没有32位环境，于是用dnf安装需要的库，折腾了一会发现还是不太行。请教了大佬 jyi2ya，他告诉我可以直接在makefile里面把编译条件改为-m64。 题目与题解 int 部分 bitXor 只用~和\u0026实现^\n可以使用德摩根定理秒杀。\nint bitXor(int x, int y) { return ~(~(~x \u0026 y) \u0026 ~(x \u0026 ~y)); } tmin 使用位运算获取补码的最小值\n由于题目已经告诉了我们机器环境，我们可以认为int类型是占八个字节。\nint tmin(void) { return 1 \u003c\u003c 31; } isTmax 使用位运算获取判断是否是补码的最大值\n这题相较上题有一定的技巧。主要思路为把补码的每一位变为1，这样就可以很方便地得到0或非0的值。在转换的过程中要注意到-1同样适用，所以要对-1进行特判。\nint isTmax(int x) { // 如果是0b111...111或者0b011...111就能变为0b000...000 int check = ~(x + 1 + x); // 如果是-1则结果为1，排除掉 int except = !(x + 1); return !(check | except); } allOddBits 判断所有奇数位是否都为1\n一开始的想法是直接暴力判断每个奇数位是否为1（先移位然后进行逻辑与运算），但是这样应该得不到性能分。于是我想到了类似于二分法的思想，每次对半比较，最后只需要七次操作捏。\nint allOddBits(int x) { x \u0026= (x \u003e\u003e 16); x \u0026= (x \u003e\u003e 8); return !(x \u0026 0xaa ^ 0xaa); } negate 不使用-操作符，求-x\n运用补码的基础知识得到答案。\nint negate(int x) { return (~x + 1); } isAsciiDigit 计算输入值是否是数字0-9的 ASCII 值。\n一开始打算先判断前多少多少位是不是0，后面是否满足0x30 \u003c= x \u003c= 0x39，后来一想发现这样好复杂，可以直接通过范围判断。\n可以使用一个小技巧，这个技巧也可以优化分支预测。\nif (x \u003e= a \u0026\u0026 x \u003c= b) { do_something(); } // 等价于 if ((x - a) | (b - x) \u003e= ) { do_something(); } 这里不能使用-，但是可以利用前面题目的结论，通过取反和加法代替减法。\n于是我们得到了答案：\nint isAsciiDigit(int x) { return !(((x + (~0x30 + 1)) | ((~x + 1) + 0x39)) \u0026 (1 \u003c\u003c 31)); } conditional 通过位运算模拟三目运算\n不难想到：一个数和0x0进行逻辑与操作的结果是0x0，一个数和~0x0进行逻辑与操作的结果是本身。因此我们可以构造一个与x有关的掩码，当x为真时就是0xffffffff，否则为0x0。\nint conditional(int x, int y, int z) { int mask = !x + (~1 + 1); y \u0026= mask; z \u0026= ~mask; return y | z; } isLessOrEqual 通过位运算模拟小于等于\n将两个数移到一边变为减法运算，再把减法运算变为加上绝对值的加法运算，最后判断最高位是否为0即可。\nint isLessOrEqual(int x, int y) { return !(y + (~x + 1) \u0026 (1 \u003c\u003c 31)); } 结果这个代码被朋友叉掉了，因为我没有考虑到溢出的情况，所以要加上对一个是正数一个是负数的特判。\nint isLessOrEqual(int x, int y) { return (((x \u003e\u003e 31) \u0026 1) | (!(y \u003e\u003e 31))) \u0026 !(y + (~x + 1) \u0026 (1 \u003c\u003c 31)); } logicalNeg 通过位运算模拟逻辑非\n我很自然地想到了这样的代码，结果发现没有拿到性能分，刚好比要求多一个操作。\nint logicalNeg(int x) { x ^= ~0; x \u0026= (x \u003e\u003e 16); x \u0026= (x \u003e\u003e 8); x \u0026= (x \u003e\u003e 4); x \u0026= (x \u003e\u003e 2); x \u0026= (x \u003e\u003e 1); return x \u0026 1; } 于是我分析这段垃圾代码，发现x ^= ~0就占用了两步操作，而且有更好的替代方法。\n依然使用类似二分法的思想，同时以使用或操作为主，就能节约操作了。代码如下：\nint logicalNeg(int x) { x |= (x \u003e\u003e 16); x |= (x \u003e\u003e 8); x |= (x \u003e\u003e 4); x |= (x \u003e\u003e 2); x |= (x \u003e\u003e 1); return x \u0026 1 ^ 1; } howManyBits 求最少用多少个位可以表示出给定数字\n刚开始做这题时，我看着题目的例子搞不懂为啥-1只需要一位。最后我的理解就是，题目想问的是“最少用多少个位可以表示从0到给定的数字”，因此如果给出负数我们就不需要考虑正数，反之同理。\n所以这道题转化为了求 $log_2x$ 。\n还是可以将用类似二分的思想解题。首先判断前16位是否有1，如果有就要加上16，同时下一次的移位要多移动16位，依此类推。每次加上的权不同，代表这次判断的一共有n位（16、8、4、2、1）\nint howManyBits(int x) { int mask, b16, b8, b4, b2, b1, b0; mask = x \u003e\u003e 31; x = (mask \u0026 ~x) | (~mask \u0026 x); b16 = !!(x \u003e\u003e 16) \u003c\u003c 4; x = x \u003e\u003e b16; b8 = !!(x \u003e\u003e 8) \u003c\u003c 3; x = x \u003e\u003e b8; b4 = !!(x \u003e\u003e 4) \u003c\u003c 2; x = x \u003e\u003e b4; b2 = !!(x \u003e\u003e 2) \u003c\u003c 1; x = x \u003e\u003e b2; b1 = !!(x \u003e\u003e 1); x = x \u003e\u003e b1; b0 = x; return b16 + b8 + b4 + b2 + b1 + b0 + 1; } float 部分 浮点数的题目比较简单，只考察其结构而不是运算。\n为了位运算方便，题目中给出的函数参数和返回值都是与float长度相同的unsigned int或者int\nfloatScale2 求一个浮点数乘2\n首先取出符号sign、尾数frac、阶码exp。 如果阶码是0，说明是一个非规格化的浮点数，由于浮点数的分规格化到规格化的过渡是连续的，因此尾数向左移动一位变成规格化浮点数不是特殊情况。 如果阶码全为1，说明是无穷大，直接原样返回即可。 给阶码加上1，即是给变量exp加上0x800000。 如果溢出了变为无穷大，就要将尾数变为0，否则就是NaN了。 将三部分拼接后返回。 unsigned floatScale2(unsigned uf) { unsigned sign = uf \u0026 0x80000000; unsigned exp = uf \u0026 0x7f800000; unsigned frac = uf \u0026 0x007fffff; if (exp == 0) return sign | uf \u003c\u003c 1; if (exp == 0x7f800000) return uf; exp += 0x00800000; if (exp == 0x7f800000) frac = 0; return sign | exp | frac; } floatFloat2Int 将一个浮点数转换为整型数\n在 CSAPP 中介绍过几种舍入的方法，在计算中向偶数（奇数）位舍入会减小误差，而在类型转换中，使用向零舍入会比较方便。\n首先将符号、尾数、阶码取出来，为了加减法计算方便，对阶码进行了移位，并加上了127。 尾数的第24位置为1，因为在规格化数中就是1.x的形式。而非规格化数舍入变为0，不需要考虑其尾数。 如果阶小于0，直接返回0。 如果阶大于31，说明是无穷大。 其余情况就是对加上1.x（x为尾数）进行移位，由于尾数长24位，因此有方向和绝对值要注意。 带上符号后返回答案。 int floatFloat2Int(unsigned uf) { int ans; int sign = uf \u0026 0x80000000; int exp = ((uf \u003e\u003e 23) \u0026 0xff) -127; int frac = (uf \u0026 0x007fffff) | 0x00800000; if (exp \u003c 0) return 0; if (exp \u003e 31) return 0x80000000; if (exp \u003c 23) ans = frac \u003e\u003e (23 - exp); else ans = frac \u003c\u003c (exp - 23); return sign ? ~ans + 1 : ans; } floatPower2 求$2.0^x$\n利用一个结论：最小的非规格化数是 $2^{-23}*2^{-126}$ ，最大的非规格化数是 $(1-u)*2^{-126}$ ，最小的规格化数是 $2^{-126}$ ，最大规格化数是 $(2-u)*2^{127}$，其中 $u$ 为无穷小。\nunsigned floatPower2(int x) { if (x \u003c -149) return 0; if (x \u003c -126) return 1 \u003c\u003c x + 149; if (x \u003c 128) return x + 127 \u003c\u003c 23; return 0xff \u003c\u003c 23; } 总结 测评结果\nCorrectness Results\tPerf Results Points\tRating\tErrors\tPoints\tOps\tPuzzle 1\t1\t0\t2\t8\tbitXor 1\t1\t0\t2\t1\ttmin 1\t1\t0\t2\t7\tisTmax 2\t2\t0\t2\t7\tallOddBits 2\t2\t0\t2\t2\tnegate 3\t3\t0\t2\t10\tisAsciiDigit 3\t3\t0\t2\t8\tconditional 3\t3\t0\t2\t6\tisLessOrEqual 4\t4\t0\t2\t12\tlogicalNeg 4\t4\t0\t2\t36\thowManyBits 4\t4\t0\t2\t11\tfloatScale2 4\t4\t0\t2\t15\tfloatFloat2Int 4\t4\t0\t2\t10\tfloatPower2 Score = 62/62 [36/36 Corr + 26/26 Perf] (133 total operators) 做了 CSAPP 的 Data Lab 还是收获良多的：\n发现自己之前学习的位运算和浮点数的知识还有不少漏洞，幸好补起来了。 在做这种限制操作的题目时，一开始还是会感觉很不适应，疯狂地想写分支判断等操作。坚持下来之后就有不小的提高，对抽象能力和写更高性能的代码都有帮助。 Lab 中给出的makefile开的编译选项给我报了很多警告，让我发现我的代码习惯不是很好，还有很大进步空间。 ",
+  "wordCount" : "2630",
+  "inLanguage": "zh",
+  "image":"https://vaaandark.top/image/data_lab.jpg","datePublished": "2022-02-02T13:06:25Z",
+  "dateModified": "2022-02-02T13:06:25Z",
+  "author":{
+    "@type": "Person",
+    "name": "vaaandark"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://vaaandark.top/posts/csapp-data-lab/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "vaaandark's blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://vaaandark.top/image/vaaandark.png"
+    }
+  }
+}
+</script>
+
+<script>
+  MathJax = {
+    tex: {
+      inlineMath: [["$", "$"]],
+    },
+    displayMath: [
+      ["$$", "$$"],
+      ["\[\[", "\]\]"],
+    ],
+    svg: {
+      fontCache: "global",
+    },
+  };
+</script>
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script
+  id="MathJax-script"
+  async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"
+></script>
+
+
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://vaaandark.top/" accesskey="h" title="vaaandark&#39;s blog (Alt + H)">
+                <img src="https://vaaandark.top/image/vaaandark.png" alt="" aria-label="logo"
+                    height="35">vaaandark&#39;s blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://vaaandark.top/" title="🏠主页">
+                    <span>🏠主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/posts/" title="Posts">
+                    <span>📄 归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/categories/" title="categories">
+                    <span>📂 分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/tags/" title="tags">
+                    <span>🔖 标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/about/" title="关于我">
+                    <span>🙋 关于</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/links/" title="友链">
+                    <span>🤝 友链</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://vaaandark.top/">主页</a>&nbsp;»&nbsp;<a href="https://vaaandark.top/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      CSAPP Data Lab
+    </h1>
+    <div class="post-meta"><span title='2022-02-02 13:06:25 +0000 UTC'>2022 2月 02</span>&nbsp;·&nbsp;6 分钟&nbsp;·&nbsp;vaaandark
+
+</div>
+  </header> 
+<figure class="entry-cover"><img loading="eager" src="https://vaaandark.top/image/data_lab.jpg" alt="">
+        
+</figure><div class="toc">
+    <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e5%87%86%e5%a4%87%e5%b7%a5%e4%bd%9c" aria-label="准备工作">准备工作</a></li>
+                <li>
+                    <a href="#%e9%a2%98%e7%9b%ae%e4%b8%8e%e9%a2%98%e8%a7%a3" aria-label="题目与题解">题目与题解</a><ul>
+                        
+                <li>
+                    <a href="#int-%e9%83%a8%e5%88%86" aria-label="int 部分">int 部分</a><ul>
+                        
+                <li>
+                    <a href="#bitxor" aria-label="bitXor">bitXor</a></li>
+                <li>
+                    <a href="#tmin" aria-label="tmin">tmin</a></li>
+                <li>
+                    <a href="#istmax" aria-label="isTmax">isTmax</a></li>
+                <li>
+                    <a href="#alloddbits" aria-label="allOddBits">allOddBits</a></li>
+                <li>
+                    <a href="#negate" aria-label="negate">negate</a></li>
+                <li>
+                    <a href="#isasciidigit" aria-label="isAsciiDigit">isAsciiDigit</a></li>
+                <li>
+                    <a href="#conditional" aria-label="conditional">conditional</a></li>
+                <li>
+                    <a href="#islessorequal" aria-label="isLessOrEqual">isLessOrEqual</a></li>
+                <li>
+                    <a href="#logicalneg" aria-label="logicalNeg">logicalNeg</a></li>
+                <li>
+                    <a href="#howmanybits" aria-label="howManyBits">howManyBits</a></li></ul>
+                </li>
+                <li>
+                    <a href="#float-%e9%83%a8%e5%88%86" aria-label="float 部分">float 部分</a><ul>
+                        
+                <li>
+                    <a href="#floatscale2" aria-label="floatScale2">floatScale2</a></li>
+                <li>
+                    <a href="#floatfloat2int" aria-label="floatFloat2Int">floatFloat2Int</a></li>
+                <li>
+                    <a href="#floatpower2" aria-label="floatPower2">floatPower2</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e6%80%bb%e7%bb%93" aria-label="总结">总结</a>
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>最近本来在看 <em><strong>CSAPP</strong></em> 后面的内容，但突然发现自己前面可能还有一些知识掌握不完全，因此做一下 Lab 检验一下。</p>
+<!-- more -->
+<h1 id="准备工作">准备工作<a hidden class="anchor" aria-hidden="true" href="#准备工作">#</a></h1>
+<ol>
+<li>在 CSAPP 的官网上找到 Lab，下载 Self-Study Handout。</li>
+<li>在下载目录下解压文件</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>tar -xf datalab-handout.tar
+</span></span></code></pre></div><ol start="3">
+<li>尝试执行自动测评脚本<code>driver.pl</code>结果发现没有32位环境，于是用<code>dnf</code>安装需要的库，折腾了一会发现还是不太行。请教了大佬 <a href="https://www.cnblogs.com/jyi2ya"><strong>jyi2ya</strong></a>，他告诉我可以直接在<code>makefile</code>里面把编译条件改为<code>-m64</code>。</li>
+</ol>
+<h1 id="题目与题解">题目与题解<a hidden class="anchor" aria-hidden="true" href="#题目与题解">#</a></h1>
+<h2 id="int-部分">int 部分<a hidden class="anchor" aria-hidden="true" href="#int-部分">#</a></h2>
+<h3 id="bitxor">bitXor<a hidden class="anchor" aria-hidden="true" href="#bitxor">#</a></h3>
+<p>只用<code>~</code>和<code>&amp;</code>实现<code>^</code></p>
+<p>可以使用<a href="https://zh.wikipedia.org/wiki/%E5%BE%B7%E6%91%A9%E6%A0%B9%E5%AE%9A%E5%BE%8B"><strong>德摩根定理</strong></a>秒杀。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">int</span> bitXor(<span style="color:#fff;font-weight:bold">int</span> x, <span style="color:#fff;font-weight:bold">int</span> y) {
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">return</span> ~(~(~x &amp; y) &amp; ~(x &amp; ~y));
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="tmin">tmin<a hidden class="anchor" aria-hidden="true" href="#tmin">#</a></h3>
+<p>使用位运算获取补码的最小值</p>
+<p>由于题目已经告诉了我们机器环境，我们可以认为<code>int</code>类型是占八个字节。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">int</span> tmin(<span style="color:#fff;font-weight:bold">void</span>) {
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">return</span> <span style="color:#ff0;font-weight:bold">1</span> &lt;&lt; <span style="color:#ff0;font-weight:bold">31</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="istmax">isTmax<a hidden class="anchor" aria-hidden="true" href="#istmax">#</a></h3>
+<p>使用位运算获取判断是否是补码的最大值</p>
+<p>这题相较上题有一定的技巧。主要思路为把补码的每一位变为1，这样就可以很方便地得到0或非0的值。在转换的过程中要注意到-1同样适用，所以要对-1进行特判。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">int</span> isTmax(<span style="color:#fff;font-weight:bold">int</span> x) {
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">// 如果是0b111...111或者0b011...111就能变为0b000...000
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  <span style="color:#fff;font-weight:bold">int</span> check = ~(x + <span style="color:#ff0;font-weight:bold">1</span> + x);
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">// 如果是-1则结果为1，排除掉
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  <span style="color:#fff;font-weight:bold">int</span> except = !(x + <span style="color:#ff0;font-weight:bold">1</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">return</span> !(check | except);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="alloddbits">allOddBits<a hidden class="anchor" aria-hidden="true" href="#alloddbits">#</a></h3>
+<p>判断所有奇数位是否都为1</p>
+<p>一开始的想法是直接暴力判断每个奇数位是否为1（先移位然后进行逻辑与运算），但是这样应该得不到性能分。于是我想到了类似于二分法的思想，每次对半比较，最后只需要七次操作捏。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">int</span> allOddBits(<span style="color:#fff;font-weight:bold">int</span> x) {
+</span></span><span style="display:flex;"><span>  x &amp;= (x &gt;&gt; <span style="color:#ff0;font-weight:bold">16</span>);
+</span></span><span style="display:flex;"><span>  x &amp;= (x &gt;&gt; <span style="color:#ff0;font-weight:bold">8</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">return</span> !(x &amp; <span style="color:#ff0;font-weight:bold">0xaa</span> ^ <span style="color:#ff0;font-weight:bold">0xaa</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="negate">negate<a hidden class="anchor" aria-hidden="true" href="#negate">#</a></h3>
+<p>不使用<code>-</code>操作符，求<code>-x</code></p>
+<p>运用补码的基础知识得到答案。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">int</span> negate(<span style="color:#fff;font-weight:bold">int</span> x) {
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">return</span> (~x + <span style="color:#ff0;font-weight:bold">1</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="isasciidigit">isAsciiDigit<a hidden class="anchor" aria-hidden="true" href="#isasciidigit">#</a></h3>
+<p>计算输入值是否是数字<code>0-9</code>的 <strong>ASCII</strong> 值。</p>
+<p>一开始打算先判断前多少多少位是不是0，后面是否满足<code>0x30 &lt;= x &lt;= 0x39</code>，后来一想发现这样好复杂，可以直接通过范围判断。</p>
+<p>可以使用一个小技巧，这个技巧也可以优化分支预测。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">if</span> (x &gt;= a &amp;&amp; x &lt;= b) {
+</span></span><span style="display:flex;"><span>  do_something();
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">// 等价于
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span><span style="color:#fff;font-weight:bold">if</span> ((x - a) | (b - x) &gt;= ) {
+</span></span><span style="display:flex;"><span>  do_something();
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>这里不能使用<code>-</code>，但是可以利用前面题目的结论，通过取反和加法代替减法。</p>
+<p>于是我们得到了答案：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">int</span> isAsciiDigit(<span style="color:#fff;font-weight:bold">int</span> x) {
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">return</span> !(((x + (~<span style="color:#ff0;font-weight:bold">0x30</span> + <span style="color:#ff0;font-weight:bold">1</span>)) | ((~x + <span style="color:#ff0;font-weight:bold">1</span>) + <span style="color:#ff0;font-weight:bold">0x39</span>)) &amp; (<span style="color:#ff0;font-weight:bold">1</span> &lt;&lt; <span style="color:#ff0;font-weight:bold">31</span>));
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="conditional">conditional<a hidden class="anchor" aria-hidden="true" href="#conditional">#</a></h3>
+<p>通过位运算模拟三目运算</p>
+<p>不难想到：一个数和<code>0x0</code>进行逻辑与操作的结果是<code>0x0</code>，一个数和<code>~0x0</code>进行逻辑与操作的结果是本身。因此我们可以构造一个与<code>x</code>有关的掩码，当x为真时就是<code>0xffffffff</code>，否则为<code>0x0</code>。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">int</span> conditional(<span style="color:#fff;font-weight:bold">int</span> x, <span style="color:#fff;font-weight:bold">int</span> y, <span style="color:#fff;font-weight:bold">int</span> z) {
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">int</span> mask = !x + (~<span style="color:#ff0;font-weight:bold">1</span> + <span style="color:#ff0;font-weight:bold">1</span>);
+</span></span><span style="display:flex;"><span>  y &amp;= mask;
+</span></span><span style="display:flex;"><span>  z &amp;= ~mask;
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">return</span> y | z;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="islessorequal">isLessOrEqual<a hidden class="anchor" aria-hidden="true" href="#islessorequal">#</a></h3>
+<p>通过位运算模拟小于等于</p>
+<p>将两个数移到一边变为减法运算，再把减法运算变为加上绝对值的加法运算，最后判断最高位是否为0即可。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">int</span> isLessOrEqual(<span style="color:#fff;font-weight:bold">int</span> x, <span style="color:#fff;font-weight:bold">int</span> y) {
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">return</span> !(y + (~x + <span style="color:#ff0;font-weight:bold">1</span>) &amp; (<span style="color:#ff0;font-weight:bold">1</span> &lt;&lt; <span style="color:#ff0;font-weight:bold">31</span>));
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>结果这个代码被朋友叉掉了，因为我没有考虑到溢出的情况，所以要加上对一个是正数一个是负数的特判。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">int</span> isLessOrEqual(<span style="color:#fff;font-weight:bold">int</span> x, <span style="color:#fff;font-weight:bold">int</span> y) {
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">return</span> (((x &gt;&gt; <span style="color:#ff0;font-weight:bold">31</span>) &amp; <span style="color:#ff0;font-weight:bold">1</span>) | (!(y &gt;&gt; <span style="color:#ff0;font-weight:bold">31</span>))) &amp; !(y + (~x + <span style="color:#ff0;font-weight:bold">1</span>) &amp; (<span style="color:#ff0;font-weight:bold">1</span> &lt;&lt; <span style="color:#ff0;font-weight:bold">31</span>));
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="logicalneg">logicalNeg<a hidden class="anchor" aria-hidden="true" href="#logicalneg">#</a></h3>
+<p>通过位运算模拟逻辑非</p>
+<p>我很自然地想到了这样的代码，结果发现没有拿到性能分，刚好比要求多一个操作。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">int</span> logicalNeg(<span style="color:#fff;font-weight:bold">int</span> x) {
+</span></span><span style="display:flex;"><span>  x ^= ~<span style="color:#ff0;font-weight:bold">0</span>;
+</span></span><span style="display:flex;"><span>  x &amp;= (x &gt;&gt; <span style="color:#ff0;font-weight:bold">16</span>);
+</span></span><span style="display:flex;"><span>  x &amp;= (x &gt;&gt; <span style="color:#ff0;font-weight:bold">8</span>);
+</span></span><span style="display:flex;"><span>  x &amp;= (x &gt;&gt; <span style="color:#ff0;font-weight:bold">4</span>);
+</span></span><span style="display:flex;"><span>  x &amp;= (x &gt;&gt; <span style="color:#ff0;font-weight:bold">2</span>);
+</span></span><span style="display:flex;"><span>  x &amp;= (x &gt;&gt; <span style="color:#ff0;font-weight:bold">1</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">return</span> x &amp; <span style="color:#ff0;font-weight:bold">1</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>于是我分析这段垃圾代码，发现<code>x ^= ~0</code>就占用了两步操作，而且有更好的替代方法。</p>
+<p>依然使用类似二分法的思想，同时以使用或操作为主，就能节约操作了。代码如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">int</span> logicalNeg(<span style="color:#fff;font-weight:bold">int</span> x) {
+</span></span><span style="display:flex;"><span>  x |= (x &gt;&gt; <span style="color:#ff0;font-weight:bold">16</span>);
+</span></span><span style="display:flex;"><span>  x |= (x &gt;&gt; <span style="color:#ff0;font-weight:bold">8</span>);
+</span></span><span style="display:flex;"><span>  x |= (x &gt;&gt; <span style="color:#ff0;font-weight:bold">4</span>);
+</span></span><span style="display:flex;"><span>  x |= (x &gt;&gt; <span style="color:#ff0;font-weight:bold">2</span>);
+</span></span><span style="display:flex;"><span>  x |= (x &gt;&gt; <span style="color:#ff0;font-weight:bold">1</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">return</span> x &amp; <span style="color:#ff0;font-weight:bold">1</span> ^ <span style="color:#ff0;font-weight:bold">1</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="howmanybits">howManyBits<a hidden class="anchor" aria-hidden="true" href="#howmanybits">#</a></h3>
+<p>求最少用多少个位可以表示出给定数字</p>
+<p>刚开始做这题时，我看着题目的例子搞不懂为啥<code>-1</code>只需要一位。最后我的理解就是，题目想问的是“最少用多少个位可以表示从0到给定的数字”，因此如果给出负数我们就不需要考虑正数，反之同理。</p>
+<p>所以这道题转化为了求 $log_2x$ 。</p>
+<p>还是可以将用类似二分的思想解题。首先判断前16位是否有1，如果有就要加上16，同时下一次的移位要多移动16位，依此类推。每次加上的权不同，代表这次判断的一共有<code>n</code>位（16、8、4、2、1）</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">int</span> howManyBits(<span style="color:#fff;font-weight:bold">int</span> x) {
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">int</span> mask, b16, b8, b4, b2, b1, b0;
+</span></span><span style="display:flex;"><span>  mask = x &gt;&gt; <span style="color:#ff0;font-weight:bold">31</span>;
+</span></span><span style="display:flex;"><span>  x = (mask &amp; ~x) | (~mask &amp; x);
+</span></span><span style="display:flex;"><span>  b16 = !!(x &gt;&gt; <span style="color:#ff0;font-weight:bold">16</span>) &lt;&lt; <span style="color:#ff0;font-weight:bold">4</span>;
+</span></span><span style="display:flex;"><span>  x = x &gt;&gt; b16;
+</span></span><span style="display:flex;"><span>  b8 = !!(x &gt;&gt; <span style="color:#ff0;font-weight:bold">8</span>) &lt;&lt; <span style="color:#ff0;font-weight:bold">3</span>;
+</span></span><span style="display:flex;"><span>  x = x &gt;&gt; b8;
+</span></span><span style="display:flex;"><span>  b4 = !!(x &gt;&gt; <span style="color:#ff0;font-weight:bold">4</span>) &lt;&lt; <span style="color:#ff0;font-weight:bold">2</span>;
+</span></span><span style="display:flex;"><span>  x = x &gt;&gt; b4;
+</span></span><span style="display:flex;"><span>  b2 = !!(x &gt;&gt; <span style="color:#ff0;font-weight:bold">2</span>) &lt;&lt; <span style="color:#ff0;font-weight:bold">1</span>;
+</span></span><span style="display:flex;"><span>  x = x &gt;&gt; b2;
+</span></span><span style="display:flex;"><span>  b1 = !!(x &gt;&gt; <span style="color:#ff0;font-weight:bold">1</span>);
+</span></span><span style="display:flex;"><span>  x = x &gt;&gt; b1;
+</span></span><span style="display:flex;"><span>  b0 = x;
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">return</span> b16 + b8 + b4 + b2 + b1 + b0 + <span style="color:#ff0;font-weight:bold">1</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="float-部分">float 部分<a hidden class="anchor" aria-hidden="true" href="#float-部分">#</a></h2>
+<p>浮点数的题目比较简单，只考察其结构而不是运算。</p>
+<blockquote>
+<p>为了位运算方便，题目中给出的函数参数和返回值都是与<code>float</code>长度相同的<code>unsigned int</code>或者<code>int</code></p>
+</blockquote>
+<h3 id="floatscale2">floatScale2<a hidden class="anchor" aria-hidden="true" href="#floatscale2">#</a></h3>
+<p>求一个浮点数乘2</p>
+<ol>
+<li>首先取出符号<code>sign</code>、尾数<code>frac</code>、阶码<code>exp</code>。</li>
+<li>如果阶码是0，说明是一个非规格化的浮点数，由于浮点数的分规格化到规格化的过渡是连续的，因此尾数向左移动一位变成规格化浮点数不是特殊情况。</li>
+<li>如果阶码全为1，说明是无穷大，直接原样返回即可。</li>
+<li>给阶码加上1，即是给变量<code>exp</code>加上<code>0x800000</code>。</li>
+<li>如果溢出了变为无穷大，就要将尾数变为0，否则就是<code>NaN</code>了。</li>
+<li>将三部分拼接后返回。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">unsigned</span> floatScale2(<span style="color:#fff;font-weight:bold">unsigned</span> uf) {
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">unsigned</span> sign = uf &amp; <span style="color:#ff0;font-weight:bold">0x80000000</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">unsigned</span> exp = uf &amp; <span style="color:#ff0;font-weight:bold">0x7f800000</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">unsigned</span> frac = uf &amp; <span style="color:#ff0;font-weight:bold">0x007fffff</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">if</span> (exp == <span style="color:#ff0;font-weight:bold">0</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">return</span> sign | uf &lt;&lt; <span style="color:#ff0;font-weight:bold">1</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">if</span> (exp == <span style="color:#ff0;font-weight:bold">0x7f800000</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">return</span> uf;
+</span></span><span style="display:flex;"><span>  exp += <span style="color:#ff0;font-weight:bold">0x00800000</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">if</span> (exp == <span style="color:#ff0;font-weight:bold">0x7f800000</span>)
+</span></span><span style="display:flex;"><span>    frac = <span style="color:#ff0;font-weight:bold">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">return</span> sign | exp | frac;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="floatfloat2int">floatFloat2Int<a hidden class="anchor" aria-hidden="true" href="#floatfloat2int">#</a></h3>
+<p>将一个浮点数转换为整型数</p>
+<p>在 <em><strong>CSAPP</strong></em> 中介绍过几种舍入的方法，在计算中向偶数（奇数）位舍入会减小误差，而在类型转换中，使用向零舍入会比较方便。</p>
+<ol>
+<li>首先将符号、尾数、阶码取出来，为了加减法计算方便，对阶码进行了移位，并加上了127。</li>
+<li>尾数的第24位置为1，因为在规格化数中就是<code>1.x</code>的形式。而非规格化数舍入变为0，不需要考虑其尾数。</li>
+<li>如果阶小于0，直接返回0。</li>
+<li>如果阶大于31，说明是无穷大。</li>
+<li>其余情况就是对加上<code>1.x</code>（<code>x</code>为尾数）进行移位，由于尾数长24位，因此有方向和绝对值要注意。</li>
+<li>带上符号后返回答案。</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">int</span> floatFloat2Int(<span style="color:#fff;font-weight:bold">unsigned</span> uf) {
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">int</span> ans;
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">int</span> sign = uf &amp; <span style="color:#ff0;font-weight:bold">0x80000000</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">int</span> exp = ((uf &gt;&gt; <span style="color:#ff0;font-weight:bold">23</span>) &amp; <span style="color:#ff0;font-weight:bold">0xff</span>) -<span style="color:#ff0;font-weight:bold">127</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">int</span> frac = (uf &amp; <span style="color:#ff0;font-weight:bold">0x007fffff</span>) | <span style="color:#ff0;font-weight:bold">0x00800000</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">if</span> (exp &lt; <span style="color:#ff0;font-weight:bold">0</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">return</span> <span style="color:#ff0;font-weight:bold">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">if</span> (exp &gt; <span style="color:#ff0;font-weight:bold">31</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">return</span> <span style="color:#ff0;font-weight:bold">0x80000000</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">if</span> (exp &lt; <span style="color:#ff0;font-weight:bold">23</span>)
+</span></span><span style="display:flex;"><span>    ans = frac &gt;&gt; (<span style="color:#ff0;font-weight:bold">23</span> - exp);
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">else</span>
+</span></span><span style="display:flex;"><span>    ans = frac &lt;&lt; (exp - <span style="color:#ff0;font-weight:bold">23</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">return</span> sign ? ~ans + <span style="color:#ff0;font-weight:bold">1</span> : ans;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="floatpower2">floatPower2<a hidden class="anchor" aria-hidden="true" href="#floatpower2">#</a></h3>
+<p>求$2.0^x$</p>
+<p>利用一个结论：最小的非规格化数是 $2^{-23}*2^{-126}$ ，最大的非规格化数是 $(1-u)*2^{-126}$ ，最小的规格化数是 $2^{-126}$ ，最大规格化数是 $(2-u)*2^{127}$，其中 $u$ 为无穷小。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">unsigned</span> floatPower2(<span style="color:#fff;font-weight:bold">int</span> x) {
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">if</span> (x &lt; -<span style="color:#ff0;font-weight:bold">149</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">return</span> <span style="color:#ff0;font-weight:bold">0</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">if</span> (x &lt; -<span style="color:#ff0;font-weight:bold">126</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">return</span> <span style="color:#ff0;font-weight:bold">1</span> &lt;&lt; x + <span style="color:#ff0;font-weight:bold">149</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">if</span> (x &lt; <span style="color:#ff0;font-weight:bold">128</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">return</span> x + <span style="color:#ff0;font-weight:bold">127</span> &lt;&lt; <span style="color:#ff0;font-weight:bold">23</span>;
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">return</span> <span style="color:#ff0;font-weight:bold">0xff</span> &lt;&lt; <span style="color:#ff0;font-weight:bold">23</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="总结">总结<a hidden class="anchor" aria-hidden="true" href="#总结">#</a></h2>
+<p>测评结果</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-shell" data-lang="shell"><span style="display:flex;"><span>Correctness Results	Perf Results
+</span></span><span style="display:flex;"><span>Points	Rating	Errors	Points	Ops	Puzzle
+</span></span><span style="display:flex;"><span>1	1	0	2	8	bitXor
+</span></span><span style="display:flex;"><span>1	1	0	2	1	tmin
+</span></span><span style="display:flex;"><span>1	1	0	2	7	isTmax
+</span></span><span style="display:flex;"><span>2	2	0	2	7	allOddBits
+</span></span><span style="display:flex;"><span>2	2	0	2	2	negate
+</span></span><span style="display:flex;"><span>3	3	0	2	10	isAsciiDigit
+</span></span><span style="display:flex;"><span>3	3	0	2	8	conditional
+</span></span><span style="display:flex;"><span>3	3	0	2	6	isLessOrEqual
+</span></span><span style="display:flex;"><span>4	4	0	2	12	logicalNeg
+</span></span><span style="display:flex;"><span>4	4	0	2	36	howManyBits
+</span></span><span style="display:flex;"><span>4	4	0	2	11	floatScale2
+</span></span><span style="display:flex;"><span>4	4	0	2	15	floatFloat2Int
+</span></span><span style="display:flex;"><span>4	4	0	2	10	floatPower2
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>Score = 62/62 [36/36 Corr + 26/26 Perf] (<span style="color:#ff0;font-weight:bold">133</span> total operators)
+</span></span></code></pre></div><p>做了 <em><strong>CSAPP</strong></em> 的 <strong>Data Lab</strong> 还是收获良多的：</p>
+<ul>
+<li>发现自己之前学习的位运算和浮点数的知识还有不少漏洞，幸好补起来了。</li>
+<li>在做这种限制操作的题目时，一开始还是会感觉很不适应，疯狂地想写分支判断等操作。坚持下来之后就有不小的提高，对抽象能力和写更高性能的代码都有帮助。</li>
+<li><strong>Lab</strong> 中给出的<code>makefile</code>开的编译选项给我报了很多警告，让我发现我的代码习惯不是很好，还有很大进步空间。</li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://vaaandark.top/tags/csapp/">CSAPP</a></li>
+      <li><a href="https://vaaandark.top/tags/%E5%B8%83%E5%B0%94%E4%BB%A3%E6%95%B0/">布尔代数</a></li>
+      <li><a href="https://vaaandark.top/tags/%E7%BC%96%E7%A0%81/">编码</a></li>
+      <li><a href="https://vaaandark.top/tags/c%E8%AF%AD%E8%A8%80/">C语言</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://vaaandark.top/posts/how-to-write-gitignore/">
+    <span class="title">« 上一页</span>
+    <br>
+    <span>gitignore文件如何书写</span>
+  </a>
+  <a class="next" href="https://vaaandark.top/posts/fibonacci-heap/">
+    <span class="title">下一页 »</span>
+    <br>
+    <span>斐波那契堆</span>
+  </a>
+</nav>
+
+
+<ul class="share-buttons">
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share CSAPP Data Lab on x"
+            href="https://x.com/intent/tweet/?text=CSAPP%20Data%20Lab&amp;url=https%3a%2f%2fvaaandark.top%2fposts%2fcsapp-data-lab%2f&amp;hashtags=CSAPP%2c%e5%b8%83%e5%b0%94%e4%bb%a3%e6%95%b0%2c%e7%bc%96%e7%a0%81%2cC%e8%af%ad%e8%a8%80">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M512 62.554 L 512 449.446 C 512 483.97 483.97 512 449.446 512 L 62.554 512 C 28.03 512 0 483.97 0 449.446 L 0 62.554 C 0 28.03 28.029 0 62.554 0 L 449.446 0 C 483.971 0 512 28.03 512 62.554 Z M 269.951 190.75 L 182.567 75.216 L 56 75.216 L 207.216 272.95 L 63.9 436.783 L 125.266 436.783 L 235.9 310.383 L 332.567 436.783 L 456 436.783 L 298.367 228.367 L 432.367 75.216 L 371.033 75.216 Z M 127.633 110 L 164.101 110 L 383.481 400.065 L 349.5 400.065 Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share CSAPP Data Lab on linkedin"
+            href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fvaaandark.top%2fposts%2fcsapp-data-lab%2f&amp;title=CSAPP%20Data%20Lab&amp;summary=CSAPP%20Data%20Lab&amp;source=https%3a%2f%2fvaaandark.top%2fposts%2fcsapp-data-lab%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share CSAPP Data Lab on reddit"
+            href="https://reddit.com/submit?url=https%3a%2f%2fvaaandark.top%2fposts%2fcsapp-data-lab%2f&title=CSAPP%20Data%20Lab">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share CSAPP Data Lab on facebook"
+            href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fvaaandark.top%2fposts%2fcsapp-data-lab%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share CSAPP Data Lab on whatsapp"
+            href="https://api.whatsapp.com/send?text=CSAPP%20Data%20Lab%20-%20https%3a%2f%2fvaaandark.top%2fposts%2fcsapp-data-lab%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share CSAPP Data Lab on telegram"
+            href="https://telegram.me/share/url?text=CSAPP%20Data%20Lab&amp;url=https%3a%2f%2fvaaandark.top%2fposts%2fcsapp-data-lab%2f">
+            <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share CSAPP Data Lab on ycombinator"
+            href="https://news.ycombinator.com/submitlink?t=CSAPP%20Data%20Lab&u=https%3a%2f%2fvaaandark.top%2fposts%2fcsapp-data-lab%2f">
+            <svg version="1.1" xml:space="preserve" width="30px" height="30px" viewBox="0 0 512 512" fill="currentColor"
+                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
+                <path
+                    d="M449.446 0C483.971 0 512 28.03 512 62.554L512 449.446C512 483.97 483.97 512 449.446 512L62.554 512C28.03 512 0 483.97 0 449.446L0 62.554C0 28.03 28.029 0 62.554 0L449.446 0ZM183.8767 87.9921H121.8427L230.6673 292.4508V424.0079H281.3328V292.4508L390.1575 87.9921H328.1233L256 238.2489z" />
+            </svg>
+        </a>
+    </li>
+</ul>
+
+  </footer><script src="https://giscus.app/client.js"
+        data-repo="vaaandark/vaaandark.github.io"
+        data-repo-id="R_kgDOGsxTxw"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOGsxTx84CmAQ1"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+</script>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://vaaandark.top/">vaaandark&#39;s blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>大数据 on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/</link>
+    <description>Recent content in 大数据 on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 15 Mar 2023 16:44:34 +0800</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/%E5%A4%A7%E6%95%B0%E6%8D%AE/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CS246 Finding Similar Items: Locality Sensitive Hashing</title>
+      <link>https://vaaandark.top/posts/cs246-finding-similar-itemslocality-sensitive-hashing/</link>
+      <pubDate>Wed, 15 Mar 2023 16:44:34 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/cs246-finding-similar-itemslocality-sensitive-hashing/</guid>
+      <description>&lt;p&gt;最近在上大数据分析的课程，老师使用的是斯坦福大学的教材和 PPT ，感觉挺有趣的，记录一下其中的一些算法。&lt;/p&gt;
+&lt;h2 id=&#34;背景&#34;&gt;背景&lt;/h2&gt;
+&lt;p&gt;很多问题可以被归化为寻找相似集合的问题：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;论文差重&lt;/li&gt;
+&lt;li&gt;寻找购买相似商品的人群&lt;/li&gt;
+&lt;li&gt;寻找有相似特征的图片&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;不妨将这次的目的设置为：&lt;strong&gt;给定大量的文档，发现其中有抄袭嫌疑的&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

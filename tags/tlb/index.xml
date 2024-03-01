@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>TLB on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/tlb/</link>
+    <description>Recent content in TLB on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 18 Feb 2024 21:30:43 +0800</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/tlb/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>恶补 CPU 知识之 Cache 和 TLB</title>
+      <link>https://vaaandark.top/posts/relearning-cpu-2-cache-and-tlb/</link>
+      <pubDate>Sun, 18 Feb 2024 21:30:43 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/relearning-cpu-2-cache-and-tlb/</guid>
+      <description>&lt;p&gt;即是知识回顾，也是最近学到知识的拓展延伸。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ARMv6 Manual: &amp;ldquo;The only architecturally-guaranteed way to invalidate all aliases of a physical address from a VIPT instruction cache is to invalidate the entire instruction cache.&amp;rdquo;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;cache-的基本情况&#34;&gt;Cache 的基本情况&lt;/h2&gt;
+&lt;p&gt;Cache 也就是缓存，作为高速的 CPU 和低速的内存之间的缓冲，用于加速访问。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

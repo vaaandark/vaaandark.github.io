@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>CSAPP on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/csapp/</link>
+    <description>Recent content in CSAPP on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 22 Apr 2023 17:29:49 +0800</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/csapp/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CPU 流水线</title>
+      <link>https://vaaandark.top/posts/cpu-pipeline/</link>
+      <pubDate>Sat, 22 Apr 2023 17:29:49 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/cpu-pipeline/</guid>
+      <description>&lt;h1 id=&#34;流水线级&#34;&gt;流水线级&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;一条流水线的每个分步骤被称为流水线级。它们被流水线寄存器分开。下文中没有说明是流水线寄存器的都是普通 CPU 寄存器。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;现代计算机流水线级数已经达到了 10-20 级，在 2000-2010 年间，流水线级数的竞赛达到了最高峰，那时候的处理器甚至可以有高达 31 级的流水线。但是超深的流水线带来的是结构上的复杂和显著增大的动态调度模块设计难度，因此，从那以后就没有再出现过使用这么多级流水线的 CPU 了。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>CSAPP Bomb Lab</title>
+      <link>https://vaaandark.top/posts/csapp-bomb-lab/</link>
+      <pubDate>Sat, 29 Oct 2022 22:24:22 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/csapp-bomb-lab/</guid>
+      <description>&lt;p&gt;之前的 Bomb Lab 没有做，现在刚好在上计算机系统基础这门课，学校使用了 CSAPP 的 Bomb Lab ，可以补交一下 CSAPP 的作业，也可以学习一下 GDB 的使用。&lt;/p&gt;
+&lt;h2 id=&#34;实验简述&#34;&gt;实验简述&lt;/h2&gt;
+&lt;p&gt;遗憾地，CSAPP 的 Bomb Lab 早已提供的是 Linux 的 64 位可执行程序，而我校的 Lab 还是 32 位的 Windows PE32 。不过我还是找老师要到了它的 Linux 版本，不过也是 ELF32 ，可执行文件的名字叫&lt;code&gt;bomb_32&lt;/code&gt;。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>CSAPP Data Lab</title>
+      <link>https://vaaandark.top/posts/csapp-data-lab/</link>
+      <pubDate>Wed, 02 Feb 2022 13:06:25 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/csapp-data-lab/</guid>
+      <description>&lt;p&gt;最近本来在看 &lt;em&gt;&lt;strong&gt;CSAPP&lt;/strong&gt;&lt;/em&gt; 后面的内容，但突然发现自己前面可能还有一些知识掌握不完全，因此做一下 Lab 检验一下。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h1 id=&#34;准备工作&#34;&gt;准备工作&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;在 CSAPP 的官网上找到 Lab，下载 Self-Study Handout。&lt;/li&gt;
+&lt;li&gt;在下载目录下解压文件&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;tar -xf datalab-handout.tar
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;尝试执行自动测评脚本&lt;code&gt;driver.pl&lt;/code&gt;结果发现没有32位环境，于是用&lt;code&gt;dnf&lt;/code&gt;安装需要的库，折腾了一会发现还是不太行。请教了大佬 &lt;a href=&#34;https://www.cnblogs.com/jyi2ya&#34;&gt;&lt;strong&gt;jyi2ya&lt;/strong&gt;&lt;/a&gt;，他告诉我可以直接在&lt;code&gt;makefile&lt;/code&gt;里面把编译条件改为&lt;code&gt;-m64&lt;/code&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;题目与题解&#34;&gt;题目与题解&lt;/h1&gt;
+&lt;h2 id=&#34;int-部分&#34;&gt;int 部分&lt;/h2&gt;
+&lt;h3 id=&#34;bitxor&#34;&gt;bitXor&lt;/h3&gt;
+&lt;p&gt;只用&lt;code&gt;~&lt;/code&gt;和&lt;code&gt;&amp;amp;&lt;/code&gt;实现&lt;code&gt;^&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

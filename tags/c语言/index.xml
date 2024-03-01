@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>C语言 on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/c%E8%AF%AD%E8%A8%80/</link>
+    <description>Recent content in C语言 on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 02 Mar 2024 01:32:50 +0800</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/c%E8%AF%AD%E8%A8%80/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>华科 OS 实验的 RISC-V 代理内核是如何启动的？</title>
+      <link>https://vaaandark.top/posts/how-riscv-pke-startup/</link>
+      <pubDate>Sat, 02 Mar 2024 01:32:50 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/how-riscv-pke-startup/</guid>
+      <description>&lt;p&gt;代码仓库为 &lt;a href=&#34;https://gitee.com/hustos/riscv-pke&#34;&gt;hustos riscv-pke&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;以下内容基于 lab2 代码&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;入口在哪&#34;&gt;入口在哪？&lt;/h3&gt;
+&lt;p&gt;入口为 &lt;code&gt;kernel/machine/mentry.S&lt;/code&gt; 的 &lt;code&gt;_mentry&lt;/code&gt; ，它调用了 &lt;code&gt;kernel/machine/minit.c&lt;/code&gt; 的 &lt;code&gt;m_start(uintptr_t hartid, uintptr_t dtb)&lt;/code&gt; ，两个参数并没有在 &lt;code&gt;_mentry&lt;/code&gt; 中设置，这是因为 spike 会自动设置 &lt;code&gt;a0&lt;/code&gt; 寄存器为 CPU id ，设置 &lt;code&gt;a1&lt;/code&gt; 寄存器为设备树字符串，这刚好也符合 RV 的传参规则。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>MIT6.S081 Lab:Fixup Xargs</title>
+      <link>https://vaaandark.top/posts/mit6.s081-labfixup-xargs/</link>
+      <pubDate>Mon, 26 Feb 2024 23:41:18 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/mit6.s081-labfixup-xargs/</guid>
+      <description>&lt;p&gt;昨天朋友跟我说我的 MIT6.S081 lab1 的 &lt;code&gt;xargs&lt;/code&gt; 命令的代码无法通过，看到他的测试方法才知道原来是这样测试的，感觉之前写的测的都太简略了。&lt;/p&gt;
+&lt;p&gt;例如测试 &lt;code&gt;xargs&lt;/code&gt; 命令这一关可以这样测试：&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>PAC2023娱乐赛</title>
+      <link>https://vaaandark.top/posts/pac2023-game/</link>
+      <pubDate>Thu, 06 Jul 2023 23:55:08 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/pac2023-game/</guid>
+      <description>&lt;p&gt;7.6 举办了 PAC2023 的开幕赛，以轻松娱乐为主，我还没有体验过在短时间内完成优化工作（不过今天的工作量倒也不大）。这场娱乐赛给了我别样的体验，也让我发现了我有好的好多不足，以及一些以前没有注意到的坏习惯。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>MIT6.S081 Lab: Xv6 and Unix Utilities</title>
+      <link>https://vaaandark.top/posts/mit6.s081-labxv6-and-unix-utilities/</link>
+      <pubDate>Thu, 02 Mar 2023 23:14:38 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/mit6.s081-labxv6-and-unix-utilities/</guid>
+      <description>&lt;p&gt;这是 MIT6.S081 的第一个 Lab ，目的是为了让学生熟悉 Xv6 和 Unix 的一些实用程序，例如 &lt;code&gt;sleep&lt;/code&gt; &lt;code&gt;find&lt;/code&gt; &lt;code&gt;xargs&lt;/code&gt; 等。&lt;/p&gt;
+&lt;h2 id=&#34;sleep&#34;&gt;sleep&lt;/h2&gt;
+&lt;p&gt;这一关是实现 &lt;code&gt;sleep&lt;/code&gt; 命令。由于在 &lt;code&gt;user/user.h&lt;/code&gt; 目录中给出来了可以直接由 C 语言调用的函数 &lt;code&gt;int sleep(int)&lt;/code&gt; ，这一关非常简单：&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>MIT6.S081 实验环境配置</title>
+      <link>https://vaaandark.top/posts/mit6.s081-setup-environment/</link>
+      <pubDate>Tue, 21 Feb 2023 14:59:14 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/mit6.s081-setup-environment/</guid>
+      <description>&lt;p&gt;最近开始学习操作系统的相关知识，选择学 MIT6.S081 的课程。&lt;/p&gt;
+&lt;p&gt;首先在 &lt;a href=&#34;https://pdos.csail.mit.edu/6.S081/2020/labs/util.html&#34;&gt;课程官方网站&lt;/a&gt; 上拉取仓库配置环境。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-console&#34; data-lang=&#34;console&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ git clone git://g.csail.mit.edu/xv6-labs-2020
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ &lt;span style=&#34;color:#fff;font-weight:bold&#34;&gt;cd&lt;/span&gt; xv6-labs-2020
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ git checkout util
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ make qemu
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;make&lt;/code&gt; 时发现有报错：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-console&#34; data-lang=&#34;console&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;user/sh.c: In function ‘runcmd’:
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;user/sh.c:58:1: error: infinite recursion detected [-Werror=infinite-recursion]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;   58 | runcmd(struct cmd *cmd)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;      | ^~~~~~
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;打开该文件发现：&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>内联汇编</title>
+      <link>https://vaaandark.top/posts/inline-assembly/</link>
+      <pubDate>Mon, 02 Jan 2023 16:27:19 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/inline-assembly/</guid>
+      <description>&lt;p&gt;高中第一次看到在 C 语言中嵌入汇编语言时，我就觉得它非常好玩，到大学刚开学的时候，我甚至有使用它的需求，可惜直到现在我才抽出时间开始学习它。&lt;/p&gt;
+&lt;h2 id=&#34;分类&#34;&gt;分类&lt;/h2&gt;
+&lt;p&gt;在 GNU 的 GCC 中，内联汇编被分为两类：&lt;strong&gt;Basic asm&lt;/strong&gt; 和 &lt;strong&gt;Extended asm&lt;/strong&gt; 。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>稍微深入VLA</title>
+      <link>https://vaaandark.top/posts/dive-in-vla/</link>
+      <pubDate>Thu, 20 Oct 2022 10:50:10 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/dive-in-vla/</guid>
+      <description>&lt;p&gt;最近在学习汇编语言，和朋友聊天时聊到了 C 语言中的变长数组，想知道在汇编后是什么样子的。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;变长数组variable-length-array&#34;&gt;变长数组(Variable-length array)&lt;/h2&gt;
+&lt;p&gt;可变长数组是指在计算机程序设计中，数组对象的长度在运行时（而不是编译时）确定。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>说说链表</title>
+      <link>https://vaaandark.top/posts/facts-about-linklist/</link>
+      <pubDate>Sun, 14 Aug 2022 16:01:24 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/facts-about-linklist/</guid>
+      <description>&lt;p&gt;最近看到了一些关于侵入式和非侵入式链表的讨论，决定研究一下它们两个。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;侵入式和非侵入式链表的区别&#34;&gt;侵入式和非侵入式链表的区别&lt;/h2&gt;
+&lt;p&gt;这里的侵入是相对于链表的指针域来说，所以最主要的区别就是非侵入式的链表容器中保存了一份用户传入的值。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>OpenMP进阶</title>
+      <link>https://vaaandark.top/posts/openmp-advance/</link>
+      <pubDate>Tue, 02 Aug 2022 22:08:34 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/openmp-advance/</guid>
+      <description>&lt;p&gt;继续学习 OpenMP 的使用，尤其是一些较新版本。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;openmp-40&#34;&gt;OpenMP 4.0&lt;/h2&gt;
+&lt;h3 id=&#34;controlling-openmp-thread-affinity&#34;&gt;Controlling OpenMP thread Affinity&lt;/h3&gt;
+&lt;p&gt;因为很多硬件如今是 NUMA 结构，分配线程的位置可以很大程度上影响性能。&lt;/p&gt;
+&lt;p&gt;与核绑定有关的 OpenMP 结构 proc_bind (master | close | spread)&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>OpenMP入门</title>
+      <link>https://vaaandark.top/posts/openmp-introduction/</link>
+      <pubDate>Fri, 29 Jul 2022 09:03:18 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/openmp-introduction/</guid>
+      <description>&lt;p&gt;写 OpenMP 的时候总是感觉怪怪的，不知道什么时候该用什么，所以最近系统化地看一遍 OpenMP 的使用，主体为 OpenMP 2.0 和 3.0。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;what-is-openmp&#34;&gt;What is OpenMP?&lt;/h2&gt;
+&lt;h3 id=&#34;openmp-model&#34;&gt;OpenMP Model&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;每个线程都有可以访问全局的共享内存。&lt;/li&gt;
+&lt;li&gt;数据可以是共享的也可以是私有的。&lt;/li&gt;
+&lt;li&gt;共享的数据可以被所有线程访问。&lt;/li&gt;
+&lt;li&gt;私有数据只能被拥有它的线程访问。&lt;/li&gt;
+&lt;li&gt;数据的传递对于编程者是透明的。&lt;/li&gt;
+&lt;li&gt;同步会发生，但是它大部分时候是隐式的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;img alt=&#34;OpenMP Model&#34; loading=&#34;lazy&#34; src=&#34;https://vaaandark.top/image/openmp-model.png&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>C语言异常处理</title>
+      <link>https://vaaandark.top/posts/c-exception/</link>
+      <pubDate>Tue, 03 May 2022 19:36:40 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/c-exception/</guid>
+      <description>&lt;p&gt;C 语言没有原生支持异常处理，但是可以使用&lt;code&gt;setjmp&lt;/code&gt;和&lt;code&gt;longjmp&lt;/code&gt;函数实现类似&lt;code&gt;try ... except&lt;/code&gt;的功能。&lt;/p&gt;
+&lt;p&gt;本文主要参考：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;C Interfaces and Implementation&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;&lt;a href=&#34;https://www.hpl.hp.com/techreports/Compaq-DEC/SRC-RR-40.pdf&#34;&gt;Implementing exceptions in C&lt;/a&gt;&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;setjmph&#34;&gt;setjmp.h&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;setjmp.h&lt;/code&gt;是 C 标准函数库中提供“非本地跳转”的头文件：控制流偏离了通常的子程序调用与返回序列。互补的两个函数&lt;code&gt;setjmp&lt;/code&gt;与&lt;code&gt;longjmp&lt;/code&gt;提供了这种功能。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>CSAPP Data Lab</title>
+      <link>https://vaaandark.top/posts/csapp-data-lab/</link>
+      <pubDate>Wed, 02 Feb 2022 13:06:25 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/csapp-data-lab/</guid>
+      <description>&lt;p&gt;最近本来在看 &lt;em&gt;&lt;strong&gt;CSAPP&lt;/strong&gt;&lt;/em&gt; 后面的内容，但突然发现自己前面可能还有一些知识掌握不完全，因此做一下 Lab 检验一下。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h1 id=&#34;准备工作&#34;&gt;准备工作&lt;/h1&gt;
+&lt;ol&gt;
+&lt;li&gt;在 CSAPP 的官网上找到 Lab，下载 Self-Study Handout。&lt;/li&gt;
+&lt;li&gt;在下载目录下解压文件&lt;/li&gt;
+&lt;/ol&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-shell&#34; data-lang=&#34;shell&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;tar -xf datalab-handout.tar
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;尝试执行自动测评脚本&lt;code&gt;driver.pl&lt;/code&gt;结果发现没有32位环境，于是用&lt;code&gt;dnf&lt;/code&gt;安装需要的库，折腾了一会发现还是不太行。请教了大佬 &lt;a href=&#34;https://www.cnblogs.com/jyi2ya&#34;&gt;&lt;strong&gt;jyi2ya&lt;/strong&gt;&lt;/a&gt;，他告诉我可以直接在&lt;code&gt;makefile&lt;/code&gt;里面把编译条件改为&lt;code&gt;-m64&lt;/code&gt;。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h1 id=&#34;题目与题解&#34;&gt;题目与题解&lt;/h1&gt;
+&lt;h2 id=&#34;int-部分&#34;&gt;int 部分&lt;/h2&gt;
+&lt;h3 id=&#34;bitxor&#34;&gt;bitXor&lt;/h3&gt;
+&lt;p&gt;只用&lt;code&gt;~&lt;/code&gt;和&lt;code&gt;&amp;amp;&lt;/code&gt;实现&lt;code&gt;^&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>斐波那契堆</title>
+      <link>https://vaaandark.top/posts/fibonacci-heap/</link>
+      <pubDate>Mon, 31 Jan 2022 12:51:49 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/fibonacci-heap/</guid>
+      <description>&lt;p&gt;联创 Lab 组新人任务第一弹。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;关于斐波那契堆&#34;&gt;关于斐波那契堆&lt;/h2&gt;
+&lt;h3 id=&#34;结构与特点&#34;&gt;结构与特点&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;斐波那契堆是由一组最小堆有序树构成的。每个节点的度数为其子节点的数目。树的度数为其根节点的度数。&lt;/li&gt;
+&lt;li&gt;斐波那契堆中的树都是有根的但是无序。每个节点x包含指向父节点的指针p[x]和指向任意一个子结点的child[x]。x的所有子节点都用双向循环链表链接起来，叫做x的子链表。子链表中的每一个节点y都有指向它的左兄弟的left[y]和右兄弟的right[y]。如果节点y是x仅有的子节点，则left[y]=right[y]=y。&lt;/li&gt;
+&lt;li&gt;斐波那契堆中所有树的根节点也用一个双向循环链表链接起来。&lt;/li&gt;
+&lt;li&gt;使用一个指针指向斐波那契堆中最小元素。
+斐波那契堆将操作尽可能地延后，它的插入是懒惰的，只有在不得不进行合并操作时才进行合并。在极端情况下，它甚至是一个长度很大的链表。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;插入操作&#34;&gt;插入操作&lt;/h3&gt;
+&lt;p&gt;将一个节点直接插入到根链表中，并比较键值的大小，如果新节点的键值小于原有节点的键值，就将斐波那契堆的指向最小节点的指针指向它。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>左偏红黑树</title>
+      <link>https://vaaandark.top/posts/llrb/</link>
+      <pubDate>Mon, 31 Jan 2022 12:51:39 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/llrb/</guid>
+      <description>&lt;p&gt;联创 Lab 组新人任务第一弹。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;关于llrb&#34;&gt;关于LLRB&lt;/h2&gt;
+&lt;h3 id=&#34;定义&#34;&gt;定义&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;根节点是黑色的。&lt;/li&gt;
+&lt;li&gt;红色节点的儿子一定是黑色的。&lt;/li&gt;
+&lt;li&gt;任意节点到任意叶子的最短路径上都有相同数量的黑色节点。&lt;/li&gt;
+&lt;li&gt;黑色节点的儿子要么全是黑色，要么只有左儿子是黑色。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;前三点与红黑树的性质相同，第四点为左偏红黑树的特殊性质，这导致了它的操作相对红黑树更加简单。&lt;/li&gt;
+&lt;li&gt;左偏红黑树也可以认为其相邻节点的边是有颜色的。&lt;/li&gt;
+&lt;li&gt;空节点的颜色认为是黑色。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;插入操作&#34;&gt;插入操作&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;可以先就像向二叉查找树中插入节点一样操作，插入时将其颜色赋为红色。如果插入时是黑色，这会导致破坏了LLRB的平衡性质。&lt;/li&gt;
+&lt;li&gt;保持住了黑色平衡性质之后再来调整其他结构性质，要对连续两个红色节点、只有右儿子是红色节点进行旋转，对左右儿子都是红色的节点进行颜色翻转（拆分2-3-4树中的4-node）。&lt;/li&gt;
+&lt;li&gt;其操作可以是递归的，编写代码也将更加容易实现。
+优先保持平衡性质的原因有：在一开始插入时保持平衡性质最容易实现（只需要给新节点赋红色），此时若优先考虑其他性质，会导致需要考虑的情况过多，而且在后续进行修补（旋转、颜色翻转）的时候不会破坏其平衡性质。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;删除操作&#34;&gt;删除操作&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;依然优先考虑其平衡性质，删除的节点需要是红色的，因此思路就是先将需要删除的节点变成红色的。&lt;/li&gt;
+&lt;li&gt;此时需要考虑的是，如何将红色节点向下移动（向左下或右下）。当左右儿子都不是红色时也不用担心，可以通过颜色翻转实现，翻转后需要考虑移动的另一个方向是否会出现不满足左倾红黑树的情况，并对其进行修补。&lt;/li&gt;
+&lt;li&gt;由于LLRB的左偏特性，因此会出现想要向右下移动时，左儿子是红色而右儿子是黑色，因此需要对该节点进行右旋，让向右下的路径上出现红色。&lt;/li&gt;
+&lt;li&gt;当找到删除的目标节点后，如果是一个叶子节点，直接删去，如果是一个内部节点，便从它的右儿子的分支中找到最小节点与之替换，再删掉。&lt;/li&gt;
+&lt;li&gt;在向上返回的途中修补节点。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;4&lt;/strong&gt; 中判断是否为叶子节点不应该用它是否有左儿子来判断，而是用它是否有右儿子来判断，因为在前一步中有右旋操作。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

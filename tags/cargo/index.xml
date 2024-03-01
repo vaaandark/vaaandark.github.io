@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Cargo on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/cargo/</link>
+    <description>Recent content in Cargo on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 22 Oct 2023 11:36:13 +0800</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/cargo/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Cargo Runner</title>
+      <link>https://vaaandark.top/posts/cargo-runner/</link>
+      <pubDate>Sun, 22 Oct 2023 11:36:13 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/cargo-runner/</guid>
+      <description>&lt;p&gt;最近在完成一个使用 Rust 语言编写 Linux 内核引导程序的项目 &lt;a href=&#34;github.com/vaaandark/lboot&#34;&gt;lboot&lt;/a&gt; ，其核心代码和原理在之前的博客中介绍过 &lt;a href=&#34;https://vaaandark.top/posts/how-uefi-startup-linux/&#34;&gt;UEFI 如何启动 Linux&lt;/a&gt; 。&lt;/p&gt;
+&lt;p&gt;因为不可能直接在 UEFI 环境下进行代码开发，所以我使用的是交叉编译的方法，目标平台是 &lt;code&gt;x86_64-unknown-uefi&lt;/code&gt; 和 &lt;code&gt;aarch64-unknown-uefi&lt;/code&gt; 。这就带来了一个问题，使用命令 &lt;code&gt;cargo run&lt;/code&gt; 不能直接运行代码，必须使用 qemu 来模拟目标架构的执行。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Lua on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/lua/</link>
+    <description>Recent content in Lua on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 11 Feb 2023 14:36:27 +0800</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/lua/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Lua 打印 Table</title>
+      <link>https://vaaandark.top/posts/lua-print-table/</link>
+      <pubDate>Sat, 11 Feb 2023 14:36:27 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/lua-print-table/</guid>
+      <description>&lt;p&gt;之前在 Lua 代码的编写中写过一些打印表的函数用于调试，这次在看 z.lua 的实现中看到了非常完美的打印表的方法，于是在将代码改得更规范后记录一下：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;使用 &lt;code&gt;luacheck&lt;/code&gt; 检查 Lua 代码中的错误和不规范之处&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Lua 中的三目运算</title>
+      <link>https://vaaandark.top/posts/lua-ternary-arithmetic/</link>
+      <pubDate>Thu, 09 Feb 2023 13:52:51 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/lua-ternary-arithmetic/</guid>
+      <description>&lt;p&gt;在看 &lt;a href=&#34;https://github.com/skywind3000&#34;&gt;skywind3000&lt;/a&gt; 大神写的 z.lua 时发现了神秘写法：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;os.argv = arg ~= &lt;span style=&#34;color:#fff;font-weight:bold&#34;&gt;nil&lt;/span&gt; and arg or {}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;os.path.sep = windows and &lt;span style=&#34;color:#0ff;font-weight:bold&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#0ff;font-weight:bold&#34;&gt;\\&lt;/span&gt;&lt;span style=&#34;color:#0ff;font-weight:bold&#34;&gt;&amp;#39;&lt;/span&gt; or &lt;span style=&#34;color:#0ff;font-weight:bold&#34;&gt;&amp;#39;/&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;不需要怎么思考就能知道这个是三目运算。但是在我认知中，Lua 是不支持三目运算符的，定睛一看才发现这个是通过 Lua 布尔运算中的短路特性模拟的三目运算。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>垃圾回收</title>
+      <link>https://vaaandark.top/posts/gc/</link>
+      <pubDate>Sat, 17 Sep 2022 11:27:19 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/gc/</guid>
+      <description>&lt;p&gt;之前学习了 Lua 的 Table 和协程，对 Lua 中另一个重要模块 GC 还有很多疑问，这次就来学习一下。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;gc-简介与策略分类&#34;&gt;GC 简介与策略分类&lt;/h2&gt;
+&lt;p&gt;在计算机科学中，垃圾收集(GC)是一种自动内存管理形式。垃圾收集器尝试回收程序分配但不再引用的内存；这样的内存被称为垃圾。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>如何使用Lua写一个NeoVim插件</title>
+      <link>https://vaaandark.top/posts/how-to-write-a-plugin-for-neovim-in-lua/</link>
+      <pubDate>Thu, 18 Aug 2022 17:18:42 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/how-to-write-a-plugin-for-neovim-in-lua/</guid>
+      <description>&lt;p&gt;之前学习了如何写 Lua 程序，又因为 NeoVim 的插件可以用 Lua 写，所以想学习一下插件开发。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;插件目录结构&#34;&gt;插件目录结构&lt;/h2&gt;
+&lt;p&gt;我们的插件应当有至少两个目录：&lt;code&gt;plugin&lt;/code&gt;用于放&lt;code&gt;main&lt;/code&gt;代码文件，&lt;code&gt;lua&lt;/code&gt;放其余的所有代码。当然，如果我们真的想把所有代码放在同一个文件里面，这也是可以的。但是请不要这样。因此，使用&lt;code&gt;plugin/whid.vim&lt;/code&gt;和&lt;code&gt;lua/whid.lua&lt;/code&gt;这两个文件就可以了。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Lua Coroutine</title>
+      <link>https://vaaandark.top/posts/lua-coroutine/</link>
+      <pubDate>Fri, 13 May 2022 15:19:09 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/lua-coroutine/</guid>
+      <description>&lt;p&gt;Lua 的一大特色就是协程的使用，在解释型语言中，如果不考虑嵌入到较为低级的语言（如 C 语言）中，就只需要操作调用栈并保存好上下文状态即可。但是 Lua 并不是一门纯粹依靠字节码的解释型语言，它常常与 C 语言反复嵌套，甚至出现 C 中调用 Lua ，Lua 中再调用 C 代码，，，的情况。一旦 Lua 调用的 C 库企图中断线程，再想恢复，就会是一个难题。好在 Lua 巧妙地解决了这些问题。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Lua Table</title>
+      <link>https://vaaandark.top/posts/lua-table/</link>
+      <pubDate>Wed, 11 May 2022 23:49:28 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/lua-table/</guid>
+      <description>&lt;p&gt;之前学习 Lua 的时候就对它的 Table 很感兴趣，最近在看 Lua 解释器的源码，因此就想研究一下具体是怎么实现这个 Lua 之中最为重要的数据结构的。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;lua-table-简介&#34;&gt;Lua Table 简介&lt;/h2&gt;
+&lt;p&gt;在 Lua 语言之中，数组是 table ，字典是 table ，就连对象、模块、包也是通过 table 实现的：&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Lua入门</title>
+      <link>https://vaaandark.top/posts/lua-introduction/</link>
+      <pubDate>Wed, 23 Mar 2022 23:40:09 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/lua-introduction/</guid>
+      <description>&lt;p&gt;最近对脚本语言 Lua 很感兴趣，其一是因为它可以很方便地调用 C 语言库，其二是因为它是很多现代化工具的配置语言（比如 NeoVim ），另外 Lua 的源代码不是很长，因此研究学习难度会比其他语言更低。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Lua | vaaandark&#39;s blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="vaaandark">
+<link rel="canonical" href="https://vaaandark.top/tags/lua/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.556a50c7c92c2556e588f602528ac3c41884cdb6e537ce0647b5e200cd1c2094.css" integrity="sha256-VWpQx8ksJVbliPYCUorDxBiEzbblN84GR7XiAM0cIJQ=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="apple-touch-icon" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="mask-icon" href="https://vaaandark.top/image/vaaandark.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="https://vaaandark.top/tags/lua/index.xml">
+<link rel="alternate" hreflang="zh" href="https://vaaandark.top/tags/lua/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://vaaandark.top/tags/lua/">
+  <meta property="og:site_name" content="vaaandark&#39;s blog">
+  <meta property="og:title" content="Lua">
+  <meta property="og:locale" content="zh-CN">
+  <meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lua">
+<meta name="twitter:description" content="">
+
+
+
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://vaaandark.top/" accesskey="h" title="vaaandark&#39;s blog (Alt + H)">
+                <img src="https://vaaandark.top/image/vaaandark.png" alt="" aria-label="logo"
+                    height="35">vaaandark&#39;s blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://vaaandark.top/" title="🏠主页">
+                    <span>🏠主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/posts/" title="Posts">
+                    <span>📄 归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/categories/" title="categories">
+                    <span>📂 分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/tags/" title="tags">
+                    <span>🔖 标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/about/" title="关于我">
+                    <span>🙋 关于</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/links/" title="友链">
+                    <span>🤝 友链</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header"><div class="breadcrumbs"><a href="https://vaaandark.top/">主页</a>&nbsp;»&nbsp;<a href="https://vaaandark.top/tags/">tags</a></div>
+  <h1>
+    Lua
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Lua 打印 Table
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>之前在 Lua 代码的编写中写过一些打印表的函数用于调试，这次在看 z.lua 的实现中看到了非常完美的打印表的方法，于是在将代码改得更规范后记录一下：
+使用 luacheck 检查 Lua 代码中的错误和不规范之处
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-02-11 14:36:27 +0800 CST'>2023 2月 11</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;vaaandark</footer>
+  <a class="entry-link" aria-label="post link to Lua 打印 Table" href="https://vaaandark.top/posts/lua-print-table/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Lua 中的三目运算
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>在看 skywind3000 大神写的 z.lua 时发现了神秘写法：
+os.argv = arg ~= nil and arg or {} os.path.sep = windows and &#39;\\&#39; or &#39;/&#39; 不需要怎么思考就能知道这个是三目运算。但是在我认知中，Lua 是不支持三目运算符的，定睛一看才发现这个是通过 Lua 布尔运算中的短路特性模拟的三目运算。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-02-09 13:52:51 +0800 CST'>2023 2月 09</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;vaaandark</footer>
+  <a class="entry-link" aria-label="post link to Lua 中的三目运算" href="https://vaaandark.top/posts/lua-ternary-arithmetic/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+<figure class="entry-cover"><img loading="lazy" src="https://vaaandark.top/image/gc.png" alt="">
+</figure>
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">垃圾回收
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>之前学习了 Lua 的 Table 和协程，对 Lua 中另一个重要模块 GC 还有很多疑问，这次就来学习一下。
+GC 简介与策略分类 在计算机科学中，垃圾收集(GC)是一种自动内存管理形式。垃圾收集器尝试回收程序分配但不再引用的内存；这样的内存被称为垃圾。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-09-17 11:27:19 +0000 UTC'>2022 9月 17</span>&nbsp;·&nbsp;7 分钟&nbsp;·&nbsp;vaaandark</footer>
+  <a class="entry-link" aria-label="post link to 垃圾回收" href="https://vaaandark.top/posts/gc/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+<figure class="entry-cover"><img loading="lazy" src="https://vaaandark.top/image/neovim.jpeg" alt="">
+</figure>
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">如何使用Lua写一个NeoVim插件
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>之前学习了如何写 Lua 程序，又因为 NeoVim 的插件可以用 Lua 写，所以想学习一下插件开发。
+插件目录结构 我们的插件应当有至少两个目录：plugin用于放main代码文件，lua放其余的所有代码。当然，如果我们真的想把所有代码放在同一个文件里面，这也是可以的。但是请不要这样。因此，使用plugin/whid.vim和lua/whid.lua这两个文件就可以了。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-08-18 17:18:42 +0000 UTC'>2022 8月 18</span>&nbsp;·&nbsp;3 分钟&nbsp;·&nbsp;vaaandark</footer>
+  <a class="entry-link" aria-label="post link to 如何使用Lua写一个NeoVim插件" href="https://vaaandark.top/posts/how-to-write-a-plugin-for-neovim-in-lua/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Lua Coroutine
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Lua 的一大特色就是协程的使用，在解释型语言中，如果不考虑嵌入到较为低级的语言（如 C 语言）中，就只需要操作调用栈并保存好上下文状态即可。但是 Lua 并不是一门纯粹依靠字节码的解释型语言，它常常与 C 语言反复嵌套，甚至出现 C 中调用 Lua ，Lua 中再调用 C 代码，，，的情况。一旦 Lua 调用的 C 库企图中断线程，再想恢复，就会是一个难题。好在 Lua 巧妙地解决了这些问题。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-05-13 15:19:09 +0000 UTC'>2022 5月 13</span>&nbsp;·&nbsp;6 分钟&nbsp;·&nbsp;vaaandark</footer>
+  <a class="entry-link" aria-label="post link to Lua Coroutine" href="https://vaaandark.top/posts/lua-coroutine/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Lua Table
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>之前学习 Lua 的时候就对它的 Table 很感兴趣，最近在看 Lua 解释器的源码，因此就想研究一下具体是怎么实现这个 Lua 之中最为重要的数据结构的。
+Lua Table 简介 在 Lua 语言之中，数组是 table ，字典是 table ，就连对象、模块、包也是通过 table 实现的：
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-05-11 23:49:28 +0000 UTC'>2022 5月 11</span>&nbsp;·&nbsp;7 分钟&nbsp;·&nbsp;vaaandark</footer>
+  <a class="entry-link" aria-label="post link to Lua Table" href="https://vaaandark.top/posts/lua-table/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Lua入门
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>最近对脚本语言 Lua 很感兴趣，其一是因为它可以很方便地调用 C 语言库，其二是因为它是很多现代化工具的配置语言（比如 NeoVim ），另外 Lua 的源代码不是很长，因此研究学习难度会比其他语言更低。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-03-23 23:40:09 +0000 UTC'>2022 3月 23</span>&nbsp;·&nbsp;6 分钟&nbsp;·&nbsp;vaaandark</footer>
+  <a class="entry-link" aria-label="post link to Lua入门" href="https://vaaandark.top/posts/lua-introduction/"></a>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://vaaandark.top/">vaaandark&#39;s blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

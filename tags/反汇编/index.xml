@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>反汇编 on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/%E5%8F%8D%E6%B1%87%E7%BC%96/</link>
+    <description>Recent content in 反汇编 on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 29 Oct 2022 22:24:22 +0000</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/%E5%8F%8D%E6%B1%87%E7%BC%96/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>CSAPP Bomb Lab</title>
+      <link>https://vaaandark.top/posts/csapp-bomb-lab/</link>
+      <pubDate>Sat, 29 Oct 2022 22:24:22 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/csapp-bomb-lab/</guid>
+      <description>&lt;p&gt;之前的 Bomb Lab 没有做，现在刚好在上计算机系统基础这门课，学校使用了 CSAPP 的 Bomb Lab ，可以补交一下 CSAPP 的作业，也可以学习一下 GDB 的使用。&lt;/p&gt;
+&lt;h2 id=&#34;实验简述&#34;&gt;实验简述&lt;/h2&gt;
+&lt;p&gt;遗憾地，CSAPP 的 Bomb Lab 早已提供的是 Linux 的 64 位可执行程序，而我校的 Lab 还是 32 位的 Windows PE32 。不过我还是找老师要到了它的 Linux 版本，不过也是 ELF32 ，可执行文件的名字叫&lt;code&gt;bomb_32&lt;/code&gt;。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

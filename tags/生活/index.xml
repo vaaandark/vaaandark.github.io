@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>生活 on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/%E7%94%9F%E6%B4%BB/</link>
+    <description>Recent content in 生活 on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 27 Dec 2024 20:07:44 +0800</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/%E7%94%9F%E6%B4%BB/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>双城记——2024 回顾</title>
+      <link>https://vaaandark.top/posts/2024-look-back/</link>
+      <pubDate>Fri, 27 Dec 2024 20:07:44 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/2024-look-back/</guid>
+      <description>&lt;p&gt;2024 年过得真快，我的本科也过得飞快，已经是十二月末了，再有五六个月我就毕业了，而且我已经打了半年多的工了。相比心态上的转变，生活工作方式和节奏的变化则是真真切切而且无法回避的。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>校园网自动认证</title>
+      <link>https://vaaandark.top/posts/hust-network-login/</link>
+      <pubDate>Fri, 25 Nov 2022 16:01:20 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/hust-network-login/</guid>
+      <description>&lt;p&gt;自己的 Wi-Fi6 漏油器用着还行，校园网带宽可以跑满，但是我的这个型号并不能刷 openwrt ，所以不能 ssh 连接，更不能在上面跑同学们写的那些自动认证脚本。&lt;/p&gt;
+&lt;p&gt;去年折腾 Arduino 和 nodemcu 时想到可以利用 esp8266 的联网功能让它来代替进行认证工作。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>七月随笔</title>
+      <link>https://vaaandark.top/posts/essay-in-july/</link>
+      <pubDate>Thu, 28 Jul 2022 21:47:18 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/essay-in-july/</guid>
+      <description>&lt;p&gt;突然发现自己从高二以来基本没有读过“闲书”，意识到这可能正是现在诸多烦恼的原因之一吧……&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;其实从初中以来，我所阅读书籍的文学性都是在下降的，我看过的大部分文学名著都是在初中及之前看的，在之后就是科幻和一些功能性的书了，再就是各种评论性的文章，抑或是看不懂也要看的哲学或者诗歌。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>华科寝室简易门禁</title>
+      <link>https://vaaandark.top/posts/simple-entrance-guard-in-hust/</link>
+      <pubDate>Tue, 29 Mar 2022 19:14:13 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/simple-entrance-guard-in-hust/</guid>
+      <description>&lt;p&gt;华科宿舍的大门门禁用学生卡开，而每个寝室的门却只能使用钥匙打开。这就导致了每次出门都要带上学生卡和钥匙，每次回来都要先掏出卡，再掏出钥匙。这样实在是麻烦，因此我有了用校园卡就能打开宿舍门的想法。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

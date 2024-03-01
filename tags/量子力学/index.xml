@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>量子力学 on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/%E9%87%8F%E5%AD%90%E5%8A%9B%E5%AD%A6/</link>
+    <description>Recent content in 量子力学 on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Mon, 21 Nov 2022 11:51:23 +0800</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/%E9%87%8F%E5%AD%90%E5%8A%9B%E5%AD%A6/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>量子计算机</title>
+      <link>https://vaaandark.top/posts/quantum-computer/</link>
+      <pubDate>Mon, 21 Nov 2022 11:51:23 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/quantum-computer/</guid>
+      <description>&lt;h2 id=&#34;representation-of-data&#34;&gt;Representation of Data&lt;/h2&gt;
+&lt;h3 id=&#34;qubits&#34;&gt;Qubits&lt;/h3&gt;
+&lt;p&gt;A bit of data is represented by a single atom that is in one of two states denoted by $\ket0$ and $\ket1$.  A single bit of this form is known as a &lt;strong&gt;qubit&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;在量子计算机中，一个原子可以通过 $\ket0$ 和 $\ket1$ 其中之一的状态来表示一个比特位的数据。一个形如这样的比特位被称为&lt;strong&gt;量子位&lt;/strong&gt;。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>编程语言 on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/</link>
+    <description>Recent content in 编程语言 on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 23 Feb 2023 21:44:37 +0800</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/%E7%BC%96%E7%A8%8B%E8%AF%AD%E8%A8%80/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Rust 自引用结构</title>
+      <link>https://vaaandark.top/posts/rust-self-referencing-structure/</link>
+      <pubDate>Thu, 23 Feb 2023 21:44:37 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/rust-self-referencing-structure/</guid>
+      <description>&lt;p&gt;今天和朋友交流的时候遇到了自引用问题，之前就在看 &lt;em&gt;Rust Bible&lt;/em&gt; 的时候看到过，但是一直没用 Rust 写过什么数据结构，所以没有使用这个的机会，所以今天就来尝试一下。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Lua 中的三目运算</title>
+      <link>https://vaaandark.top/posts/lua-ternary-arithmetic/</link>
+      <pubDate>Thu, 09 Feb 2023 13:52:51 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/lua-ternary-arithmetic/</guid>
+      <description>&lt;p&gt;在看 &lt;a href=&#34;https://github.com/skywind3000&#34;&gt;skywind3000&lt;/a&gt; 大神写的 z.lua 时发现了神秘写法：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-lua&#34; data-lang=&#34;lua&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;os.argv = arg ~= &lt;span style=&#34;color:#fff;font-weight:bold&#34;&gt;nil&lt;/span&gt; and arg or {}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;os.path.sep = windows and &lt;span style=&#34;color:#0ff;font-weight:bold&#34;&gt;&amp;#39;&lt;/span&gt;&lt;span style=&#34;color:#0ff;font-weight:bold&#34;&gt;\\&lt;/span&gt;&lt;span style=&#34;color:#0ff;font-weight:bold&#34;&gt;&amp;#39;&lt;/span&gt; or &lt;span style=&#34;color:#0ff;font-weight:bold&#34;&gt;&amp;#39;/&amp;#39;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;不需要怎么思考就能知道这个是三目运算。但是在我认知中，Lua 是不支持三目运算符的，定睛一看才发现这个是通过 Lua 布尔运算中的短路特性模拟的三目运算。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>用 Rust 重写星际译王</title>
+      <link>https://vaaandark.top/posts/rewrite-stardict-in-rust/</link>
+      <pubDate>Wed, 25 Jan 2023 13:21:35 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/rewrite-stardict-in-rust/</guid>
+      <description>&lt;p&gt;我经常有在终端查单词的需求，之前使用的是自己写的网络爬虫，原理是构造网址 &amp;ldquo;&lt;a href=&#34;https://www.youdao.com/result?word=%7B%7D&amp;amp;lang=en%22&#34;&gt;https://www.youdao.com/result?word={}&amp;amp;lang=en&amp;quot;&lt;/a&gt; 并访问，再通过解析 Html 文件获得单词解释。一个朋友说他用的是 sdcv ，星际译王的终端版本，可以支持离线词典。我也时常脱机工作，对离线词典的需求也不小，所以打算自己写一个支持 StarDict 格式离线词典的软件。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>内联汇编</title>
+      <link>https://vaaandark.top/posts/inline-assembly/</link>
+      <pubDate>Mon, 02 Jan 2023 16:27:19 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/inline-assembly/</guid>
+      <description>&lt;p&gt;高中第一次看到在 C 语言中嵌入汇编语言时，我就觉得它非常好玩，到大学刚开学的时候，我甚至有使用它的需求，可惜直到现在我才抽出时间开始学习它。&lt;/p&gt;
+&lt;h2 id=&#34;分类&#34;&gt;分类&lt;/h2&gt;
+&lt;p&gt;在 GNU 的 GCC 中，内联汇编被分为两类：&lt;strong&gt;Basic asm&lt;/strong&gt; 和 &lt;strong&gt;Extended asm&lt;/strong&gt; 。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>ARM与80X86的异同</title>
+      <link>https://vaaandark.top/posts/differences-between-arm-and-80x86/</link>
+      <pubDate>Tue, 08 Nov 2022 20:35:20 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/differences-between-arm-and-80x86/</guid>
+      <description>&lt;p&gt;今天初步认识了 ARM 汇编。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;cpu-内寄存器&#34;&gt;CPU 内寄存器&lt;/h2&gt;
+&lt;p&gt;aarch64 有 31 个 64 位通用寄存器，它们的名字是为 xn（n 为 0-30 的整数），不像 80X86 一样暗示了它们的用途。&lt;/p&gt;
+&lt;p&gt;类似 rax 和 eax 的关系，它们对应的 32 位寄存器叫做 wn（n 为 0-30 的整数）。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>稍微深入VLA</title>
+      <link>https://vaaandark.top/posts/dive-in-vla/</link>
+      <pubDate>Thu, 20 Oct 2022 10:50:10 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/dive-in-vla/</guid>
+      <description>&lt;p&gt;最近在学习汇编语言，和朋友聊天时聊到了 C 语言中的变长数组，想知道在汇编后是什么样子的。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;变长数组variable-length-array&#34;&gt;变长数组(Variable-length array)&lt;/h2&gt;
+&lt;p&gt;可变长数组是指在计算机程序设计中，数组对象的长度在运行时（而不是编译时）确定。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>80X86汇编语言学习</title>
+      <link>https://vaaandark.top/posts/80x86-learning/</link>
+      <pubDate>Tue, 27 Sep 2022 14:47:57 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/80x86-learning/</guid>
+      <description>&lt;p&gt;汇编语言学习笔记&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;预备知识&#34;&gt;预备知识&lt;/h2&gt;
+&lt;h3 id=&#34;intel-机器&#34;&gt;Intel 机器&lt;/h3&gt;
+&lt;h4 id=&#34;微型计算机的构成&#34;&gt;微型计算机的构成&lt;/h4&gt;
+&lt;p&gt;&lt;img alt=&#34;微型计算机的构成&#34; loading=&#34;lazy&#34; src=&#34;https://vaaandark.top/image/asm-intel-x86.png&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;80x86-微处理器的基本结构&#34;&gt;80X86 微处理器的基本结构&lt;/h4&gt;
+&lt;p&gt;&lt;img alt=&#34;80X86微处理器的基本结构&#34; loading=&#34;lazy&#34; src=&#34;https://vaaandark.top/image/asm-80x86.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;数据寄存器组&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;数据寄存器组&#34; loading=&#34;lazy&#34; src=&#34;https://vaaandark.top/image/asm-data-registers.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;段寄存器组&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;段寄存器组&#34; loading=&#34;lazy&#34; src=&#34;https://vaaandark.top/image/asm-seg-registers.png&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;80x86-的三种工作方式&#34;&gt;80X86 的三种工作方式&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;实地址模式&lt;/li&gt;
+&lt;li&gt;保护模式&lt;/li&gt;
+&lt;li&gt;虚拟 8086 方式（V86方式）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;数据在计算机内的表示形式&#34;&gt;数据在计算机内的表示形式&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;有符号数、无符号数、浮点数等相关知识见 CSAPP&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>C语言异常处理</title>
+      <link>https://vaaandark.top/posts/c-exception/</link>
+      <pubDate>Tue, 03 May 2022 19:36:40 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/c-exception/</guid>
+      <description>&lt;p&gt;C 语言没有原生支持异常处理，但是可以使用&lt;code&gt;setjmp&lt;/code&gt;和&lt;code&gt;longjmp&lt;/code&gt;函数实现类似&lt;code&gt;try ... except&lt;/code&gt;的功能。&lt;/p&gt;
+&lt;p&gt;本文主要参考：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;C Interfaces and Implementation&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;em&gt;&lt;strong&gt;&lt;a href=&#34;https://www.hpl.hp.com/techreports/Compaq-DEC/SRC-RR-40.pdf&#34;&gt;Implementing exceptions in C&lt;/a&gt;&lt;/strong&gt;&lt;/em&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;setjmph&#34;&gt;setjmp.h&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;setjmp.h&lt;/code&gt;是 C 标准函数库中提供“非本地跳转”的头文件：控制流偏离了通常的子程序调用与返回序列。互补的两个函数&lt;code&gt;setjmp&lt;/code&gt;与&lt;code&gt;longjmp&lt;/code&gt;提供了这种功能。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Rust闭包</title>
+      <link>https://vaaandark.top/posts/rust-closure/</link>
+      <pubDate>Tue, 26 Apr 2022 23:15:48 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/rust-closure/</guid>
+      <description>&lt;p&gt;Rust 支持函数式编程，因此高阶函数、闭包等特性都不可或缺。&lt;/p&gt;
+&lt;p&gt;本文主要参考了 &lt;em&gt;&lt;strong&gt;Rust Course&lt;/strong&gt;&lt;/em&gt; 和 Rust 标准库文档。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;什么是闭包&#34;&gt;什么是闭包&lt;/h2&gt;
+&lt;p&gt;闭包是在支持头等函数的编程语言中实现词法绑定的一种技术，与函数不同的是，它可以捕捉自由变量，这意味着即使脱离了闭包创建时的上下文也能正常运行。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Rust迭代器</title>
+      <link>https://vaaandark.top/posts/rust-iterator/</link>
+      <pubDate>Mon, 25 Apr 2022 23:22:24 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/rust-iterator/</guid>
+      <description>&lt;p&gt;最近一直在学习 Rust 语言，深感它的学习曲线很陡峭，因此会写几篇博客记录一下学习进度。&lt;/p&gt;
+&lt;p&gt;本文主要参考了 &lt;em&gt;&lt;strong&gt;Rust Course&lt;/strong&gt;&lt;/em&gt; 和 Rust 标准库文档。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;什么是迭代器&#34;&gt;什么是迭代器&lt;/h2&gt;
+&lt;p&gt;迭代器（iterator），是确使用户可在容器对象（container，例如链表或数组）上遍访的对象，设计人员使用此接口无需关心容器对象的内存分配的实现细节。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Lua入门</title>
+      <link>https://vaaandark.top/posts/lua-introduction/</link>
+      <pubDate>Wed, 23 Mar 2022 23:40:09 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/lua-introduction/</guid>
+      <description>&lt;p&gt;最近对脚本语言 Lua 很感兴趣，其一是因为它可以很方便地调用 C 语言库，其二是因为它是很多现代化工具的配置语言（比如 NeoVim ），另外 Lua 的源代码不是很长，因此研究学习难度会比其他语言更低。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

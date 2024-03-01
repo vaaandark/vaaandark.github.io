@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>OpenMP入门 | vaaandark&#39;s blog</title>
+<meta name="keywords" content="高性能, C语言, C&#43;&#43;, 并行">
+<meta name="description" content="写 OpenMP 的时候总是感觉怪怪的，不知道什么时候该用什么，所以最近系统化地看一遍 OpenMP 的使用，主体为 OpenMP 2.0 和 3.0。
+
+What is OpenMP?
+OpenMP Model
+
+每个线程都有可以访问全局的共享内存。
+数据可以是共享的也可以是私有的。
+共享的数据可以被所有线程访问。
+私有数据只能被拥有它的线程访问。
+数据的传递对于编程者是透明的。
+同步会发生，但是它大部分时候是隐式的。
+
+">
+<meta name="author" content="vaaandark">
+<link rel="canonical" href="https://vaaandark.top/posts/openmp-introduction/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.556a50c7c92c2556e588f602528ac3c41884cdb6e537ce0647b5e200cd1c2094.css" integrity="sha256-VWpQx8ksJVbliPYCUorDxBiEzbblN84GR7XiAM0cIJQ=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="apple-touch-icon" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="mask-icon" href="https://vaaandark.top/image/vaaandark.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://vaaandark.top/posts/openmp-introduction/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://vaaandark.top/posts/openmp-introduction/">
+  <meta property="og:site_name" content="vaaandark&#39;s blog">
+  <meta property="og:title" content="OpenMP入门">
+  <meta property="og:description" content="写 OpenMP 的时候总是感觉怪怪的，不知道什么时候该用什么，所以最近系统化地看一遍 OpenMP 的使用，主体为 OpenMP 2.0 和 3.0。
+What is OpenMP? OpenMP Model 每个线程都有可以访问全局的共享内存。 数据可以是共享的也可以是私有的。 共享的数据可以被所有线程访问。 私有数据只能被拥有它的线程访问。 数据的传递对于编程者是透明的。 同步会发生，但是它大部分时候是隐式的。 ">
+  <meta property="og:locale" content="zh-CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-07-29T09:03:18+00:00">
+    <meta property="article:modified_time" content="2022-07-29T09:03:18+00:00">
+    <meta property="article:tag" content="高性能">
+    <meta property="article:tag" content="C语言">
+    <meta property="article:tag" content="C&#43;&#43;">
+    <meta property="article:tag" content="并行">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="OpenMP入门">
+<meta name="twitter:description" content="写 OpenMP 的时候总是感觉怪怪的，不知道什么时候该用什么，所以最近系统化地看一遍 OpenMP 的使用，主体为 OpenMP 2.0 和 3.0。
+
+What is OpenMP?
+OpenMP Model
+
+每个线程都有可以访问全局的共享内存。
+数据可以是共享的也可以是私有的。
+共享的数据可以被所有线程访问。
+私有数据只能被拥有它的线程访问。
+数据的传递对于编程者是透明的。
+同步会发生，但是它大部分时候是隐式的。
+
+">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://vaaandark.top/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "OpenMP入门",
+      "item": "https://vaaandark.top/posts/openmp-introduction/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "OpenMP入门",
+  "name": "OpenMP入门",
+  "description": "写 OpenMP 的时候总是感觉怪怪的，不知道什么时候该用什么，所以最近系统化地看一遍 OpenMP 的使用，主体为 OpenMP 2.0 和 3.0。\nWhat is OpenMP? OpenMP Model 每个线程都有可以访问全局的共享内存。 数据可以是共享的也可以是私有的。 共享的数据可以被所有线程访问。 私有数据只能被拥有它的线程访问。 数据的传递对于编程者是透明的。 同步会发生，但是它大部分时候是隐式的。 ",
+  "keywords": [
+    "高性能", "C语言", "C++", "并行"
+  ],
+  "articleBody": "写 OpenMP 的时候总是感觉怪怪的，不知道什么时候该用什么，所以最近系统化地看一遍 OpenMP 的使用，主体为 OpenMP 2.0 和 3.0。\nWhat is OpenMP? OpenMP Model 每个线程都有可以访问全局的共享内存。 数据可以是共享的也可以是私有的。 共享的数据可以被所有线程访问。 私有数据只能被拥有它的线程访问。 数据的传递对于编程者是透明的。 同步会发生，但是它大部分时候是隐式的。 Data-Sharing Attributes 在一个 OpenMP 程序中，数据需要被打上标签，有两种基本类型：\n共享的 只有一个数据的实例 所有的线程都可以同步地读或者写，除非有特定的 OpenMP 结构保护它 所有数据变化都对所有线程可见 但是除非强制，并不需要变化立即可见\n私有的 每一个线程持有一份数据的拷贝 其他线程无权访问该数据 数据变化只对拥有者线程可见 其余的一些类型也是基于以上变化而来\nThe OpenMP Execution Model OpenMP 程序执行模型被称为 Fork and Join Model，在不需要并行执行时只有一个主线程，在需要并行时 Fork 出多个 Worker 线程，在经历了同步之后 Join 到一个主线程。\nHow to use OpenMP? A first OpenMP example #include #include #include int main(void) { # pragma omp parallel for num_threads(4) for (int i = 0; i \u003c 20; ++i) { printf(\"Hello from thread %d of %d\\n\", \\ omp_get_thread_num(), \\ omp_get_num_threads()); } return 0; } gcc -o for for.c -fopenmp ./for 如果不指定线程数，就会默认使用 CPU 实际能同时运行的个数，在我的 8 核 16 线程的电脑上就是 16 个线程。\nMatrix example # pragma omp parallel for default(none) \\ private(i, j, sum) \\ shared(m, n, a, b, c) for (i = 0; i \u003c m; ++i) { sum = 0.0f; for (j = 0; j \u003c n; ++j) { sum += b[i][j] * c[j]; } a[i] = sum; } 以 #pragma 开头的语句要写在同一行（类似宏）\nA more elaborate example # pragma omp parallel if (n\u003elimit) default(none) \\ shared(n, a, b, c, x, y, z) private(f, i, scale) // 使用 if 语句来避免因为矩阵过小导致的并行衰退 { f = 1.0f; # pragma omp for nowait // nowait 每个线程完成自己的工作后不等待其他线程 // 而是直接执行后面的代码 for (i = 0; i \u003c n; ++i) z[i] = x[i] + y[i]; # pragma omp for nowait for (i = 0; i \u003c n; ++i) a[i] = b[i] + c[i]; # pragma omp barrier // 在此处显示说明要同步 // ... scale = sum(a, 0, n) + sum(z, 0, 0) + f; // ... } OpenMp in Some More Detail Terminology and behavior OpenMP Team := Master + Worker 并行域(Parallel Region)是所有线程同步执行的代码块 主线程 ID 永远是 0 线程调整（如果有的话）都只会在进入并行域之后完成 并行域是可以嵌套的 if 语句可以用于并行域，如果为假则会串行执行 有一个 work-sharing 结构(例如 Single, Sections 等)在分配任务给 team 中的成员 The if / private / shared clauses if (scalar expression) private(list) firstprivate(list) 在第一个循环继承共享变量的值 lastprivate(list) 根据逻辑上的最后一个线程给共享变量赋值（不是实际运行完的最后一个线程，对于 for 循环就是最后一次迭代的值） shared(list) The nowait clause 为了最小化同步带来的损失，可以使用 nowait 。如果出现了 nowait ，线程将在特定代码块之后不同步或者等待。\nThe sections directive #pragma omp parallel default(none) \\ shared(n,a,b,c,d) private(i) { #pragma omp sections nowait // 下面两个 section 是并行的 { #pragma omp section for (i = 0; i \u003c n - 1; ++i) b[i] = (a[i] + a[i + 1] / 2); #pragma omp section for (i = 0; i \u003c n; ++i) d[i] = 1.0f / c[i]; } /*-- End of sections --*/ } /*-- End of parallel region --*/ Single processor region 这种结构作 I/O 或者初始化非常理想。\n例如在一个并行域中需要进行 IO 操作，这时可以在读取后放一个 barrier ，但是根据 Amdahl 定理，这会成为拓展这段代码时的瓶颈。\n此时可以使用 single 或者 master 将任务只分配给一个线程，其中 master 只会分配给 master 线程。如此一来，无论是在入口还是出口都没有使用 barrier 。\nCritical Region 在如下代码块中，如果 sum 是一个共享变量，那么就可能在并行中发生数据竞争的问题。\nfor (i = 0; i \u003c N; ++i) { // ... sum += a[i]; // ... } 我们可以使用 critical region ，在同一时间段内只会有一个线程执行该语句。\n#pragma omp critical [(name)] 有的时候也可以使用 Atomic ，但是要注意 Atomic 只是原子地载入和存储，它们并不完全等效。\n能用 Atomic 时尽量使用 Atomic ，因为其更加轻量。\n#pragma omp atomic [(name)] OpenMP 3.0 supports for TASKS 在 3.0 版本中，OpenMP 增加了对 task 的支持，更多的东西可以并行化了。\nA Linked List Example while(my_pointer) { (void)do_independent_work(my_pointer); my_pointer = my_pointer-\u003enext ; } // End of while loop 上述代码在 OpenMP 2.0 中想要并行化会较为困难，但是在 3.0 增加了对 task 的支持之后便容易了许多。\n#pragma omp parallel { #pragma omp single nowait { while (my_pointer) { #pragma omp task firstprivate(my_pointer) // task 在此处并行执行 { (void)do_independent_work(my_pointer) } my_pointer = my_pointer-\u003enext; } } // End of single - no implied barrier (nowait) } // End of parallel region - implied barrier 参考资料 OpenMP Tutorials An Overview of OpenMP - Ruud van der Pas - Sun Microsystems Tim Matton’s “Introduction fo OpenMP” ",
+  "wordCount" : "1478",
+  "inLanguage": "zh",
+  "datePublished": "2022-07-29T09:03:18Z",
+  "dateModified": "2022-07-29T09:03:18Z",
+  "author":{
+    "@type": "Person",
+    "name": "vaaandark"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://vaaandark.top/posts/openmp-introduction/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "vaaandark's blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://vaaandark.top/image/vaaandark.png"
+    }
+  }
+}
+</script>
+
+
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://vaaandark.top/" accesskey="h" title="vaaandark&#39;s blog (Alt + H)">
+                <img src="https://vaaandark.top/image/vaaandark.png" alt="" aria-label="logo"
+                    height="35">vaaandark&#39;s blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://vaaandark.top/" title="🏠主页">
+                    <span>🏠主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/posts/" title="Posts">
+                    <span>📄 归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/categories/" title="categories">
+                    <span>📂 分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/tags/" title="tags">
+                    <span>🔖 标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/about/" title="关于我">
+                    <span>🙋 关于</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/links/" title="友链">
+                    <span>🤝 友链</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://vaaandark.top/">主页</a>&nbsp;»&nbsp;<a href="https://vaaandark.top/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      OpenMP入门
+    </h1>
+    <div class="post-meta"><span title='2022-07-29 09:03:18 +0000 UTC'>2022 7月 29</span>&nbsp;·&nbsp;3 分钟&nbsp;·&nbsp;vaaandark
+
+</div>
+  </header> <div class="toc">
+    <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#what-is-openmp" aria-label="What is OpenMP?">What is OpenMP?</a><ul>
+                        
+                <li>
+                    <a href="#openmp-model" aria-label="OpenMP Model">OpenMP Model</a></li>
+                <li>
+                    <a href="#data-sharing-attributes" aria-label="Data-Sharing Attributes">Data-Sharing Attributes</a></li>
+                <li>
+                    <a href="#the-openmp-execution-model" aria-label="The OpenMP Execution Model">The OpenMP Execution Model</a></li></ul>
+                </li>
+                <li>
+                    <a href="#how-to-use-openmp" aria-label="How to use OpenMP?">How to use OpenMP?</a><ul>
+                        
+                <li>
+                    <a href="#a-first-openmp-example" aria-label="A first OpenMP example">A first OpenMP example</a></li>
+                <li>
+                    <a href="#matrix-example" aria-label="Matrix example">Matrix example</a></li>
+                <li>
+                    <a href="#a-more-elaborate-example" aria-label="A more elaborate example">A more elaborate example</a></li></ul>
+                </li>
+                <li>
+                    <a href="#openmp-in-some-more-detail" aria-label="OpenMp in Some More Detail">OpenMp in Some More Detail</a><ul>
+                        
+                <li>
+                    <a href="#terminology-and-behavior" aria-label="Terminology and behavior">Terminology and behavior</a></li>
+                <li>
+                    <a href="#the-if--private--shared-clauses" aria-label="The if / private / shared clauses">The if / private / shared clauses</a></li>
+                <li>
+                    <a href="#the-nowait-clause" aria-label="The nowait clause">The nowait clause</a></li>
+                <li>
+                    <a href="#the-sections-directive" aria-label="The sections directive">The sections directive</a></li>
+                <li>
+                    <a href="#single-processor-region" aria-label="Single processor region">Single processor region</a></li>
+                <li>
+                    <a href="#critical-region" aria-label="Critical Region">Critical Region</a></li></ul>
+                </li>
+                <li>
+                    <a href="#openmp-30-supports-for-tasks" aria-label="OpenMP 3.0 supports for TASKS">OpenMP 3.0 supports for TASKS</a><ul>
+                        
+                <li>
+                    <a href="#a-linked-list-example" aria-label="A Linked List Example">A Linked List Example</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99" aria-label="参考资料">参考资料</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>写 OpenMP 的时候总是感觉怪怪的，不知道什么时候该用什么，所以最近系统化地看一遍 OpenMP 的使用，主体为 OpenMP 2.0 和 3.0。</p>
+<!-- more -->
+<h2 id="what-is-openmp">What is OpenMP?<a hidden class="anchor" aria-hidden="true" href="#what-is-openmp">#</a></h2>
+<h3 id="openmp-model">OpenMP Model<a hidden class="anchor" aria-hidden="true" href="#openmp-model">#</a></h3>
+<ul>
+<li>每个线程都有可以访问全局的共享内存。</li>
+<li>数据可以是共享的也可以是私有的。</li>
+<li>共享的数据可以被所有线程访问。</li>
+<li>私有数据只能被拥有它的线程访问。</li>
+<li>数据的传递对于编程者是透明的。</li>
+<li>同步会发生，但是它大部分时候是隐式的。</li>
+</ul>
+<p><img alt="OpenMP Model" loading="lazy" src="/image/openmp-model.png"></p>
+<h3 id="data-sharing-attributes">Data-Sharing Attributes<a hidden class="anchor" aria-hidden="true" href="#data-sharing-attributes">#</a></h3>
+<p>在一个 OpenMP 程序中，数据需要被打上标签，有两种基本类型：</p>
+<ul>
+<li>共享的
+<ul>
+<li>只有一个数据的实例</li>
+<li>所有的线程都可以同步地读或者写，除非有特定的 OpenMP 结构保护它</li>
+<li>所有数据变化都对所有线程可见</li>
+</ul>
+<blockquote>
+<p>但是除非强制，并不需要变化立即可见</p>
+</blockquote>
+</li>
+<li>私有的
+<ul>
+<li>每一个线程持有一份数据的拷贝</li>
+<li>其他线程无权访问该数据</li>
+<li>数据变化只对拥有者线程可见</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>其余的一些类型也是基于以上变化而来</p>
+</blockquote>
+<h3 id="the-openmp-execution-model">The OpenMP Execution Model<a hidden class="anchor" aria-hidden="true" href="#the-openmp-execution-model">#</a></h3>
+<p>OpenMP 程序执行模型被称为 Fork and Join Model，在不需要并行执行时只有一个主线程，在需要并行时 Fork 出多个 Worker 线程，在经历了同步之后 Join 到一个主线程。</p>
+<p><img alt="Fork and Join" loading="lazy" src="/image/openmp-fork-and-join-model.png"></p>
+<h2 id="how-to-use-openmp">How to use OpenMP?<a hidden class="anchor" aria-hidden="true" href="#how-to-use-openmp">#</a></h2>
+<h3 id="a-first-openmp-example">A first OpenMP example<a hidden class="anchor" aria-hidden="true" href="#a-first-openmp-example">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold">#include</span> <span style="color:#0f0;font-weight:bold">&lt;stdio.h&gt;</span><span style="color:#0f0;font-weight:bold">
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold">#include</span> <span style="color:#0f0;font-weight:bold">&lt;stdlib.h&gt;</span><span style="color:#0f0;font-weight:bold">
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold">#include</span> <span style="color:#0f0;font-weight:bold">&lt;omp.h&gt;</span><span style="color:#0f0;font-weight:bold">
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold"></span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">int</span> main(<span style="color:#fff;font-weight:bold">void</span>)
+</span></span><span style="display:flex;"><span>{
+</span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold"># pragma omp parallel for num_threads(4)
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold"></span>	<span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> i = <span style="color:#ff0;font-weight:bold">0</span>; i &lt; <span style="color:#ff0;font-weight:bold">20</span>; ++i) {
+</span></span><span style="display:flex;"><span>	printf(<span style="color:#0ff;font-weight:bold">&#34;Hello from thread %d of %d</span><span style="color:#0ff;font-weight:bold">\n</span><span style="color:#0ff;font-weight:bold">&#34;</span>, \
+</span></span><span style="display:flex;"><span>			omp_get_thread_num(), \
+</span></span><span style="display:flex;"><span>			omp_get_num_threads());
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#fff;font-weight:bold">return</span> <span style="color:#ff0;font-weight:bold">0</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span>gcc -o for for.c -fopenmp
+</span></span><span style="display:flex;"><span>./for
+</span></span></code></pre></div><p>如果不指定线程数，就会默认使用 CPU 实际能同时运行的个数，在我的 8 核 16 线程的电脑上就是 16 个线程。</p>
+<h3 id="matrix-example">Matrix example<a hidden class="anchor" aria-hidden="true" href="#matrix-example">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold"># pragma omp parallel for default(none) \
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold">    private(i, j, sum) \
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold">    shared(m, n, a, b, c)
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold"></span><span style="color:#fff;font-weight:bold">for</span> (i = <span style="color:#ff0;font-weight:bold">0</span>; i &lt; m; ++i) {
+</span></span><span style="display:flex;"><span>    sum = <span style="color:#ff0;font-weight:bold">0.0f</span>;
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">for</span> (j = <span style="color:#ff0;font-weight:bold">0</span>; j &lt; n; ++j) {
+</span></span><span style="display:flex;"><span>        sum += b[i][j] * c[j];
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    a[i] = sum;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><blockquote>
+<p>以 #pragma 开头的语句要写在同一行（类似宏）</p>
+</blockquote>
+<h3 id="a-more-elaborate-example">A more elaborate example<a hidden class="anchor" aria-hidden="true" href="#a-more-elaborate-example">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold"># pragma omp parallel if (n&gt;limit) default(none) \
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold">    shared(n, a, b, c, x, y, z) private(f, i, scale)
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold"></span><span style="color:#007f7f">// 使用 if 语句来避免因为矩阵过小导致的并行衰退
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>{
+</span></span><span style="display:flex;"><span>    f = <span style="color:#ff0;font-weight:bold">1.0f</span>;
+</span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold"># pragma omp for nowait
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold"></span><span style="color:#007f7f">// nowait 每个线程完成自己的工作后不等待其他线程
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">// 而是直接执行后面的代码
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    <span style="color:#fff;font-weight:bold">for</span> (i = <span style="color:#ff0;font-weight:bold">0</span>; i &lt; n; ++i)
+</span></span><span style="display:flex;"><span>        z[i] = x[i] + y[i];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold"># pragma omp for nowait
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold"></span>    <span style="color:#fff;font-weight:bold">for</span> (i = <span style="color:#ff0;font-weight:bold">0</span>; i &lt; n; ++i)
+</span></span><span style="display:flex;"><span>        a[i] = b[i] + c[i];
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold"># pragma omp barrier
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold"></span><span style="color:#007f7f">// 在此处显示说明要同步
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    <span style="color:#007f7f">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    scale = sum(a, <span style="color:#ff0;font-weight:bold">0</span>, n) + sum(z, <span style="color:#ff0;font-weight:bold">0</span>, <span style="color:#ff0;font-weight:bold">0</span>) + f;
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>}
+</span></span></code></pre></div><h2 id="openmp-in-some-more-detail">OpenMp in Some More Detail<a hidden class="anchor" aria-hidden="true" href="#openmp-in-some-more-detail">#</a></h2>
+<h3 id="terminology-and-behavior">Terminology and behavior<a hidden class="anchor" aria-hidden="true" href="#terminology-and-behavior">#</a></h3>
+<ul>
+<li>OpenMP Team := Master + Worker</li>
+<li>并行域(Parallel Region)是所有线程同步执行的代码块
+<ul>
+<li>主线程 ID 永远是 0</li>
+<li>线程调整（如果有的话）都只会在进入并行域之后完成</li>
+<li>并行域是可以嵌套的</li>
+<li>if 语句可以用于并行域，如果为假则会串行执行</li>
+</ul>
+</li>
+<li>有一个 work-sharing 结构(例如 Single, Sections 等)在分配任务给 team 中的成员</li>
+</ul>
+<h3 id="the-if--private--shared-clauses">The if / private / shared clauses<a hidden class="anchor" aria-hidden="true" href="#the-if--private--shared-clauses">#</a></h3>
+<ul>
+<li><code>if (scalar expression)</code></li>
+<li><code>private(list)</code></li>
+<li><code>firstprivate(list)</code> 在第一个循环继承共享变量的值</li>
+<li><code>lastprivate(list)</code> 根据逻辑上的最后一个线程给共享变量赋值（不是实际运行完的最后一个线程，对于 for 循环就是最后一次迭代的值）</li>
+<li><code>shared(list)</code></li>
+</ul>
+<h3 id="the-nowait-clause">The nowait clause<a hidden class="anchor" aria-hidden="true" href="#the-nowait-clause">#</a></h3>
+<p>为了最小化同步带来的损失，可以使用 nowait 。如果出现了 nowait ，线程将在特定代码块之后不同步或者等待。</p>
+<h3 id="the-sections-directive">The sections directive<a hidden class="anchor" aria-hidden="true" href="#the-sections-directive">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold">#pragma omp parallel default(none) \
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold">    shared(n,a,b,c,d) private(i)
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold"></span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#0f0;font-weight:bold">#pragma omp sections nowait
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold"></span>    <span style="color:#007f7f">// 下面两个 section 是并行的
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#0f0;font-weight:bold">#pragma omp section
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold"></span>        <span style="color:#fff;font-weight:bold">for</span> (i = <span style="color:#ff0;font-weight:bold">0</span>; i &lt; n - <span style="color:#ff0;font-weight:bold">1</span>; ++i)
+</span></span><span style="display:flex;"><span>            b[i] = (a[i] + a[i + <span style="color:#ff0;font-weight:bold">1</span>] / <span style="color:#ff0;font-weight:bold">2</span>);
+</span></span><span style="display:flex;"><span>        <span style="color:#0f0;font-weight:bold">#pragma omp section
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold"></span>        <span style="color:#fff;font-weight:bold">for</span> (i = <span style="color:#ff0;font-weight:bold">0</span>; i &lt; n; ++i)
+</span></span><span style="display:flex;"><span>            d[i] = <span style="color:#ff0;font-weight:bold">1.0f</span> / c[i];
+</span></span><span style="display:flex;"><span>    } <span style="color:#007f7f">/*-- End of sections --*/</span>
+</span></span><span style="display:flex;"><span>} <span style="color:#007f7f">/*-- End of parallel region --*/</span>
+</span></span></code></pre></div><h3 id="single-processor-region">Single processor region<a hidden class="anchor" aria-hidden="true" href="#single-processor-region">#</a></h3>
+<p>这种结构作 I/O 或者初始化非常理想。</p>
+<p>例如在一个并行域中需要进行 IO 操作，这时可以在读取后放一个 barrier ，但是根据 Amdahl 定理，这会成为拓展这段代码时的瓶颈。</p>
+<p><img alt="bottleneck" loading="lazy" src="/image/openmp-single.png"></p>
+<p>此时可以使用 single 或者 master 将任务只分配给一个线程，其中 master 只会分配给 master 线程。如此一来，无论是在入口还是出口都没有使用 barrier 。</p>
+<h3 id="critical-region">Critical Region<a hidden class="anchor" aria-hidden="true" href="#critical-region">#</a></h3>
+<p>在如下代码块中，如果 sum 是一个共享变量，那么就可能在并行中发生数据竞争的问题。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">for</span> (i = <span style="color:#ff0;font-weight:bold">0</span>; i &lt; N; ++i) {
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    sum += a[i];
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>}
+</span></span></code></pre></div><p>我们可以使用 critical region ，在同一时间段内只会有一个线程执行该语句。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold">#pragma omp critical [(name)]
+</span></span></span></code></pre></div><p><img alt="critical region" loading="lazy" src="/image/openmp-critical-region.png"></p>
+<p>有的时候也可以使用 Atomic ，但是要注意 Atomic 只是原子地载入和存储，它们并不完全等效。</p>
+<blockquote>
+<p>能用 Atomic 时尽量使用 Atomic ，因为其更加轻量。</p>
+</blockquote>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold">#pragma omp atomic [(name)]
+</span></span></span></code></pre></div><h2 id="openmp-30-supports-for-tasks">OpenMP 3.0 supports for TASKS<a hidden class="anchor" aria-hidden="true" href="#openmp-30-supports-for-tasks">#</a></h2>
+<p>在 3.0 版本中，OpenMP 增加了对 task 的支持，更多的东西可以并行化了。</p>
+<h3 id="a-linked-list-example">A Linked List Example<a hidden class="anchor" aria-hidden="true" href="#a-linked-list-example">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">while</span>(my_pointer) {
+</span></span><span style="display:flex;"><span>    (<span style="color:#fff;font-weight:bold">void</span>)do_independent_work(my_pointer);
+</span></span><span style="display:flex;"><span>    my_pointer = my_pointer-&gt;next ;
+</span></span><span style="display:flex;"><span>} <span style="color:#007f7f">// End of while loop
+</span></span></span></code></pre></div><p>上述代码在 OpenMP 2.0 中想要并行化会较为困难，但是在 3.0 增加了对 task 的支持之后便容易了许多。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold">#pragma omp parallel
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold"></span>{
+</span></span><span style="display:flex;"><span>    <span style="color:#0f0;font-weight:bold">#pragma omp single nowait
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold"></span>    {
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">while</span> (my_pointer) {
+</span></span><span style="display:flex;"><span>            <span style="color:#0f0;font-weight:bold">#pragma omp task firstprivate(my_pointer)
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold"></span>            <span style="color:#007f7f">// task 在此处并行执行
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>            {
+</span></span><span style="display:flex;"><span>                (<span style="color:#fff;font-weight:bold">void</span>)do_independent_work(my_pointer)
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            my_pointer = my_pointer-&gt;next;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    } <span style="color:#007f7f">// End of single - no implied barrier (nowait)
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>} <span style="color:#007f7f">// End of parallel region - implied barrier
+</span></span></span></code></pre></div><h2 id="参考资料">参考资料<a hidden class="anchor" aria-hidden="true" href="#参考资料">#</a></h2>
+<ul>
+<li><a href="https://www.openmp.org/resources/tutorials-articles/">OpenMP Tutorials</a></li>
+<li><a href="https://www.openmp.org/wp-content/uploads/ntu-vanderpas.pdf">An Overview of OpenMP - Ruud van der Pas - Sun Microsystems</a></li>
+<li><a href="https://www.openmp.org/wp-content/uploads/Intro_To_OpenMP_Mattson.pdf">Tim Matton&rsquo;s &ldquo;Introduction fo OpenMP&rdquo;</a></li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://vaaandark.top/tags/%E9%AB%98%E6%80%A7%E8%83%BD/">高性能</a></li>
+      <li><a href="https://vaaandark.top/tags/c%E8%AF%AD%E8%A8%80/">C语言</a></li>
+      <li><a href="https://vaaandark.top/tags/c&#43;&#43;/">C&#43;&#43;</a></li>
+      <li><a href="https://vaaandark.top/tags/%E5%B9%B6%E8%A1%8C/">并行</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://vaaandark.top/posts/openmp-advance/">
+    <span class="title">« 上一页</span>
+    <br>
+    <span>OpenMP进阶</span>
+  </a>
+  <a class="next" href="https://vaaandark.top/posts/essay-in-july/">
+    <span class="title">下一页 »</span>
+    <br>
+    <span>七月随笔</span>
+  </a>
+</nav>
+
+
+<ul class="share-buttons">
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share OpenMP入门 on x"
+            href="https://x.com/intent/tweet/?text=OpenMP%e5%85%a5%e9%97%a8&amp;url=https%3a%2f%2fvaaandark.top%2fposts%2fopenmp-introduction%2f&amp;hashtags=%e9%ab%98%e6%80%a7%e8%83%bd%2cC%e8%af%ad%e8%a8%80%2cC%2b%2b%2c%e5%b9%b6%e8%a1%8c">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M512 62.554 L 512 449.446 C 512 483.97 483.97 512 449.446 512 L 62.554 512 C 28.03 512 0 483.97 0 449.446 L 0 62.554 C 0 28.03 28.029 0 62.554 0 L 449.446 0 C 483.971 0 512 28.03 512 62.554 Z M 269.951 190.75 L 182.567 75.216 L 56 75.216 L 207.216 272.95 L 63.9 436.783 L 125.266 436.783 L 235.9 310.383 L 332.567 436.783 L 456 436.783 L 298.367 228.367 L 432.367 75.216 L 371.033 75.216 Z M 127.633 110 L 164.101 110 L 383.481 400.065 L 349.5 400.065 Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share OpenMP入门 on linkedin"
+            href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fvaaandark.top%2fposts%2fopenmp-introduction%2f&amp;title=OpenMP%e5%85%a5%e9%97%a8&amp;summary=OpenMP%e5%85%a5%e9%97%a8&amp;source=https%3a%2f%2fvaaandark.top%2fposts%2fopenmp-introduction%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share OpenMP入门 on reddit"
+            href="https://reddit.com/submit?url=https%3a%2f%2fvaaandark.top%2fposts%2fopenmp-introduction%2f&title=OpenMP%e5%85%a5%e9%97%a8">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share OpenMP入门 on facebook"
+            href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fvaaandark.top%2fposts%2fopenmp-introduction%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share OpenMP入门 on whatsapp"
+            href="https://api.whatsapp.com/send?text=OpenMP%e5%85%a5%e9%97%a8%20-%20https%3a%2f%2fvaaandark.top%2fposts%2fopenmp-introduction%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share OpenMP入门 on telegram"
+            href="https://telegram.me/share/url?text=OpenMP%e5%85%a5%e9%97%a8&amp;url=https%3a%2f%2fvaaandark.top%2fposts%2fopenmp-introduction%2f">
+            <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share OpenMP入门 on ycombinator"
+            href="https://news.ycombinator.com/submitlink?t=OpenMP%e5%85%a5%e9%97%a8&u=https%3a%2f%2fvaaandark.top%2fposts%2fopenmp-introduction%2f">
+            <svg version="1.1" xml:space="preserve" width="30px" height="30px" viewBox="0 0 512 512" fill="currentColor"
+                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
+                <path
+                    d="M449.446 0C483.971 0 512 28.03 512 62.554L512 449.446C512 483.97 483.97 512 449.446 512L62.554 512C28.03 512 0 483.97 0 449.446L0 62.554C0 28.03 28.029 0 62.554 0L449.446 0ZM183.8767 87.9921H121.8427L230.6673 292.4508V424.0079H281.3328V292.4508L390.1575 87.9921H328.1233L256 238.2489z" />
+            </svg>
+        </a>
+    </li>
+</ul>
+
+  </footer><script src="https://giscus.app/client.js"
+        data-repo="vaaandark/vaaandark.github.io"
+        data-repo-id="R_kgDOGsxTxw"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOGsxTx84CmAQ1"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+</script>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://vaaandark.top/">vaaandark&#39;s blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

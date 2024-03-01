@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>汇编 on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/%E6%B1%87%E7%BC%96/</link>
+    <description>Recent content in 汇编 on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 16 Sep 2022 16:22:34 +0000</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/%E6%B1%87%E7%BC%96/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>FreeDOS和masm开发环境配置</title>
+      <link>https://vaaandark.top/posts/freedos-and-masm-environment/</link>
+      <pubDate>Fri, 16 Sep 2022 16:22:34 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/freedos-and-masm-environment/</guid>
+      <description>&lt;p&gt;正在上计算机系统基础，目前主要是在讲汇编语言，使用的开发环境自然是又老又臭的 DOS 加上 MASM 。之前我看到过 FreeDOS 这个自由的 DOS 发行版，打算试吃一下，之后的汇编实验也将在这上面进行。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

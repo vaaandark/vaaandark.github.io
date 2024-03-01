@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>版本控制 on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/</link>
+    <description>Recent content in 版本控制 on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 08 Feb 2022 13:32:19 +0000</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/%E7%89%88%E6%9C%AC%E6%8E%A7%E5%88%B6/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>gitignore文件如何书写</title>
+      <link>https://vaaandark.top/posts/how-to-write-gitignore/</link>
+      <pubDate>Tue, 08 Feb 2022 13:32:19 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/how-to-write-gitignore/</guid>
+      <description>&lt;p&gt;之前使用&lt;code&gt;git&lt;/code&gt;基本只是把它当作提交到 &lt;strong&gt;GitHub&lt;/strong&gt; 上的工具，最多使用到的功能就是恢复误删的文件而已。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;在我之前的&lt;code&gt;git&lt;/code&gt;命令使用之中，基本上用的就是&lt;code&gt;git clone&lt;/code&gt;、&lt;code&gt;git add .&lt;/code&gt;、&lt;code&gt;git commit -m&lt;/code&gt;以及&lt;code&gt;git commit push&lt;/code&gt;。由于基本上是无脑&lt;code&gt;add&lt;/code&gt;，因此&lt;code&gt;.gitigore&lt;/code&gt;的文件书写比较重要。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

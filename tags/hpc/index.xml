@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>HPC on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/hpc/</link>
+    <description>Recent content in HPC on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 23 Dec 2023 22:03:25 +0800</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/hpc/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Pthread</title>
+      <link>https://vaaandark.top/posts/pthread/</link>
+      <pubDate>Sat, 23 Dec 2023 22:03:25 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/pthread/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;赛博考古：Linux 支持 POSIX 线程标准的前世今生&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;线程是什么&#34;&gt;线程是什么&lt;/h2&gt;
+&lt;p&gt;操作系统能够进行运算调度的最小单位。在一般的操作系统上，它被包含在进程之中，是进程中的实际运作单位。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

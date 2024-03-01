@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>线程 on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/%E7%BA%BF%E7%A8%8B/</link>
+    <description>Recent content in 线程 on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 13 May 2022 15:19:09 +0000</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/%E7%BA%BF%E7%A8%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Lua Coroutine</title>
+      <link>https://vaaandark.top/posts/lua-coroutine/</link>
+      <pubDate>Fri, 13 May 2022 15:19:09 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/lua-coroutine/</guid>
+      <description>&lt;p&gt;Lua 的一大特色就是协程的使用，在解释型语言中，如果不考虑嵌入到较为低级的语言（如 C 语言）中，就只需要操作调用栈并保存好上下文状态即可。但是 Lua 并不是一门纯粹依靠字节码的解释型语言，它常常与 C 语言反复嵌套，甚至出现 C 中调用 Lua ，Lua 中再调用 C 代码，，，的情况。一旦 Lua 调用的 C 库企图中断线程，再想恢复，就会是一个难题。好在 Lua 巧妙地解决了这些问题。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

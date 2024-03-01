@@ -1,0 +1,730 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Linux ，启动！ | vaaandark&#39;s blog</title>
+<meta name="keywords" content="Linux, UEFI">
+<meta name="description" content="
+&ldquo;pull oneself up by one&rsquo;s bootstraps.&rdquo;
+拽着鞋带把自己拉起来
+
+大家在安装 Arch Linux 或者其他 Linux 发行版时，可能会看到很多有关启动或者引导的名词，例如 BIOS 、UEFI 、GRUB 、ESP 、GPT 、LBA 、MBR 等等。有些名词比较熟悉，有些就会一头雾水，今天就来讲讲这些名词。">
+<meta name="author" content="vaaandark">
+<link rel="canonical" href="https://vaaandark.top/posts/linux-startup/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.556a50c7c92c2556e588f602528ac3c41884cdb6e537ce0647b5e200cd1c2094.css" integrity="sha256-VWpQx8ksJVbliPYCUorDxBiEzbblN84GR7XiAM0cIJQ=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="apple-touch-icon" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="mask-icon" href="https://vaaandark.top/image/vaaandark.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://vaaandark.top/posts/linux-startup/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://vaaandark.top/posts/linux-startup/">
+  <meta property="og:site_name" content="vaaandark&#39;s blog">
+  <meta property="og:title" content="Linux ，启动！">
+  <meta property="og:description" content=" “pull oneself up by one’s bootstraps.”
+拽着鞋带把自己拉起来
+大家在安装 Arch Linux 或者其他 Linux 发行版时，可能会看到很多有关启动或者引导的名词，例如 BIOS 、UEFI 、GRUB 、ESP 、GPT 、LBA 、MBR 等等。有些名词比较熟悉，有些就会一头雾水，今天就来讲讲这些名词。">
+  <meta property="og:locale" content="zh-CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2023-09-09T08:15:06+08:00">
+    <meta property="article:modified_time" content="2023-09-09T08:15:06+08:00">
+    <meta property="article:tag" content="Linux">
+    <meta property="article:tag" content="UEFI">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Linux ，启动！">
+<meta name="twitter:description" content="
+&ldquo;pull oneself up by one&rsquo;s bootstraps.&rdquo;
+拽着鞋带把自己拉起来
+
+大家在安装 Arch Linux 或者其他 Linux 发行版时，可能会看到很多有关启动或者引导的名词，例如 BIOS 、UEFI 、GRUB 、ESP 、GPT 、LBA 、MBR 等等。有些名词比较熟悉，有些就会一头雾水，今天就来讲讲这些名词。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://vaaandark.top/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Linux ，启动！",
+      "item": "https://vaaandark.top/posts/linux-startup/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Linux ，启动！",
+  "name": "Linux ，启动！",
+  "description": " \u0026ldquo;pull oneself up by one\u0026rsquo;s bootstraps.\u0026rdquo;\n拽着鞋带把自己拉起来\n大家在安装 Arch Linux 或者其他 Linux 发行版时，可能会看到很多有关启动或者引导的名词，例如 BIOS 、UEFI 、GRUB 、ESP 、GPT 、LBA 、MBR 等等。有些名词比较熟悉，有些就会一头雾水，今天就来讲讲这些名词。\n",
+  "keywords": [
+    "Linux", "UEFI"
+  ],
+  "articleBody": " “pull oneself up by one’s bootstraps.”\n拽着鞋带把自己拉起来\n大家在安装 Arch Linux 或者其他 Linux 发行版时，可能会看到很多有关启动或者引导的名词，例如 BIOS 、UEFI 、GRUB 、ESP 、GPT 、LBA 、MBR 等等。有些名词比较熟悉，有些就会一头雾水，今天就来讲讲这些名词。\nBIOS vs UEFI BIOS（Basic Input Output System，基本输入输出系统）是固化在计算机主板中的程序代码，其主要功能是在计算机上电时对硬件进行初始化配置，并将硬件操作封装为BIOS中断服务。这样，各种硬件间的差异便由 BIOS 负责维护，程序直接调用 BIOS 中断服务即可实现对硬件的控制。\n加电自检程序，在开机时负责检测硬件设备是否正常工作 系统初始化程序，其中包括硬件设备的初始化以及创建 BIOS 中断向量等 适配外围即插即用设备 CMOS 设置程序，负责读写保存在 CMOS 中的系统设置信息 UEFI（Unified Extensible Firmware Interface，统一可扩展固件接口）则是一种规范，它描述了操作系统和平台固件之间的接口，其目的是为操作系统和平台固件定义一种通信方法。在 UEFI 中，设备的访问是通过句柄（Handle）和协议（Protocol）抽象出来的。UEFI 通过将基础实现隔离在规范之外，以避免给设备的访问者带来负担，进而促进现有 BIOS 代码的重用。\nBIOS ，启动！ 在系统上电后，CPU 运行于实模式工作环境中，数据位宽为 16 位，最大物理地址寻址范围是 01 MB，其中的物理地址 0x0C00000x0FFFFF 保留给 BIOS 使用。开机后， CPU 首先跳转到物理地址 0x0FFFF0 处执行程序。一般情况下，这里是一条跳转指令， CPU 通过执行此处的跳转指令跳转到真正的 BIOS 入口地址处执行：\nBIOS代码首先做的是 POST（Power On Self Test，加电自检）操作，主要是检测关键设备是否正常工作，设备设置是否与CMOS中的设置一致。如果发现硬件错误，则通过喇叭报警 初始化显示设备并显示显卡信息，接着初始化其他设备 检测CPU和内存并显示检测结果 检测标准设备，例如硬盘、光驱、串口设备、并口设备等 检测即插即用设备，并为这些设备分配中断号、 I/O 端口和 DMA 通道等资源 如果硬件配置发生变化，那么这些变化的配置将更新到 CMOS 中 根据配置的启动顺序引导设备启动，通过BIOS中断将设备的引导程序入内存 将处理器的控制权交给引导程序，最终引导进入操作系统 UEFI ，启动！ 验证阶段（Security，SEC）。系统上电后，CPU 开始执行第一条指令，此时系统就进入 SEC 阶段。这个阶段的内存尚未被初始化，不可使用。所以， SEC 阶段最主要的工作是建立一些临时内存并将 CPU 切换到保护模式，这里提到的临时内存可以是处理器的缓存，亦或者系统的物理内存。 EFI 环境预初始化阶段（Pre-EFI Initialization Environment，PEI）。PEI 阶段最主要的工作就是对内存、CPU 以及芯片组等关键设备进行初始化。由于这部分代码没有进行压缩，因此代码必须越精简越好。而且，在PEI阶段还要确定操作系统的引导路径，初始化 UEFI 驱动和固件需要的内存。 驱动运行环境阶段（Driver Execution Environment，DXE）。DXE 是 EFI 最重要的阶段，大部分的驱动、固件加载工作都是在这个阶段完成的。 引导设备选择阶段（Boot Device Select，BDS）。BDS 阶段的主要工作是初始化控制台设备的环境变量，尝试加载环境变量列表中记录的驱动，并尝试从环境变量列表中记录的启动设备中启动。 临时系统运行阶段（Transient System Load，TSL）。这个阶段将进入 UEFI 的临时 Shell 系统环境。 运行时阶段（RunTime，RT）。当操作系统调用 EFI_BOOT_SERVICES.ExitBootServices 服务后，系统进入 RT 阶段。此时，DXE 与引导服务都将销毁，只有 EFI 运行时服务和 EFI 系统表可以继续使用。 后世阶段（After Life，AL）。当操作系统调用 EFI_RUNTIME_SERVICES.ResetSystem 服务或者调用 ACPI SleepState，系统进入 AL 阶段。触发异步事件（比如：SMI、NMI）亦可使系统进入 AL 阶段，这在服务器和工作站中比较常见。 BIOS 的缺点 \u0026 UEFI 的优点 正如 systemd 取代 init.d 的原因之一，BIOS 不支持异步工作模式，只能使用中断来实现各种服务；而 UEFI 可以舍弃中断这种比较耗时的操作外部设备的方式，仅仅保留了时钟中断。外部设备的操作采用“事件+异步操作”完成。 功能拓展性与拓展性：BIOS 代码采用静态链接，增加硬件功能时，必须将 16 位代码放置在 0x0C0000~0x0DFFFF 区间，初始化时将其设置为约定的中断处理程序。而且 BIOS 没有提供动态加载设备驱动的方案。而 UEFI 系统的可扩展性体现在两个方面：一是驱动的模块化设计；二是软硬件升级的兼容性。大部分硬件的初始化通过 UEFI 驱动实现。每个驱动是一个独立的模块，可以包含在固件中，也可以放在设备上，运行时根据需要动态加载。UEFI 中的每个表和协议（包括驱动）都有版本号，这使得系统升级过程更加简单、平滑。 BIOS 不支持从硬盘 2TB 以上的地址空间引导：受限于 BIOS 硬盘的寻址方式，BIOS 硬盘采用 32 位地址，因而引导扇区的最大逻辑块地址是 2^32（换算成字节地址，即 2^32×512B=2TB） MBR vs GPT Legacy MBR（Master Boot Record）是为 BIOS 引导方式设计的磁盘引导扇区结构，其绝大部分功能结构都保存在磁盘的引导扇区。而 GPT（GUID Partition table）却是区别于 legacy MBR 磁盘布局的一种全新布局，它专为 UEFI 固件使用：\n64 位的LBA（Logical Block Address）磁盘扇区寻址，而不是 32 位 支持更多分区，而不仅仅是四个主分区 为主分区表提供冗余的备份分区表 使用版本号和大小字段为将来做扩展 使用 CRC32 字段改进数据完整性 定义用于唯一标识每个分区的 GUID 使用 GUID 和属性定义分区类型 每个分区包含一个 36 字符的人类可读名称 为了兼容 legacy MBR 磁盘布局，GPT 仍使用 legacy MBR 的引导扇区结构，但 UEFI 固件不会执行 MBR 上的启动代码。GPT 为了与 legacy MBR 的引导扇区结构相区分特将引导扇区结构命名为 Protective MBR（PMBR），并使用 GPT 伪分区模拟 MBR 分区表。\nGPT 的 Protective MBR 引导扇区结构只使用一个分区记录表项，这个分区将占用 Protective MBR 之后的整个磁盘空间，剩余三个表项保留使用并填充 0 。\n可以看到备份分区表的顺序是相反的，这也非常符合我们对这种记录结构的直觉\nGUID 描述 GUID值 未使用 00000000-0000-0000-0000-000000000000 EFI System Partition C12A7328-F81F-11D2-BA4B-00A0C93EC93B Partition Containing a legacy MBR 024DEE41-33E7-11D3-9D69-0008C781F39F FAT12/16/32/NTFS EBD0A0A2-B9E5-4433-87C0-68B6B72699C7 EXT4 0FC63DAF-8483-4772-8E79-3D69D8477DE4 区别于分区的 UUID 。这个 GUID 用于标识分区的内容，类似于MBR中的 OSType 字段。每个文件系统都必须发布其唯一的 GUID 。\nESP \u0026 FAT \u0026 PE UEFI 的 ESP 文件系统是指 UEFI 系统分区（EFI System Partition）上的文件系统，它是一个使用 FAT32 格式化的小分区，通常为 100MB，其中存储了已安装系统的 UEFI 引导加载程序以及启动时固件使用的应用程序。UEFI 固件在启动时会加载 ESP 分区上的 .efi 文件，开始加载操作系统。\nUEFI 不能运行 ELF 格式的可执行程序，只能运行 PE 格式的。使用 objcopy 处理生成的二进制文件，将其格式改变为 PE+ ，或者使用交叉编译的方式，将 target 设置为 x86_64-unknown-uefi 或 aarch64-unknown-uefi 。\n# file /boot/EFI/GRUB/grubx64.efi /boot/EFI/GRUB/grubx64.efi: PE32+ executable (EFI application) x86-64 (stripped to external PDB), for MS Windows, 4 sections Linux ，启动！ 不管接口或者规范如何变化，计算机的启动一般都会是三个步骤：\nCAR(Cache As RAM) ，这个阶段连内存都用不了 能执行汇编语言 设置堆栈环境，这时能执行 C 等高级语言 这里主要介绍在 BootLoader 阶段完成的工作。\nGRUB ，启动！ grub 是一款不断扩充功能直到最后历史包袱积重难返的软件，因此它的启动过程比较复杂。\nStage 1：执行GRUB主程序。第一阶段是用来执行 GRUB 主程序的，这个主程序必须放在启动区中（也就是 MBR 或者引导扇区中）。但是 MBR 太小了，所以只能安装 GRUB 的最小的主程序，而不能安装 GRUB 的相关配置文件。这个主程序主要是用来启动 Stage 1.5 和 Stage 2 的。\nStage 1.5：识别不同的文件系统。Stage 2 比较大，只能放在文件系统中（分区），但是 Stage 1 不能识别不同的文件系统，所以不能直接加载 Stage 2。这时需要先加载 Stage 1.5，由 Stage 1.5 来加载不同文件系统中的 Stage 2。\n还有一个问题，难道 Stage 1.5 不是放在文件系统中的吗？如果是，那么 Stage 1 同样不能找到 Stage 1.5。其实，Stage 1.5 还真没有放在文件系统中，而是在安装 GRUB 时，直接安装到紧跟 MBR 之后的 32KB 的空间中，这段硬盘空间是空白无用的，而且是没有文件系统的，所以 Stage 1 可以直接读取 Stage 1.5。读取了 Stage 1.5 就能识别不同的文件系统，才能加载 Stage 2。\nStage 2：加载GRUB的配置文件。Stage 2 阶段主要就是加载 GRUB 的配置文件 /boot/grub/grub.conf，然后根据配置文件中的定义，加载内核和虚拟文件系统。接下来内核就可以接管启动过程，继续自检与加载硬件模块了。 GRUB2 ，启动！ grub2 是 grub 的重写版本，启动过程更简单明了。grub2 将 boot.img 转换后的内容安装到 MBR(VBR或EBR) 中的 boot loader 部分，将 diskboot.img 和 kernel.img 结合成为 core.img，同时还会嵌入一些模块或加载模块的代码到 core.img 中，然后将 core.img 转换后的内容安装到磁盘的指定位置处。\ngrub2 的 core 阶段相当于 grub 的 stage1.5 和 stage2 的结合，它可以直接加载不同的文件系统和模块，而不需要额外的驱动程序。\ncore 阶段通常存储在一个专门的 UEFI 分区或者 /boot/grub 目录中。\nStage 1：第一阶段为执行 boot loader 的主程序，这个主程序必须要被安装在引导区，也就是是 MBR 或者启动扇区。但因为 MBR 空间有限，所以，MBR 或启动扇区通常仅安装 boot loader 的最小主程序，并没有安装 loader 的相关配置文件。\nStage 2：第二阶段通过 boot loader 加载所有配置文件与相关的环境参数文件（包括文件系统定义与主要配置文件 grub.cfg），通常配置文件都在 /boot 目录下。\n# ls /boot EFI grub initramfs-linux-fallback.img initramfs-linux.img vmlinuz-linux # file vmlinuz-linux vmlinuz-linux: Linux kernel x86 boot executable bzImage, version 6.4.12-arch1-1 (linux@archlinux) #1 SMP PREEMPT_DYNAMIC Thu, 24 Aug 2023 00:38:14 +0000, RO-rootFS, swap_dev 0XC, Normal VGA # tree EFI EFI └── GRUB └── grubx64.efi 2 directories, 1 file # tree grub grub ├── fonts │ └── unicode.pf2 ├── grub.cfg ├── grubenv ├── locale │ ├── ast.mo │ ├── ca.mo │ ├── da.mo │ ├── de_CH.mo │ ├── de@hebrew.mo ...... .mo 文件都是供 grub 加载的模块，包含了对字体、图像、USB 设备等。而 initramfs-linux.img 是一个初始内存文件系统，它是一个压缩的归档文件，包含了一些必要的程序和驱动，用于在启动过程中加载根文件系统。vmlinuz-linux 是一个 Linux 内核镜像，它是一个可执行的二进制文件，用于在 UEFI 启动模式下被固件直接加载。这两个文件通常位于 /boot 目录下，是 Linux 系统启动的重要组成部分。\ninitramfs 的目的在于提供启动过程中所需要的最重要内核模块，以让系统启动过程可以顺利完成。需要 initramfs 的原因，是因为内核模块放置于 /lib/modules/$(uname -r)/kernel/ 当中， 这些模块必须要根目录被挂载时才能够被读取。但是如果内核本身不具备磁盘的驱动程序时， 就无法挂载根目录，也就没有办法获取到驱动程序，造成无法启动\ninitramfs 可以将 /lib/modules/ 内的启动过程中必需的模块打包到 initramfs 中，然后在启动时，通过主机的 INT 13 硬件功能将该文件读出来解压缩，并且 initramfs 在内存内会模拟成为根目录， 由于此虚拟文件系统主要包含磁盘与文件系统的模块，因此内核最后就能够识别实际的磁盘，然后就能够进行实际根目录的挂载，因此，initramfs 内所包含的模块大多是与启动过程有关，且主要以文件系统及硬盘模块 (如 usb, SCSI 等) 为主的\n通常在以下情况下需要 initramfs：\n根目录所在磁盘为 SATA、USB 或 SCSI 等接口 根目录所在文件系统为 LVM, RAID 等特殊格式 根目录所在文件系统为非传统 Linux 识别的文件系统 其他必须要在内核加载时提供的模块 在发行版更新内核时，一般都会执行一个钩子函数，重新生成这些重要部件：\n:: Running post-transaction hooks... (1/7) Reloading system manager configuration... (2/7) Reloading device manager configuration... (3/7) Arming ConditionNeedsUpdate... (4/7) Updating module dependencies... (5/7) Install DKMS modules ==\u003e dkms install --no-depmod v4l2loopback/0.12.7 -k 6.5.2-arch1-1 ==\u003e depmod 6.5.2-arch1-1 (6/7) Updating linux initcpios... ==\u003e Building image from preset: /etc/mkinitcpio.d/linux.preset: 'default' ==\u003e Using default configuration file: '/etc/mkinitcpio.conf' -\u003e -k /boot/vmlinuz-linux -g /boot/initramfs-linux.img --microcode /boot/*-ucode.img ==\u003e Starting build: '6.5.2-arch1-1' -\u003e Running build hook: [base] -\u003e Running build hook: [udev] -\u003e Running build hook: [autodetect] -\u003e Running build hook: [modconf] -\u003e Running build hook: [kms] -\u003e Running build hook: [keyboard] ==\u003e WARNING: Possibly missing firmware for module: 'xhci_pci' -\u003e Running build hook: [keymap] -\u003e Running build hook: [consolefont] ==\u003e WARNING: consolefont: no font found in configuration -\u003e Running build hook: [block] -\u003e Running build hook: [filesystems] -\u003e Running build hook: [fsck] ==\u003e Generating module dependencies ==\u003e Creating zstd-compressed initcpio image: '/boot/initramfs-linux.img' ==\u003e Image generation successful ==\u003e Building image from preset: /etc/mkinitcpio.d/linux.preset: 'fallback' ==\u003e Using default configuration file: '/etc/mkinitcpio.conf' -\u003e -k /boot/vmlinuz-linux -g /boot/initramfs-linux-fallback.img -S autodetect --microcode /boot/*-ucode.img ==\u003e Starting build: '6.5.2-arch1-1' -\u003e Running build hook: [base] -\u003e Running build hook: [udev] -\u003e Running build hook: [modconf] -\u003e Running build hook: [kms] ==\u003e WARNING: Possibly missing firmware for module: 'ast' -\u003e Running build hook: [keyboard] ==\u003e WARNING: Possibly missing firmware for module: 'xhci_pci' -\u003e Running build hook: [keymap] -\u003e Running build hook: [consolefont] ==\u003e WARNING: consolefont: no font found in configuration -\u003e Running build hook: [block] ==\u003e WARNING: Possibly missing firmware for module: 'aic94xx' ==\u003e WARNING: Possibly missing firmware for module: 'bfa' ==\u003e WARNING: Possibly missing firmware for module: 'qed' ==\u003e WARNING: Possibly missing firmware for module: 'qla1280' ==\u003e WARNING: Possibly missing firmware for module: 'qla2xxx' ==\u003e WARNING: Possibly missing firmware for module: 'wd719x' -\u003e Running build hook: [filesystems] -\u003e Running build hook: [fsck] ==\u003e Generating module dependencies ==\u003e Creating zstd-compressed initcpio image: '/boot/initramfs-linux-fallback.img' ==\u003e Image generation successful (7/7) Reloading system bus configuration... total 0h 5m 21s 参考资料 一个 UEFi 引导程序的实现 GRUB legacy document GRUB2 document Linux启动流程（二）：grub2 计算机是如何启动的？从未上电到操作系统启动 ",
+  "wordCount" : "4716",
+  "inLanguage": "zh",
+  "datePublished": "2023-09-09T08:15:06+08:00",
+  "dateModified": "2023-09-09T08:15:06+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "vaaandark"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://vaaandark.top/posts/linux-startup/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "vaaandark's blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://vaaandark.top/image/vaaandark.png"
+    }
+  }
+}
+</script>
+
+
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://vaaandark.top/" accesskey="h" title="vaaandark&#39;s blog (Alt + H)">
+                <img src="https://vaaandark.top/image/vaaandark.png" alt="" aria-label="logo"
+                    height="35">vaaandark&#39;s blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://vaaandark.top/" title="🏠主页">
+                    <span>🏠主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/posts/" title="Posts">
+                    <span>📄 归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/categories/" title="categories">
+                    <span>📂 分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/tags/" title="tags">
+                    <span>🔖 标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/about/" title="关于我">
+                    <span>🙋 关于</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/links/" title="友链">
+                    <span>🤝 友链</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://vaaandark.top/">主页</a>&nbsp;»&nbsp;<a href="https://vaaandark.top/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Linux ，启动！
+    </h1>
+    <div class="post-meta"><span title='2023-09-09 08:15:06 +0800 CST'>2023 9月 09</span>&nbsp;·&nbsp;10 分钟&nbsp;·&nbsp;vaaandark
+
+</div>
+  </header> <div class="toc">
+    <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#bios-vs-uefi" aria-label="BIOS vs UEFI">BIOS vs UEFI</a><ul>
+                        
+                <li>
+                    <a href="#bios-%e5%90%af%e5%8a%a8" aria-label="BIOS ，启动！">BIOS ，启动！</a></li>
+                <li>
+                    <a href="#uefi-%e5%90%af%e5%8a%a8" aria-label="UEFI ，启动！">UEFI ，启动！</a></li>
+                <li>
+                    <a href="#bios-%e7%9a%84%e7%bc%ba%e7%82%b9--uefi-%e7%9a%84%e4%bc%98%e7%82%b9" aria-label="BIOS 的缺点 &amp; UEFI 的优点">BIOS 的缺点 &amp; UEFI 的优点</a></li></ul>
+                </li>
+                <li>
+                    <a href="#mbr-vs-gpt" aria-label="MBR vs GPT">MBR vs GPT</a><ul>
+                        
+                <li>
+                    <a href="#guid" aria-label="GUID">GUID</a></li>
+                <li>
+                    <a href="#esp--fat--pe" aria-label="ESP &amp; FAT &amp; PE">ESP &amp; FAT &amp; PE</a></li></ul>
+                </li>
+                <li>
+                    <a href="#linux-%e5%90%af%e5%8a%a8" aria-label="Linux ，启动！">Linux ，启动！</a><ul>
+                        
+                <li>
+                    <a href="#grub-%e5%90%af%e5%8a%a8" aria-label="GRUB ，启动！">GRUB ，启动！</a></li>
+                <li>
+                    <a href="#grub2-%e5%90%af%e5%8a%a8" aria-label="GRUB2 ，启动！">GRUB2 ，启动！</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99" aria-label="参考资料">参考资料</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><blockquote>
+<p>&ldquo;pull oneself up by one&rsquo;s bootstraps.&rdquo;</p>
+<p>拽着鞋带把自己拉起来</p>
+</blockquote>
+<p>大家在安装 Arch Linux 或者其他 Linux 发行版时，可能会看到很多有关启动或者引导的名词，例如 BIOS 、UEFI 、GRUB 、ESP 、GPT 、LBA 、MBR 等等。有些名词比较熟悉，有些就会一头雾水，今天就来讲讲这些名词。</p>
+<h2 id="bios-vs-uefi">BIOS vs UEFI<a hidden class="anchor" aria-hidden="true" href="#bios-vs-uefi">#</a></h2>
+<p>BIOS（Basic Input Output System，基本输入输出系统）是固化在计算机主板中的程序代码，其主要功能是在计算机上电时对硬件进行初始化配置，并将硬件操作封装为BIOS中断服务。这样，各种硬件间的差异便由 BIOS 负责维护，程序直接调用 BIOS 中断服务即可实现对硬件的控制。</p>
+<ul>
+<li>加电自检程序，在开机时负责检测硬件设备是否正常工作</li>
+<li>系统初始化程序，其中包括硬件设备的初始化以及创建 BIOS 中断向量等</li>
+<li>适配外围即插即用设备</li>
+<li>CMOS 设置程序，负责读写保存在 CMOS 中的系统设置信息</li>
+</ul>
+<p>UEFI（Unified Extensible Firmware Interface，统一可扩展固件接口）则是一种规范，它描述了操作系统和平台固件之间的接口，其目的是为操作系统和平台固件定义一种通信方法。在 UEFI 中，设备的访问是通过句柄（Handle）和协议（Protocol）抽象出来的。UEFI 通过将基础实现隔离在规范之外，以避免给设备的访问者带来负担，进而促进现有 BIOS 代码的重用。</p>
+<p><img alt="uefi 组成结构" loading="lazy" src="/image/uefi.png"></p>
+<h3 id="bios-启动">BIOS ，启动！<a hidden class="anchor" aria-hidden="true" href="#bios-启动">#</a></h3>
+<p>在系统上电后，CPU 运行于实模式工作环境中，数据位宽为 16 位，最大物理地址寻址范围是 0<del>1 MB，其中的物理地址 0x0C0000</del>0x0FFFFF 保留给 BIOS 使用。开机后， CPU 首先跳转到物理地址 0x0FFFF0 处执行程序。一般情况下，这里是一条跳转指令， CPU 通过执行此处的跳转指令跳转到真正的 BIOS 入口地址处执行：</p>
+<ol>
+<li>BIOS代码首先做的是 POST（Power On Self Test，加电自检）操作，主要是检测关键设备是否正常工作，设备设置是否与CMOS中的设置一致。如果发现硬件错误，则通过喇叭报警</li>
+<li>初始化显示设备并显示显卡信息，接着初始化其他设备</li>
+<li>检测CPU和内存并显示检测结果</li>
+<li>检测标准设备，例如硬盘、光驱、串口设备、并口设备等</li>
+<li>检测即插即用设备，并为这些设备分配中断号、 I/O 端口和 DMA 通道等资源</li>
+<li>如果硬件配置发生变化，那么这些变化的配置将更新到 CMOS 中</li>
+<li>根据配置的启动顺序引导设备启动，通过BIOS中断将设备的引导程序入内存</li>
+<li>将处理器的控制权交给引导程序，最终引导进入操作系统</li>
+</ol>
+<h3 id="uefi-启动">UEFI ，启动！<a hidden class="anchor" aria-hidden="true" href="#uefi-启动">#</a></h3>
+<p><img alt="uefi 启动流程" loading="lazy" src="/image/uefi-stages.png"></p>
+<ol>
+<li>验证阶段（Security，SEC）。系统上电后，CPU 开始执行第一条指令，此时系统就进入 SEC 阶段。这个阶段的内存尚未被初始化，不可使用。所以， SEC 阶段最主要的工作是建立一些临时内存并将 CPU 切换到保护模式，这里提到的临时内存可以是处理器的缓存，亦或者系统的物理内存。</li>
+<li>EFI 环境预初始化阶段（Pre-EFI Initialization Environment，PEI）。PEI 阶段最主要的工作就是对内存、CPU 以及芯片组等关键设备进行初始化。由于这部分代码没有进行压缩，因此代码必须越精简越好。而且，在PEI阶段还要确定操作系统的引导路径，初始化 UEFI 驱动和固件需要的内存。</li>
+<li>驱动运行环境阶段（Driver Execution Environment，DXE）。DXE 是 EFI 最重要的阶段，大部分的驱动、固件加载工作都是在这个阶段完成的。</li>
+<li>引导设备选择阶段（Boot Device Select，BDS）。BDS 阶段的主要工作是初始化控制台设备的环境变量，尝试加载环境变量列表中记录的驱动，并尝试从环境变量列表中记录的启动设备中启动。</li>
+<li>临时系统运行阶段（Transient System Load，TSL）。这个阶段将进入 UEFI 的临时 Shell 系统环境。</li>
+<li>运行时阶段（RunTime，RT）。当操作系统调用 <code>EFI_BOOT_SERVICES.ExitBootServices</code> 服务后，系统进入 RT 阶段。此时，DXE 与引导服务都将销毁，只有 EFI 运行时服务和 EFI 系统表可以继续使用。</li>
+<li>后世阶段（After Life，AL）。当操作系统调用 <code>EFI_RUNTIME_SERVICES.ResetSystem</code> 服务或者调用 ACPI SleepState，系统进入 AL 阶段。触发异步事件（比如：SMI、NMI）亦可使系统进入 AL 阶段，这在服务器和工作站中比较常见。</li>
+</ol>
+<h3 id="bios-的缺点--uefi-的优点">BIOS 的缺点 &amp; UEFI 的优点<a hidden class="anchor" aria-hidden="true" href="#bios-的缺点--uefi-的优点">#</a></h3>
+<ul>
+<li>正如 systemd 取代 init.d 的原因之一，BIOS 不支持异步工作模式，只能使用中断来实现各种服务；而 UEFI 可以舍弃中断这种比较耗时的操作外部设备的方式，仅仅保留了时钟中断。外部设备的操作采用“事件+异步操作”完成。</li>
+<li>功能拓展性与拓展性：BIOS 代码采用静态链接，增加硬件功能时，必须将 16 位代码放置在 0x0C0000~0x0DFFFF 区间，初始化时将其设置为约定的中断处理程序。而且 BIOS 没有提供动态加载设备驱动的方案。而 UEFI 系统的可扩展性体现在两个方面：一是驱动的模块化设计；二是软硬件升级的兼容性。大部分硬件的初始化通过 UEFI 驱动实现。每个驱动是一个独立的模块，可以包含在固件中，也可以放在设备上，运行时根据需要动态加载。UEFI 中的每个表和协议（包括驱动）都有版本号，这使得系统升级过程更加简单、平滑。</li>
+<li>BIOS 不支持从硬盘 2TB 以上的地址空间引导：受限于 BIOS 硬盘的寻址方式，BIOS 硬盘采用 32 位地址，因而引导扇区的最大逻辑块地址是 2^32（换算成字节地址，即 2^32×512B=2TB）</li>
+</ul>
+<h2 id="mbr-vs-gpt">MBR vs GPT<a hidden class="anchor" aria-hidden="true" href="#mbr-vs-gpt">#</a></h2>
+<p>Legacy MBR（Master Boot Record）是为 BIOS 引导方式设计的磁盘引导扇区结构，其绝大部分功能结构都保存在磁盘的引导扇区。而 GPT（GUID Partition table）却是区别于 legacy MBR 磁盘布局的一种全新布局，它专为 UEFI 固件使用：</p>
+<ol>
+<li>64 位的LBA（Logical Block Address）磁盘扇区寻址，而不是 32 位</li>
+<li>支持更多分区，而不仅仅是四个主分区</li>
+<li>为主分区表提供冗余的备份分区表</li>
+<li>使用版本号和大小字段为将来做扩展</li>
+<li>使用 CRC32 字段改进数据完整性</li>
+<li>定义用于唯一标识每个分区的 GUID</li>
+<li>使用 GUID 和属性定义分区类型</li>
+<li>每个分区包含一个 36 字符的人类可读名称</li>
+</ol>
+<p>为了兼容 legacy MBR 磁盘布局，GPT 仍使用 legacy MBR 的引导扇区结构，但 UEFI 固件不会执行 MBR 上的启动代码。GPT 为了与 legacy MBR 的引导扇区结构相区分特将引导扇区结构命名为 Protective MBR（PMBR），并使用 GPT 伪分区模拟 MBR 分区表。</p>
+<p>GPT 的 Protective MBR 引导扇区结构只使用一个分区记录表项，这个分区将占用 Protective MBR 之后的整个磁盘空间，剩余三个表项保留使用并填充 0 。</p>
+<p><img alt="pmbr" loading="lazy" src="/image/pmbr.png"></p>
+<blockquote>
+<p>可以看到备份分区表的顺序是相反的，这也非常符合我们对这种记录结构的直觉</p>
+</blockquote>
+<h3 id="guid">GUID<a hidden class="anchor" aria-hidden="true" href="#guid">#</a></h3>
+<table>
+  <thead>
+      <tr>
+          <th>描述</th>
+          <th>GUID值</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>未使用</td>
+          <td>00000000-0000-0000-0000-000000000000</td>
+      </tr>
+      <tr>
+          <td>EFI System Partition</td>
+          <td>C12A7328-F81F-11D2-BA4B-00A0C93EC93B</td>
+      </tr>
+      <tr>
+          <td>Partition Containing a legacy MBR</td>
+          <td>024DEE41-33E7-11D3-9D69-0008C781F39F</td>
+      </tr>
+      <tr>
+          <td>FAT12/16/32/NTFS</td>
+          <td>EBD0A0A2-B9E5-4433-87C0-68B6B72699C7</td>
+      </tr>
+      <tr>
+          <td>EXT4</td>
+          <td>0FC63DAF-8483-4772-8E79-3D69D8477DE4</td>
+      </tr>
+  </tbody>
+</table>
+<p>区别于分区的 UUID 。这个 GUID 用于标识分区的内容，类似于MBR中的 OSType 字段。每个文件系统都必须发布其唯一的 GUID 。</p>
+<h3 id="esp--fat--pe">ESP &amp; FAT &amp; PE<a hidden class="anchor" aria-hidden="true" href="#esp--fat--pe">#</a></h3>
+<p>UEFI 的 ESP 文件系统是指 UEFI 系统分区（EFI System Partition）上的文件系统，它是一个使用 FAT32 格式化的小分区，通常为 100MB，其中存储了已安装系统的 UEFI 引导加载程序以及启动时固件使用的应用程序。UEFI 固件在启动时会加载 ESP 分区上的 .efi 文件，开始加载操作系统。</p>
+<p>UEFI 不能运行 ELF 格式的可执行程序，只能运行 PE 格式的。使用 objcopy 处理生成的二进制文件，将其格式改变为 PE+ ，或者使用交叉编译的方式，将 target 设置为 <code>x86_64-unknown-uefi</code> 或 <code>aarch64-unknown-uefi</code> 。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span># file /boot/EFI/GRUB/grubx64.efi
+</span></span><span style="display:flex;"><span>/boot/EFI/GRUB/grubx64.efi: PE32+ executable (EFI application) x86-64 (stripped to external PDB), for MS Windows, 4 sections
+</span></span></code></pre></div><h2 id="linux-启动">Linux ，启动！<a hidden class="anchor" aria-hidden="true" href="#linux-启动">#</a></h2>
+<p>不管接口或者规范如何变化，计算机的启动一般都会是三个步骤：</p>
+<ol>
+<li>CAR(Cache As RAM) ，这个阶段连内存都用不了</li>
+<li>能执行汇编语言</li>
+<li>设置堆栈环境，这时能执行 C 等高级语言</li>
+</ol>
+<p>这里主要介绍在 BootLoader 阶段完成的工作。</p>
+<h3 id="grub-启动">GRUB ，启动！<a hidden class="anchor" aria-hidden="true" href="#grub-启动">#</a></h3>
+<p>grub 是一款不断扩充功能直到最后历史包袱积重难返的软件，因此它的启动过程比较复杂。</p>
+<ol>
+<li>
+<p>Stage 1：执行GRUB主程序。第一阶段是用来执行 GRUB 主程序的，这个主程序必须放在启动区中（也就是 MBR 或者引导扇区中）。但是 MBR 太小了，所以只能安装 GRUB 的最小的主程序，而不能安装 GRUB 的相关配置文件。这个主程序主要是用来启动 Stage 1.5 和 Stage 2 的。</p>
+</li>
+<li>
+<p>Stage 1.5：识别不同的文件系统。Stage 2 比较大，只能放在文件系统中（分区），但是 Stage 1 不能识别不同的文件系统，所以不能直接加载 Stage 2。这时需要先加载 Stage 1.5，由 Stage 1.5 来加载不同文件系统中的 Stage 2。</p>
+</li>
+</ol>
+<blockquote>
+<p>还有一个问题，难道 Stage 1.5 不是放在文件系统中的吗？如果是，那么 Stage 1 同样不能找到 Stage 1.5。其实，Stage 1.5 还真没有放在文件系统中，而是在安装 GRUB 时，直接安装到紧跟 MBR 之后的 32KB 的空间中，这段硬盘空间是空白无用的，而且是没有文件系统的，所以 Stage 1 可以直接读取 Stage 1.5。读取了 Stage 1.5 就能识别不同的文件系统，才能加载 Stage 2。</p>
+</blockquote>
+<ol start="3">
+<li>Stage 2：加载GRUB的配置文件。Stage 2 阶段主要就是加载 GRUB 的配置文件 /boot/grub/grub.conf，然后根据配置文件中的定义，加载内核和虚拟文件系统。接下来内核就可以接管启动过程，继续自检与加载硬件模块了。</li>
+</ol>
+<h3 id="grub2-启动">GRUB2 ，启动！<a hidden class="anchor" aria-hidden="true" href="#grub2-启动">#</a></h3>
+<p>grub2 是 grub 的重写版本，启动过程更简单明了。grub2 将 boot.img 转换后的内容安装到 MBR(VBR或EBR) 中的 boot loader 部分，将 diskboot.img 和 kernel.img 结合成为 core.img，同时还会嵌入一些模块或加载模块的代码到 core.img 中，然后将 core.img 转换后的内容安装到磁盘的指定位置处。</p>
+<p>grub2 的 core 阶段相当于 grub 的 stage1.5 和 stage2 的结合，它可以直接加载不同的文件系统和模块，而不需要额外的驱动程序。</p>
+<blockquote>
+<p>core 阶段通常存储在一个专门的 UEFI 分区或者 /boot/grub 目录中。</p>
+</blockquote>
+<ol>
+<li>
+<p>Stage 1：第一阶段为执行 boot loader 的主程序，这个主程序必须要被安装在引导区，也就是是 MBR 或者启动扇区。但因为 MBR 空间有限，所以，MBR 或启动扇区通常仅安装 boot loader 的最小主程序，并没有安装 loader 的相关配置文件。</p>
+</li>
+<li>
+<p>Stage 2：第二阶段通过 boot loader 加载所有配置文件与相关的环境参数文件（包括文件系统定义与主要配置文件 grub.cfg），通常配置文件都在 /boot 目录下。</p>
+</li>
+</ol>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-console" data-lang="console"><span style="display:flex;"><span># ls /boot
+</span></span><span style="display:flex;"><span>EFI  grub  initramfs-linux-fallback.img  initramfs-linux.img  vmlinuz-linux
+</span></span><span style="display:flex;"><span># file vmlinuz-linux
+</span></span><span style="display:flex;"><span>vmlinuz-linux: Linux kernel x86 boot executable bzImage, version 6.4.12-arch1-1 (linux@archlinux) #1 SMP PREEMPT_DYNAMIC Thu, 24 Aug 2023 00:38:14 +0000, RO-rootFS, swap_dev 0XC, Normal VGA
+</span></span><span style="display:flex;"><span># tree EFI
+</span></span><span style="display:flex;"><span>EFI
+</span></span><span style="display:flex;"><span>└── GRUB
+</span></span><span style="display:flex;"><span>    └── grubx64.efi
+</span></span><span style="display:flex;"><span><span style="color:#f00">
+</span></span></span><span style="display:flex;"><span><span style="color:#f00"></span>2 directories, 1 file
+</span></span><span style="display:flex;"><span># tree grub
+</span></span><span style="display:flex;"><span>grub
+</span></span><span style="display:flex;"><span>├── fonts
+</span></span><span style="display:flex;"><span>│   └── unicode.pf2
+</span></span><span style="display:flex;"><span>├── grub.cfg
+</span></span><span style="display:flex;"><span>├── grubenv
+</span></span><span style="display:flex;"><span>├── locale
+</span></span><span style="display:flex;"><span>│   ├── ast.mo
+</span></span><span style="display:flex;"><span>│   ├── ca.mo
+</span></span><span style="display:flex;"><span>│   ├── da.mo
+</span></span><span style="display:flex;"><span>│   ├── de_CH.mo
+</span></span><span style="display:flex;"><span>│   ├── de@hebrew.mo
+</span></span><span style="display:flex;"><span>......
+</span></span></code></pre></div><p>.mo 文件都是供 grub 加载的模块，包含了对字体、图像、USB 设备等。而 initramfs-linux.img 是一个初始内存文件系统，它是一个压缩的归档文件，包含了一些必要的程序和驱动，用于在启动过程中加载根文件系统。vmlinuz-linux 是一个 Linux 内核镜像，它是一个可执行的二进制文件，用于在 UEFI 启动模式下被固件直接加载。这两个文件通常位于 /boot 目录下，是 Linux 系统启动的重要组成部分。</p>
+<p>initramfs 的目的在于提供启动过程中所需要的最重要内核模块，以让系统启动过程可以顺利完成。需要 initramfs 的原因，是因为内核模块放置于 /lib/modules/$(uname -r)/kernel/ 当中， 这些模块必须要根目录被挂载时才能够被读取。但是如果内核本身不具备磁盘的驱动程序时， 就无法挂载根目录，也就没有办法获取到驱动程序，造成无法启动</p>
+<p>initramfs 可以将 /lib/modules/ 内的启动过程中必需的模块打包到 initramfs 中，然后在启动时，通过主机的 INT 13 硬件功能将该文件读出来解压缩，并且 initramfs 在内存内会模拟成为根目录， 由于此虚拟文件系统主要包含磁盘与文件系统的模块，因此内核最后就能够识别实际的磁盘，然后就能够进行实际根目录的挂载，因此，initramfs 内所包含的模块大多是与启动过程有关，且主要以文件系统及硬盘模块 (如 usb, SCSI 等) 为主的</p>
+<p>通常在以下情况下需要 initramfs：</p>
+<ul>
+<li>根目录所在磁盘为 SATA、USB 或 SCSI 等接口</li>
+<li>根目录所在文件系统为 LVM, RAID 等特殊格式</li>
+<li>根目录所在文件系统为非传统 Linux 识别的文件系统</li>
+<li>其他必须要在内核加载时提供的模块</li>
+</ul>
+<p>在发行版更新内核时，一般都会执行一个钩子函数，重新生成这些重要部件：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-gdscript3" data-lang="gdscript3"><span style="display:flex;"><span>:: Running post-transaction hooks...
+</span></span><span style="display:flex;"><span>(<span style="color:#ff0;font-weight:bold">1</span>/<span style="color:#ff0;font-weight:bold">7</span>) Reloading system manager configuration...
+</span></span><span style="display:flex;"><span>(<span style="color:#ff0;font-weight:bold">2</span>/<span style="color:#ff0;font-weight:bold">7</span>) Reloading device manager configuration...
+</span></span><span style="display:flex;"><span>(<span style="color:#ff0;font-weight:bold">3</span>/<span style="color:#ff0;font-weight:bold">7</span>) Arming ConditionNeedsUpdate...
+</span></span><span style="display:flex;"><span>(<span style="color:#ff0;font-weight:bold">4</span>/<span style="color:#ff0;font-weight:bold">7</span>) Updating module dependencies...
+</span></span><span style="display:flex;"><span>(<span style="color:#ff0;font-weight:bold">5</span>/<span style="color:#ff0;font-weight:bold">7</span>) Install DKMS modules
+</span></span><span style="display:flex;"><span>==&gt; dkms install --no-depmod v4l2loopback/<span style="color:#ff0;font-weight:bold">0.12</span>.<span style="color:#ff0;font-weight:bold">7</span> -k <span style="color:#ff0;font-weight:bold">6.5</span>.<span style="color:#ff0;font-weight:bold">2</span>-arch1-<span style="color:#ff0;font-weight:bold">1</span>
+</span></span><span style="display:flex;"><span>==&gt; depmod <span style="color:#ff0;font-weight:bold">6.5</span>.<span style="color:#ff0;font-weight:bold">2</span>-arch1-<span style="color:#ff0;font-weight:bold">1</span>
+</span></span><span style="display:flex;"><span>(<span style="color:#ff0;font-weight:bold">6</span>/<span style="color:#ff0;font-weight:bold">7</span>) Updating linux initcpios...
+</span></span><span style="display:flex;"><span>==&gt; Building image from preset: /etc/mkinitcpio.d/linux.preset: <span style="color:#0ff;font-weight:bold">&#39;default&#39;</span>
+</span></span><span style="display:flex;"><span>==&gt; Using default configuration file: <span style="color:#0ff;font-weight:bold">&#39;/etc/mkinitcpio.conf&#39;</span>
+</span></span><span style="display:flex;"><span>  -&gt; -k /boot/vmlinuz-linux -g /boot/initramfs-linux.img --microcode /boot/*-ucode.img
+</span></span><span style="display:flex;"><span>==&gt; Starting build: <span style="color:#0ff;font-weight:bold">&#39;6.5.2-arch1-1&#39;</span>
+</span></span><span style="display:flex;"><span>  -&gt; Running build hook: [base]
+</span></span><span style="display:flex;"><span>  -&gt; Running build hook: [udev]
+</span></span><span style="display:flex;"><span>  -&gt; Running build hook: [autodetect]
+</span></span><span style="display:flex;"><span>  -&gt; Running build hook: [modconf]
+</span></span><span style="display:flex;"><span>  -&gt; Running build hook: [kms]
+</span></span><span style="display:flex;"><span>  -&gt; Running build hook: [keyboard]
+</span></span><span style="display:flex;"><span>==&gt; WARNING: Possibly missing firmware <span style="color:#fff;font-weight:bold">for</span> module: <span style="color:#0ff;font-weight:bold">&#39;xhci_pci&#39;</span>
+</span></span><span style="display:flex;"><span>  -&gt; Running build hook: [keymap]
+</span></span><span style="display:flex;"><span>  -&gt; Running build hook: [consolefont]
+</span></span><span style="display:flex;"><span>==&gt; WARNING: consolefont: no font found in configuration
+</span></span><span style="display:flex;"><span>  -&gt; Running build hook: [block]
+</span></span><span style="display:flex;"><span>  -&gt; Running build hook: [filesystems]
+</span></span><span style="display:flex;"><span>  -&gt; Running build hook: [fsck]
+</span></span><span style="display:flex;"><span>==&gt; Generating module dependencies
+</span></span><span style="display:flex;"><span>==&gt; Creating zstd-compressed initcpio image: <span style="color:#0ff;font-weight:bold">&#39;/boot/initramfs-linux.img&#39;</span>
+</span></span><span style="display:flex;"><span>==&gt; Image generation successful
+</span></span><span style="display:flex;"><span>==&gt; Building image from preset: /etc/mkinitcpio.d/linux.preset: <span style="color:#0ff;font-weight:bold">&#39;fallback&#39;</span>
+</span></span><span style="display:flex;"><span>==&gt; Using default configuration file: <span style="color:#0ff;font-weight:bold">&#39;/etc/mkinitcpio.conf&#39;</span>
+</span></span><span style="display:flex;"><span>  -&gt; -k /boot/vmlinuz-linux -g /boot/initramfs-linux-fallback.img -S autodetect --microcode /boot/*-ucode.img
+</span></span><span style="display:flex;"><span>==&gt; Starting build: <span style="color:#0ff;font-weight:bold">&#39;6.5.2-arch1-1&#39;</span>
+</span></span><span style="display:flex;"><span>  -&gt; Running build hook: [base]
+</span></span><span style="display:flex;"><span>  -&gt; Running build hook: [udev]
+</span></span><span style="display:flex;"><span>  -&gt; Running build hook: [modconf]
+</span></span><span style="display:flex;"><span>  -&gt; Running build hook: [kms]
+</span></span><span style="display:flex;"><span>==&gt; WARNING: Possibly missing firmware <span style="color:#fff;font-weight:bold">for</span> module: <span style="color:#0ff;font-weight:bold">&#39;ast&#39;</span>
+</span></span><span style="display:flex;"><span>  -&gt; Running build hook: [keyboard]
+</span></span><span style="display:flex;"><span>==&gt; WARNING: Possibly missing firmware <span style="color:#fff;font-weight:bold">for</span> module: <span style="color:#0ff;font-weight:bold">&#39;xhci_pci&#39;</span>
+</span></span><span style="display:flex;"><span>  -&gt; Running build hook: [keymap]
+</span></span><span style="display:flex;"><span>  -&gt; Running build hook: [consolefont]
+</span></span><span style="display:flex;"><span>==&gt; WARNING: consolefont: no font found in configuration
+</span></span><span style="display:flex;"><span>  -&gt; Running build hook: [block]
+</span></span><span style="display:flex;"><span>==&gt; WARNING: Possibly missing firmware <span style="color:#fff;font-weight:bold">for</span> module: <span style="color:#0ff;font-weight:bold">&#39;aic94xx&#39;</span>
+</span></span><span style="display:flex;"><span>==&gt; WARNING: Possibly missing firmware <span style="color:#fff;font-weight:bold">for</span> module: <span style="color:#0ff;font-weight:bold">&#39;bfa&#39;</span>
+</span></span><span style="display:flex;"><span>==&gt; WARNING: Possibly missing firmware <span style="color:#fff;font-weight:bold">for</span> module: <span style="color:#0ff;font-weight:bold">&#39;qed&#39;</span>
+</span></span><span style="display:flex;"><span>==&gt; WARNING: Possibly missing firmware <span style="color:#fff;font-weight:bold">for</span> module: <span style="color:#0ff;font-weight:bold">&#39;qla1280&#39;</span>
+</span></span><span style="display:flex;"><span>==&gt; WARNING: Possibly missing firmware <span style="color:#fff;font-weight:bold">for</span> module: <span style="color:#0ff;font-weight:bold">&#39;qla2xxx&#39;</span>
+</span></span><span style="display:flex;"><span>==&gt; WARNING: Possibly missing firmware <span style="color:#fff;font-weight:bold">for</span> module: <span style="color:#0ff;font-weight:bold">&#39;wd719x&#39;</span>
+</span></span><span style="display:flex;"><span>  -&gt; Running build hook: [filesystems]
+</span></span><span style="display:flex;"><span>  -&gt; Running build hook: [fsck]
+</span></span><span style="display:flex;"><span>==&gt; Generating module dependencies
+</span></span><span style="display:flex;"><span>==&gt; Creating zstd-compressed initcpio image: <span style="color:#0ff;font-weight:bold">&#39;/boot/initramfs-linux-fallback.img&#39;</span>
+</span></span><span style="display:flex;"><span>==&gt; Image generation successful
+</span></span><span style="display:flex;"><span>(<span style="color:#ff0;font-weight:bold">7</span>/<span style="color:#ff0;font-weight:bold">7</span>) Reloading system bus configuration...
+</span></span><span style="display:flex;"><span>total <span style="color:#ff0;font-weight:bold">0</span>h <span style="color:#ff0;font-weight:bold">5</span>m <span style="color:#ff0;font-weight:bold">21</span>s
+</span></span></code></pre></div><h2 id="参考资料">参考资料<a hidden class="anchor" aria-hidden="true" href="#参考资料">#</a></h2>
+<ul>
+<li>一个 UEFi 引导程序的实现</li>
+<li>GRUB legacy document</li>
+<li>GRUB2 document</li>
+<li><a href="http://www.yanjun.pro/?p=78">Linux启动流程（二）：grub2</a></li>
+<li><a href="https://www.dingmos.com/index.php/archives/31/">计算机是如何启动的？从未上电到操作系统启动</a></li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://vaaandark.top/tags/linux/">Linux</a></li>
+      <li><a href="https://vaaandark.top/tags/uefi/">UEFI</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://vaaandark.top/posts/how-uefi-startup-linux/">
+    <span class="title">« 上一页</span>
+    <br>
+    <span>UEFI 如何启动 Linux</span>
+  </a>
+  <a class="next" href="https://vaaandark.top/posts/football-team-bill/">
+    <span class="title">下一页 »</span>
+    <br>
+    <span>足球队账单</span>
+  </a>
+</nav>
+
+
+<ul class="share-buttons">
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Linux ，启动！ on x"
+            href="https://x.com/intent/tweet/?text=Linux%20%ef%bc%8c%e5%90%af%e5%8a%a8%ef%bc%81&amp;url=https%3a%2f%2fvaaandark.top%2fposts%2flinux-startup%2f&amp;hashtags=Linux%2cUEFI">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M512 62.554 L 512 449.446 C 512 483.97 483.97 512 449.446 512 L 62.554 512 C 28.03 512 0 483.97 0 449.446 L 0 62.554 C 0 28.03 28.029 0 62.554 0 L 449.446 0 C 483.971 0 512 28.03 512 62.554 Z M 269.951 190.75 L 182.567 75.216 L 56 75.216 L 207.216 272.95 L 63.9 436.783 L 125.266 436.783 L 235.9 310.383 L 332.567 436.783 L 456 436.783 L 298.367 228.367 L 432.367 75.216 L 371.033 75.216 Z M 127.633 110 L 164.101 110 L 383.481 400.065 L 349.5 400.065 Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Linux ，启动！ on linkedin"
+            href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fvaaandark.top%2fposts%2flinux-startup%2f&amp;title=Linux%20%ef%bc%8c%e5%90%af%e5%8a%a8%ef%bc%81&amp;summary=Linux%20%ef%bc%8c%e5%90%af%e5%8a%a8%ef%bc%81&amp;source=https%3a%2f%2fvaaandark.top%2fposts%2flinux-startup%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Linux ，启动！ on reddit"
+            href="https://reddit.com/submit?url=https%3a%2f%2fvaaandark.top%2fposts%2flinux-startup%2f&title=Linux%20%ef%bc%8c%e5%90%af%e5%8a%a8%ef%bc%81">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Linux ，启动！ on facebook"
+            href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fvaaandark.top%2fposts%2flinux-startup%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Linux ，启动！ on whatsapp"
+            href="https://api.whatsapp.com/send?text=Linux%20%ef%bc%8c%e5%90%af%e5%8a%a8%ef%bc%81%20-%20https%3a%2f%2fvaaandark.top%2fposts%2flinux-startup%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Linux ，启动！ on telegram"
+            href="https://telegram.me/share/url?text=Linux%20%ef%bc%8c%e5%90%af%e5%8a%a8%ef%bc%81&amp;url=https%3a%2f%2fvaaandark.top%2fposts%2flinux-startup%2f">
+            <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Linux ，启动！ on ycombinator"
+            href="https://news.ycombinator.com/submitlink?t=Linux%20%ef%bc%8c%e5%90%af%e5%8a%a8%ef%bc%81&u=https%3a%2f%2fvaaandark.top%2fposts%2flinux-startup%2f">
+            <svg version="1.1" xml:space="preserve" width="30px" height="30px" viewBox="0 0 512 512" fill="currentColor"
+                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
+                <path
+                    d="M449.446 0C483.971 0 512 28.03 512 62.554L512 449.446C512 483.97 483.97 512 449.446 512L62.554 512C28.03 512 0 483.97 0 449.446L0 62.554C0 28.03 28.029 0 62.554 0L449.446 0ZM183.8767 87.9921H121.8427L230.6673 292.4508V424.0079H281.3328V292.4508L390.1575 87.9921H328.1233L256 238.2489z" />
+            </svg>
+        </a>
+    </li>
+</ul>
+
+  </footer><script src="https://giscus.app/client.js"
+        data-repo="vaaandark/vaaandark.github.io"
+        data-repo-id="R_kgDOGsxTxw"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOGsxTx84CmAQ1"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+</script>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://vaaandark.top/">vaaandark&#39;s blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

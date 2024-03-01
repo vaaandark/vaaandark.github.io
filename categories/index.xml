@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>categories on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/categories/</link>
+    <description>Recent content in categories on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 27 Dec 2024 20:07:44 +0800</lastBuildDate>
+    <atom:link href="https://vaaandark.top/categories/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>生活</title>
+      <link>https://vaaandark.top/categories/%E7%94%9F%E6%B4%BB/</link>
+      <pubDate>Fri, 27 Dec 2024 20:07:44 +0800</pubDate>
+      <guid>https://vaaandark.top/categories/%E7%94%9F%E6%B4%BB/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>技术</title>
+      <link>https://vaaandark.top/categories/%E6%8A%80%E6%9C%AF/</link>
+      <pubDate>Wed, 27 Mar 2024 20:02:33 +0800</pubDate>
+      <guid>https://vaaandark.top/categories/%E6%8A%80%E6%9C%AF/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>评论</title>
+      <link>https://vaaandark.top/categories/%E8%AF%84%E8%AE%BA/</link>
+      <pubDate>Sat, 16 Mar 2024 01:58:33 +0800</pubDate>
+      <guid>https://vaaandark.top/categories/%E8%AF%84%E8%AE%BA/</guid>
+      <description></description>
+    </item>
+    <item>
+      <title>足球</title>
+      <link>https://vaaandark.top/categories/%E8%B6%B3%E7%90%83/</link>
+      <pubDate>Tue, 29 Aug 2023 21:57:09 +0800</pubDate>
+      <guid>https://vaaandark.top/categories/%E8%B6%B3%E7%90%83/</guid>
+      <description></description>
+    </item>
+  </channel>
+</rss>

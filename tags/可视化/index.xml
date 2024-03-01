@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>可视化 on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/</link>
+    <description>Recent content in 可视化 on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 20 Nov 2022 12:32:04 +0800</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/%E5%8F%AF%E8%A7%86%E5%8C%96/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>物理双偏振实验画图</title>
+      <link>https://vaaandark.top/posts/dual-polarization-experiment-drawing/</link>
+      <pubDate>Sun, 20 Nov 2022 12:32:04 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/dual-polarization-experiment-drawing/</guid>
+      <description>&lt;p&gt;上次物理实验做的是双偏振，实验资料中推荐使用 origin 画图，我既不想使用 Windows 也不想多下载一个软件，因此我打算用 matplotlib 画图。&lt;/p&gt;
+&lt;h2 id=&#34;代码&#34;&gt;代码&lt;/h2&gt;
+&lt;p&gt;第一个实验画图是很简单的线性回归计算：&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

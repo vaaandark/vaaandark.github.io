@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>工具 on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/%E5%B7%A5%E5%85%B7/</link>
+    <description>Recent content in 工具 on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 25 Feb 2023 13:26:44 +0800</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/%E5%B7%A5%E5%85%B7/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Awesome WM 基于迭代器的小组件</title>
+      <link>https://vaaandark.top/posts/awesomewm-widget-with-iterator/</link>
+      <pubDate>Sat, 25 Feb 2023 13:26:44 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/awesomewm-widget-with-iterator/</guid>
+      <description>&lt;p&gt;由于 i3wm 支持的功能有限，定制性并没有那么强大，最近换成使用 Awesome WM 了，它使用 Lua 作为配置语言，所以可配置性极强。举个例子，i3wm 配置无法像真正的编程语言一样使用 &lt;code&gt;if ... else&lt;/code&gt; 语句等，但 Awesome WM 可以，对于同一个快捷键就可以在不同时候有不同的功能。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Btrfs 为什么是神？</title>
+      <link>https://vaaandark.top/posts/why-btrfs-is-awesome/</link>
+      <pubDate>Sat, 25 Feb 2023 13:06:17 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/why-btrfs-is-awesome/</guid>
+      <description>&lt;p&gt;最近发现 Windows 这几个月开机不超过 10 次，寻思着将 Windows 中的空间挪一点到 Linux 中来。说干就干，在 Windows 里面划出来了 80 GB 的空间。&lt;/p&gt;
+&lt;p&gt;遗憾地，这 80 GB 空间物理上在我需要扩容的空间的前面，由于开头的扇区存放有很多元数据，因此是不能简单扩容的，只能寻求其他的方法。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>用 Rust 重写星际译王</title>
+      <link>https://vaaandark.top/posts/rewrite-stardict-in-rust/</link>
+      <pubDate>Wed, 25 Jan 2023 13:21:35 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/rewrite-stardict-in-rust/</guid>
+      <description>&lt;p&gt;我经常有在终端查单词的需求，之前使用的是自己写的网络爬虫，原理是构造网址 &amp;ldquo;&lt;a href=&#34;https://www.youdao.com/result?word=%7B%7D&amp;amp;lang=en%22&#34;&gt;https://www.youdao.com/result?word={}&amp;amp;lang=en&amp;quot;&lt;/a&gt; 并访问，再通过解析 Html 文件获得单词解释。一个朋友说他用的是 sdcv ，星际译王的终端版本，可以支持离线词典。我也时常脱机工作，对离线词典的需求也不小，所以打算自己写一个支持 StarDict 格式离线词典的软件。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Mailx 和 Swaks 的使用</title>
+      <link>https://vaaandark.top/posts/mailx-and-swaks/</link>
+      <pubDate>Wed, 18 Jan 2023 21:12:39 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/mailx-and-swaks/</guid>
+      <description>&lt;p&gt;按照 Mailx 自己的介绍，它是一个增强了的 Mail 命令，提供了更多的功能。&lt;/p&gt;
+&lt;p&gt;常规用法是： &lt;code&gt;mailx -s &amp;quot;{{subject}}&amp;quot; {{to_addr}}&lt;/code&gt;，通过配置之后可以使用邮箱运营商的服务器发送邮件。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>SQLite 入门（持续更新）</title>
+      <link>https://vaaandark.top/posts/sqlite-introduction/</link>
+      <pubDate>Thu, 05 Jan 2023 17:37:03 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/sqlite-introduction/</guid>
+      <description>&lt;p&gt;最近想写一个小工具，需要用到 SQLite 。之前只会一点点的 &lt;code&gt;INSERT&lt;/code&gt; 和 &lt;code&gt;DELETE&lt;/code&gt; ，现在想正式入门。&lt;/p&gt;
+&lt;h2 id=&#34;点命令&#34;&gt;点命令&lt;/h2&gt;
+&lt;p&gt;点命令不以 &lt;code&gt;;&lt;/code&gt; 结束，它们一般并不直接操作数据库。&lt;/p&gt;
+&lt;p&gt;可以使用 &lt;code&gt;.help&lt;/code&gt; 来看可以使用的点命令。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>物理双偏振实验画图</title>
+      <link>https://vaaandark.top/posts/dual-polarization-experiment-drawing/</link>
+      <pubDate>Sun, 20 Nov 2022 12:32:04 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/dual-polarization-experiment-drawing/</guid>
+      <description>&lt;p&gt;上次物理实验做的是双偏振，实验资料中推荐使用 origin 画图，我既不想使用 Windows 也不想多下载一个软件，因此我打算用 matplotlib 画图。&lt;/p&gt;
+&lt;h2 id=&#34;代码&#34;&gt;代码&lt;/h2&gt;
+&lt;p&gt;第一个实验画图是很简单的线性回归计算：&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>一些Vim使用技巧（持续更新）</title>
+      <link>https://vaaandark.top/posts/vim-practice/</link>
+      <pubDate>Sun, 20 Feb 2022 10:53:42 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/vim-practice/</guid>
+      <description>&lt;p&gt;最近翻看了一下 &lt;strong&gt;《Vim使用技巧》&lt;/strong&gt; 这本书，然后就发现我对 &lt;strong&gt;Vim&lt;/strong&gt; 快捷键的了解很不深入。不过即使如此，我日常使用 &lt;strong&gt;Vim&lt;/strong&gt; 写代码的效率也高于使用其他编辑器了，足见 &lt;strong&gt;Vim&lt;/strong&gt; 模式之奇。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>gitignore文件如何书写</title>
+      <link>https://vaaandark.top/posts/how-to-write-gitignore/</link>
+      <pubDate>Tue, 08 Feb 2022 13:32:19 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/how-to-write-gitignore/</guid>
+      <description>&lt;p&gt;之前使用&lt;code&gt;git&lt;/code&gt;基本只是把它当作提交到 &lt;strong&gt;GitHub&lt;/strong&gt; 上的工具，最多使用到的功能就是恢复误删的文件而已。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;在我之前的&lt;code&gt;git&lt;/code&gt;命令使用之中，基本上用的就是&lt;code&gt;git clone&lt;/code&gt;、&lt;code&gt;git add .&lt;/code&gt;、&lt;code&gt;git commit -m&lt;/code&gt;以及&lt;code&gt;git commit push&lt;/code&gt;。由于基本上是无脑&lt;code&gt;add&lt;/code&gt;，因此&lt;code&gt;.gitigore&lt;/code&gt;的文件书写比较重要。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>PAC2023娱乐赛 | vaaandark&#39;s blog</title>
+<meta name="keywords" content="高性能, C语言, 并行">
+<meta name="description" content="7.6 举办了 PAC2023 的开幕赛，以轻松娱乐为主，我还没有体验过在短时间内完成优化工作（不过今天的工作量倒也不大）。这场娱乐赛给了我别样的体验，也让我发现了我有好的好多不足，以及一些以前没有注意到的坏习惯。">
+<meta name="author" content="vaaandark">
+<link rel="canonical" href="https://vaaandark.top/posts/pac2023-game/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.556a50c7c92c2556e588f602528ac3c41884cdb6e537ce0647b5e200cd1c2094.css" integrity="sha256-VWpQx8ksJVbliPYCUorDxBiEzbblN84GR7XiAM0cIJQ=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="apple-touch-icon" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="mask-icon" href="https://vaaandark.top/image/vaaandark.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://vaaandark.top/posts/pac2023-game/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://vaaandark.top/posts/pac2023-game/">
+  <meta property="og:site_name" content="vaaandark&#39;s blog">
+  <meta property="og:title" content="PAC2023娱乐赛">
+  <meta property="og:description" content="7.6 举办了 PAC2023 的开幕赛，以轻松娱乐为主，我还没有体验过在短时间内完成优化工作（不过今天的工作量倒也不大）。这场娱乐赛给了我别样的体验，也让我发现了我有好的好多不足，以及一些以前没有注意到的坏习惯。">
+  <meta property="og:locale" content="zh-CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2023-07-06T23:55:08+08:00">
+    <meta property="article:modified_time" content="2023-07-06T23:55:08+08:00">
+    <meta property="article:tag" content="高性能">
+    <meta property="article:tag" content="C语言">
+    <meta property="article:tag" content="并行">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="PAC2023娱乐赛">
+<meta name="twitter:description" content="7.6 举办了 PAC2023 的开幕赛，以轻松娱乐为主，我还没有体验过在短时间内完成优化工作（不过今天的工作量倒也不大）。这场娱乐赛给了我别样的体验，也让我发现了我有好的好多不足，以及一些以前没有注意到的坏习惯。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://vaaandark.top/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "PAC2023娱乐赛",
+      "item": "https://vaaandark.top/posts/pac2023-game/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "PAC2023娱乐赛",
+  "name": "PAC2023娱乐赛",
+  "description": "7.6 举办了 PAC2023 的开幕赛，以轻松娱乐为主，我还没有体验过在短时间内完成优化工作（不过今天的工作量倒也不大）。这场娱乐赛给了我别样的体验，也让我发现了我有好的好多不足，以及一些以前没有注意到的坏习惯。\n",
+  "keywords": [
+    "高性能", "C语言", "并行"
+  ],
+  "articleBody": "7.6 举办了 PAC2023 的开幕赛，以轻松娱乐为主，我还没有体验过在短时间内完成优化工作（不过今天的工作量倒也不大）。这场娱乐赛给了我别样的体验，也让我发现了我有好的好多不足，以及一些以前没有注意到的坏习惯。\n赛题介绍 赛题是针对一个朴素实现的康威生命游戏的优化。由于代码写得很朴素，所以比较轻松地就可以达到比较好看的加速比。\n代码的核心部分如下：\nfor (int iter = 0; iter \u003c max_iter; ++iter) { printf(\"Iter %d...\\n\", iter); for (int i = 1; i \u003c Ny - 1; ++i) { for (int j = 1; j \u003c Nx - 1; ++j) { int cnt = 0; for (int k = 0; k \u003c 8; ++k) { int ii = i + dy[k]; int jj = j + dx[k]; if (a[ii][jj] == 1) { cnt++; } } if (a[i][j] == 1) { if (cnt == 2 || cnt == 3) { tmp[i][j] = 1; } else { tmp[i][j] = 0; } } else { // a[i][j] == 0 if (cnt == 3) { tmp[i][j] = 1; } else { tmp[i][j] = 0; } } } } for (int i = 0; i \u003c Ny; ++i) { for (int j = 0; j \u003c Nx; ++j) { a[i][j] = tmp[i][j]; } } 代码分析 可以看到生命游戏一共要进行 1000 次迭代，每次都遍历一遍整个地图，对每个点都计算一下邻居的个数，再根据生命游戏的 B3/S23 规则决定下一次迭代时的状态。\nB3/S23 规则是对生命游戏规则的概括缩写\n这个朴素写法非常的暴力，不仅是直接访问每个点周围的八个点，而且还使用了 tmp 数组暂存元素，最后将 tmp 复制到地图数组 a 中，开销不可谓不大。\n在本地的 64 核心集群上运行 baseline ，运行时间为 741335.164000 ms\n在北京超级云计算中心上运行 baseline ，运行时间为 634306.056000 ms\n优化策略 算法微调 \u0026\u0026 访存优化 首先我想到的是对算法进行微调，将之前的对每个点求邻居个数改为，将每行与上下两行进行叠加，这样每个元素就是三个点和。这就把对一个「九宫格」的计算改成了两次对三个元素的加和。这样并不能减少计算量，但是能减少访存上的开销。\n这样做的目的还有简化代码逻辑，方便编译器生成 SIMD 指令\n在一番取舍之后没有使用前缀和算法来，这是因为担心在改变数据类型后，数据类型不够宽，无法存放前缀和。\n其实这是后话，后面把 int 改成了 uint8_t\n核心代码改成：\nfor (int iter = 0; iter \u003c max_iter; ++iter) { printf(\"Iter %d...\\n\", iter); memcpy(sum, a, Nx * Ny * sizeof(int)); for (int i = 1; i \u003c Ny - 1; ++i) { for (int j = 0; j \u003c Nx - 1; ++j) { sum[i][j] += a[i + 1][j]; } } for (int i = 1; i \u003c Ny - 1; ++i) { for (int j = 0; j \u003c Nx; ++j) { sum[i][j] += a[i - 1][j]; } } for (int i = 1; i \u003c Ny - 1; ++i) { for (int j = 1; j \u003c Nx - 1; ++j) { int neighbors = sum[i][j] + sum[i][j - 1] + sum[i][j + 1] - a[i][j]; if (neighbors == 3) { tmp[i][j] = 1; } else if (neighbors \u003c 2 || neighbors \u003e 3) { tmp[i][j] = 0; } else { tmp[i][j] = a[i][j]; } } } memcpy(a, tmp, Nx * Ny * sizeof(int)); 在本地的 64 核心集群上运行时间为 293731.276000 ms\n在北京超级云计算中心上运行时间为 260813.238000 ms ，加速比约为 2.4x 。\nopenmp \u0026\u0026 合并循环 之后就是最喜欢的「openmp，启动！」环节了。openmp 相对其他的并行框架来说非常好用，无脑推荐。\n在敲代码时又突然发现叠加的两个循环其实可以合并，这下傻逼了。\n所以核心代码变成了：\nprintf(\"Iter %d...\\n\", iter); memcpy(sum, a, Nx * Ny * sizeof(int)); #pragma omp parallel for for (int i = 1; i \u003c Ny - 1; ++i) { for (int j = 0; j \u003c Nx - 1; ++j) { sum[i][j] += a[i + 1][j]; sum[i][j] += a[i - 1][j]; } } #pragma omp parallel for ... 在本地的 64 核心集群上运行时间为 18918.941000 ms\n在北京超级云计算中心上运行时间为 18864.766000 ms ，加速比约为 33x 。\nO3 \u0026\u0026 SIMD 之前使用的编译参数都是 -O0 现在改成 -O3 ，大量的整数运算操作可以向量化。\n在本地的 64 核心集群上运行时间为 10292.194000 ms\n在北京超级云计算中心上运行时间为 15419.145000 ms ，加速比约为 41x 。\n这里就可以看到本地集群和云计算中心集群机器性能的差别，本地集群单核性能弱于计算中心（体现在 baseline 本地跑了更久），但是计算中心的核心少于本地，因此使用 openmp 的情况下本地加速更明显。\n改变数据类型 由于在九宫格中的计算结果在 0-9 之间，因此不需要很宽的数据类型来存储，而且也不需要考虑负数，因此我使用了 uint8_t 类型来替换 int ，这样操作之后加速比又提高了不少。\n在本地的 64 核心集群上运行时间为 3004.615000 ms\n在北京超级云计算中心上运行时间为 3858.775000 ms ，加速比约为 164x 。\n去掉不必要的拷贝 最后再看看自己的代码，发现很多细节还可以处理。例如数据的拷贝，为了计算与相邻两行的和，我新增了一个数组，由于这个数组可以存储中间过程，我可以去掉 tmp 数组，直接对 a 数组进行操作，这样减少了 memcpy 的开销。\n小插曲：baseline 对边缘的处理非常差，导致第一次迭代(iter=0)时需要将 a 数组的边缘全部置为 0\n还有就是在一开始将 a 数组拷贝到 sum 数组，这个其实也可以带到第一次的循环中进行，这对访存没有什么副作用，而且可以并行执行。\n最后的代码：\nfor (int iter = 0; iter \u003c max_iter; ++iter) { #pragma omp parallel for proc_bind(spread) for (int i = 0; i \u003c Ny - 1; ++i) { for (int j = 0; j \u003c Nx - 1; ++j) { sum[i][j] = 0; sum[i][j] += a[i + 1][j]; sum[i][j] += a[i][j]; sum[i][j] += a[i - 1][j]; } } #pragma omp parallel for proc_bind(spread) for (int i = 1; i \u003c Ny - 1; ++i) { for (int j = 1; j \u003c Nx - 1; ++j) { int neighbors = sum[i][j] + sum[i][j - 1] + sum[i][j + 1] - a[i][j]; if (neighbors == 3) { a[i][j] = 1; } else if (neighbors \u003c 2 || neighbors \u003e 3) { a[i][j] = 0; } } } if (iter == 0) { memset(a[0], 0, sizeof(a[0])); memset(a[Ny - 1], 0, sizeof(a[Ny - 1])); for (int i = 0; i \u003c Ny; ++i) { a[i][Nx - 1] = 0; a[i][0] = 0; } } 在本地的 64 核心集群上运行时间为 247.119000 ms\n本地由于单核弱而核数多，跑到 3000x 没什么鸟用，不具备参考价值😭\n在北京超级云计算中心上运行时间为 318.769000 ms ，加速比约为 1990x 。\n总结 之前打高性能比赛都是组队参加，总是需要大佬的指导和安排任务，这次个人赛暴露了很多不足，完全没有发挥出机器的全部性能。\n不过往好处想，整体的优化思路是短时间内就想出来了的，都怪愚蠢的 baseline ，我花了很多时间在解决正确性的问题。\n这次比赛没有机会尝试使用 MPI ，有时间的话用 MPI 继续做做这道题。\n",
+  "wordCount" : "1995",
+  "inLanguage": "zh",
+  "datePublished": "2023-07-06T23:55:08+08:00",
+  "dateModified": "2023-07-06T23:55:08+08:00",
+  "author":{
+    "@type": "Person",
+    "name": "vaaandark"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://vaaandark.top/posts/pac2023-game/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "vaaandark's blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://vaaandark.top/image/vaaandark.png"
+    }
+  }
+}
+</script>
+
+
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://vaaandark.top/" accesskey="h" title="vaaandark&#39;s blog (Alt + H)">
+                <img src="https://vaaandark.top/image/vaaandark.png" alt="" aria-label="logo"
+                    height="35">vaaandark&#39;s blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://vaaandark.top/" title="🏠主页">
+                    <span>🏠主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/posts/" title="Posts">
+                    <span>📄 归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/categories/" title="categories">
+                    <span>📂 分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/tags/" title="tags">
+                    <span>🔖 标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/about/" title="关于我">
+                    <span>🙋 关于</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/links/" title="友链">
+                    <span>🤝 友链</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://vaaandark.top/">主页</a>&nbsp;»&nbsp;<a href="https://vaaandark.top/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      PAC2023娱乐赛
+    </h1>
+    <div class="post-meta"><span title='2023-07-06 23:55:08 +0800 CST'>2023 7月 06</span>&nbsp;·&nbsp;4 分钟&nbsp;·&nbsp;vaaandark
+
+</div>
+  </header> <div class="toc">
+    <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#%e8%b5%9b%e9%a2%98%e4%bb%8b%e7%bb%8d" aria-label="赛题介绍">赛题介绍</a></li>
+                <li>
+                    <a href="#%e4%bb%a3%e7%a0%81%e5%88%86%e6%9e%90" aria-label="代码分析">代码分析</a></li>
+                <li>
+                    <a href="#%e4%bc%98%e5%8c%96%e7%ad%96%e7%95%a5" aria-label="优化策略">优化策略</a><ul>
+                        
+                <li>
+                    <a href="#%e7%ae%97%e6%b3%95%e5%be%ae%e8%b0%83--%e8%ae%bf%e5%ad%98%e4%bc%98%e5%8c%96" aria-label="算法微调 &amp;&amp; 访存优化">算法微调 &amp;&amp; 访存优化</a></li>
+                <li>
+                    <a href="#openmp--%e5%90%88%e5%b9%b6%e5%be%aa%e7%8e%af" aria-label="openmp &amp;&amp; 合并循环">openmp &amp;&amp; 合并循环</a></li>
+                <li>
+                    <a href="#o3--simd" aria-label="O3 &amp;&amp; SIMD">O3 &amp;&amp; SIMD</a></li>
+                <li>
+                    <a href="#%e6%94%b9%e5%8f%98%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b" aria-label="改变数据类型">改变数据类型</a></li>
+                <li>
+                    <a href="#%e5%8e%bb%e6%8e%89%e4%b8%8d%e5%bf%85%e8%a6%81%e7%9a%84%e6%8b%b7%e8%b4%9d" aria-label="去掉不必要的拷贝">去掉不必要的拷贝</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e6%80%bb%e7%bb%93" aria-label="总结">总结</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>7.6 举办了 PAC2023 的开幕赛，以轻松娱乐为主，我还没有体验过在短时间内完成优化工作（不过今天的工作量倒也不大）。这场娱乐赛给了我别样的体验，也让我发现了我有好的好多不足，以及一些以前没有注意到的坏习惯。</p>
+<h2 id="赛题介绍">赛题介绍<a hidden class="anchor" aria-hidden="true" href="#赛题介绍">#</a></h2>
+<p>赛题是针对一个朴素实现的<a href="https://zh.wikipedia.org/wiki/%E5%BA%B7%E5%A8%81%E7%94%9F%E5%91%BD%E6%B8%B8%E6%88%8F">康威生命游戏</a>的优化。由于代码写得很朴素，所以比较轻松地就可以达到比较好看的加速比。</p>
+<p>代码的核心部分如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> iter = <span style="color:#ff0;font-weight:bold">0</span>; iter &lt; max_iter; ++iter) {
+</span></span><span style="display:flex;"><span>    printf(<span style="color:#0ff;font-weight:bold">&#34;Iter %d...</span><span style="color:#0ff;font-weight:bold">\n</span><span style="color:#0ff;font-weight:bold">&#34;</span>, iter);
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> i = <span style="color:#ff0;font-weight:bold">1</span>; i &lt; Ny - <span style="color:#ff0;font-weight:bold">1</span>; ++i) {
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> j = <span style="color:#ff0;font-weight:bold">1</span>; j &lt; Nx - <span style="color:#ff0;font-weight:bold">1</span>; ++j) {
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">int</span> cnt = <span style="color:#ff0;font-weight:bold">0</span>;
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> k = <span style="color:#ff0;font-weight:bold">0</span>; k &lt; <span style="color:#ff0;font-weight:bold">8</span>; ++k) {
+</span></span><span style="display:flex;"><span>          <span style="color:#fff;font-weight:bold">int</span> ii = i + dy[k];
+</span></span><span style="display:flex;"><span>          <span style="color:#fff;font-weight:bold">int</span> jj = j + dx[k];
+</span></span><span style="display:flex;"><span>          <span style="color:#fff;font-weight:bold">if</span> (a[ii][jj] == <span style="color:#ff0;font-weight:bold">1</span>) {
+</span></span><span style="display:flex;"><span>            cnt++;
+</span></span><span style="display:flex;"><span>          }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">if</span> (a[i][j] == <span style="color:#ff0;font-weight:bold">1</span>) {
+</span></span><span style="display:flex;"><span>          <span style="color:#fff;font-weight:bold">if</span> (cnt == <span style="color:#ff0;font-weight:bold">2</span> || cnt == <span style="color:#ff0;font-weight:bold">3</span>) {
+</span></span><span style="display:flex;"><span>            tmp[i][j] = <span style="color:#ff0;font-weight:bold">1</span>;
+</span></span><span style="display:flex;"><span>          } <span style="color:#fff;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>            tmp[i][j] = <span style="color:#ff0;font-weight:bold">0</span>;
+</span></span><span style="display:flex;"><span>          }
+</span></span><span style="display:flex;"><span>        } <span style="color:#fff;font-weight:bold">else</span> {  <span style="color:#007f7f">// a[i][j] == 0
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>          <span style="color:#fff;font-weight:bold">if</span> (cnt == <span style="color:#ff0;font-weight:bold">3</span>) {
+</span></span><span style="display:flex;"><span>            tmp[i][j] = <span style="color:#ff0;font-weight:bold">1</span>;
+</span></span><span style="display:flex;"><span>          } <span style="color:#fff;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>            tmp[i][j] = <span style="color:#ff0;font-weight:bold">0</span>;
+</span></span><span style="display:flex;"><span>          }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> i = <span style="color:#ff0;font-weight:bold">0</span>; i &lt; Ny; ++i) {
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> j = <span style="color:#ff0;font-weight:bold">0</span>; j &lt; Nx; ++j) {
+</span></span><span style="display:flex;"><span>        a[i][j] = tmp[i][j];
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><h2 id="代码分析">代码分析<a hidden class="anchor" aria-hidden="true" href="#代码分析">#</a></h2>
+<p>可以看到生命游戏一共要进行 1000 次迭代，每次都遍历一遍整个地图，对每个点都计算一下邻居的个数，再根据生命游戏的 B3/S23 规则决定下一次迭代时的状态。</p>
+<blockquote>
+<p>B3/S23 规则是对生命游戏规则的概括缩写</p>
+</blockquote>
+<p>这个朴素写法非常的暴力，不仅是直接访问每个点周围的八个点，而且还使用了 <code>tmp</code> 数组暂存元素，最后将 <code>tmp</code> 复制到地图数组 <code>a</code> 中，开销不可谓不大。</p>
+<p>在本地的 64 核心集群上运行 baseline ，运行时间为 <strong>741335.164000 ms</strong></p>
+<p>在北京超级云计算中心上运行 baseline ，运行时间为 <strong>634306.056000 ms</strong></p>
+<h2 id="优化策略">优化策略<a hidden class="anchor" aria-hidden="true" href="#优化策略">#</a></h2>
+<h3 id="算法微调--访存优化">算法微调 &amp;&amp; 访存优化<a hidden class="anchor" aria-hidden="true" href="#算法微调--访存优化">#</a></h3>
+<p>首先我想到的是对算法进行微调，将之前的对每个点求邻居个数改为，将每行与上下两行进行叠加，这样每个元素就是三个点和。这就把对一个「九宫格」的计算改成了两次对三个元素的加和。这样并不能减少计算量，但是能减少访存上的开销。</p>
+<blockquote>
+<p>这样做的目的还有简化代码逻辑，方便编译器生成 SIMD 指令</p>
+</blockquote>
+<p>在一番取舍之后没有使用前缀和算法来，这是因为担心在改变数据类型后，数据类型不够宽，无法存放前缀和。</p>
+<blockquote>
+<p>其实这是后话，后面把 <code>int</code> 改成了 <code>uint8_t</code></p>
+</blockquote>
+<p>核心代码改成：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> iter = <span style="color:#ff0;font-weight:bold">0</span>; iter &lt; max_iter; ++iter) {
+</span></span><span style="display:flex;"><span>    printf(<span style="color:#0ff;font-weight:bold">&#34;Iter %d...</span><span style="color:#0ff;font-weight:bold">\n</span><span style="color:#0ff;font-weight:bold">&#34;</span>, iter);
+</span></span><span style="display:flex;"><span>    memcpy(sum, a, Nx * Ny * <span style="color:#fff;font-weight:bold">sizeof</span>(<span style="color:#fff;font-weight:bold">int</span>));
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> i = <span style="color:#ff0;font-weight:bold">1</span>; i &lt; Ny - <span style="color:#ff0;font-weight:bold">1</span>; ++i) {
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> j = <span style="color:#ff0;font-weight:bold">0</span>; j &lt; Nx - <span style="color:#ff0;font-weight:bold">1</span>; ++j) {
+</span></span><span style="display:flex;"><span>        sum[i][j] += a[i + <span style="color:#ff0;font-weight:bold">1</span>][j];
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> i = <span style="color:#ff0;font-weight:bold">1</span>; i &lt; Ny - <span style="color:#ff0;font-weight:bold">1</span>; ++i) {
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> j = <span style="color:#ff0;font-weight:bold">0</span>; j &lt; Nx; ++j) {
+</span></span><span style="display:flex;"><span>        sum[i][j] += a[i - <span style="color:#ff0;font-weight:bold">1</span>][j];
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> i = <span style="color:#ff0;font-weight:bold">1</span>; i &lt; Ny - <span style="color:#ff0;font-weight:bold">1</span>; ++i) {
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> j = <span style="color:#ff0;font-weight:bold">1</span>; j &lt; Nx - <span style="color:#ff0;font-weight:bold">1</span>; ++j) {
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">int</span> neighbors = sum[i][j] + sum[i][j - <span style="color:#ff0;font-weight:bold">1</span>] + sum[i][j + <span style="color:#ff0;font-weight:bold">1</span>] - a[i][j];
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">if</span> (neighbors == <span style="color:#ff0;font-weight:bold">3</span>) {
+</span></span><span style="display:flex;"><span>          tmp[i][j] = <span style="color:#ff0;font-weight:bold">1</span>;
+</span></span><span style="display:flex;"><span>        } <span style="color:#fff;font-weight:bold">else</span> <span style="color:#fff;font-weight:bold">if</span> (neighbors &lt; <span style="color:#ff0;font-weight:bold">2</span> || neighbors &gt; <span style="color:#ff0;font-weight:bold">3</span>) {
+</span></span><span style="display:flex;"><span>          tmp[i][j] = <span style="color:#ff0;font-weight:bold">0</span>;
+</span></span><span style="display:flex;"><span>        } <span style="color:#fff;font-weight:bold">else</span> {
+</span></span><span style="display:flex;"><span>          tmp[i][j] = a[i][j];
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    memcpy(a, tmp, Nx * Ny * <span style="color:#fff;font-weight:bold">sizeof</span>(<span style="color:#fff;font-weight:bold">int</span>));
+</span></span></code></pre></div><p>在本地的 64 核心集群上运行时间为 <strong>293731.276000 ms</strong></p>
+<p>在北京超级云计算中心上运行时间为 <strong>260813.238000 ms</strong> ，加速比约为 <strong>2.4x</strong> 。</p>
+<h3 id="openmp--合并循环">openmp &amp;&amp; 合并循环<a hidden class="anchor" aria-hidden="true" href="#openmp--合并循环">#</a></h3>
+<p>之后就是最喜欢的「<strong>openmp，启动！</strong>」环节了。openmp 相对其他的并行框架来说非常好用，无脑推荐。</p>
+<p>在敲代码时又突然发现叠加的两个循环其实可以合并，<del>这下傻逼了</del>。</p>
+<p>所以核心代码变成了：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>    printf(<span style="color:#0ff;font-weight:bold">&#34;Iter %d...</span><span style="color:#0ff;font-weight:bold">\n</span><span style="color:#0ff;font-weight:bold">&#34;</span>, iter);
+</span></span><span style="display:flex;"><span>    memcpy(sum, a, Nx * Ny * <span style="color:#fff;font-weight:bold">sizeof</span>(<span style="color:#fff;font-weight:bold">int</span>));
+</span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold">#pragma omp parallel for
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold"></span>    <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> i = <span style="color:#ff0;font-weight:bold">1</span>; i &lt; Ny - <span style="color:#ff0;font-weight:bold">1</span>; ++i) {
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> j = <span style="color:#ff0;font-weight:bold">0</span>; j &lt; Nx - <span style="color:#ff0;font-weight:bold">1</span>; ++j) {
+</span></span><span style="display:flex;"><span>        sum[i][j] += a[i + <span style="color:#ff0;font-weight:bold">1</span>][j];
+</span></span><span style="display:flex;"><span>        sum[i][j] += a[i - <span style="color:#ff0;font-weight:bold">1</span>][j];
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold">#pragma omp parallel for
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold"></span>...
+</span></span></code></pre></div><p>在本地的 64 核心集群上运行时间为 <strong>18918.941000 ms</strong></p>
+<p>在北京超级云计算中心上运行时间为 <strong>18864.766000 ms</strong> ，加速比约为 <strong>33x</strong> 。</p>
+<h3 id="o3--simd">O3 &amp;&amp; SIMD<a hidden class="anchor" aria-hidden="true" href="#o3--simd">#</a></h3>
+<p>之前使用的编译参数都是 <code>-O0</code> 现在改成 <code>-O3</code> ，大量的整数运算操作可以向量化。</p>
+<p>在本地的 64 核心集群上运行时间为 <strong>10292.194000 ms</strong></p>
+<p>在北京超级云计算中心上运行时间为 <strong>15419.145000 ms</strong> ，加速比约为 <strong>41x</strong> 。</p>
+<blockquote>
+<p>这里就可以看到本地集群和云计算中心集群机器性能的差别，本地集群单核性能弱于计算中心（体现在 baseline 本地跑了更久），但是计算中心的核心少于本地，因此使用 openmp 的情况下本地加速更明显。</p>
+</blockquote>
+<h3 id="改变数据类型">改变数据类型<a hidden class="anchor" aria-hidden="true" href="#改变数据类型">#</a></h3>
+<p>由于在九宫格中的计算结果在 0-9 之间，因此不需要很宽的数据类型来存储，而且也不需要考虑负数，因此我使用了 <code>uint8_t</code> 类型来替换 <code>int</code> ，这样操作之后加速比又提高了不少。</p>
+<p>在本地的 64 核心集群上运行时间为 <strong>3004.615000 ms</strong></p>
+<p>在北京超级云计算中心上运行时间为 <strong>3858.775000 ms</strong> ，加速比约为 <strong>164x</strong> 。</p>
+<h3 id="去掉不必要的拷贝">去掉不必要的拷贝<a hidden class="anchor" aria-hidden="true" href="#去掉不必要的拷贝">#</a></h3>
+<p>最后再看看自己的代码，发现很多细节还可以处理。例如数据的拷贝，为了计算与相邻两行的和，我新增了一个数组，由于这个数组可以存储中间过程，我可以去掉 <code>tmp</code> 数组，直接对 <code>a</code> 数组进行操作，这样减少了 <code>memcpy</code> 的开销。</p>
+<blockquote>
+<p>小插曲：baseline 对边缘的处理非常差，导致第一次迭代(iter=0)时需要将 <code>a</code> 数组的边缘全部置为 0</p>
+</blockquote>
+<p>还有就是在一开始将 <code>a</code> 数组拷贝到 <code>sum</code> 数组，这个其实也可以带到第一次的循环中进行，这对访存没有什么副作用，而且可以并行执行。</p>
+<p>最后的代码：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> iter = <span style="color:#ff0;font-weight:bold">0</span>; iter &lt; max_iter; ++iter) {
+</span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold">#pragma omp parallel for proc_bind(spread)
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold"></span>    <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> i = <span style="color:#ff0;font-weight:bold">0</span>; i &lt; Ny - <span style="color:#ff0;font-weight:bold">1</span>; ++i) {
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> j = <span style="color:#ff0;font-weight:bold">0</span>; j &lt; Nx - <span style="color:#ff0;font-weight:bold">1</span>; ++j) {
+</span></span><span style="display:flex;"><span>        sum[i][j] = <span style="color:#ff0;font-weight:bold">0</span>;
+</span></span><span style="display:flex;"><span>        sum[i][j] += a[i + <span style="color:#ff0;font-weight:bold">1</span>][j];
+</span></span><span style="display:flex;"><span>        sum[i][j] += a[i][j];
+</span></span><span style="display:flex;"><span>        sum[i][j] += a[i - <span style="color:#ff0;font-weight:bold">1</span>][j];
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold">#pragma omp parallel for proc_bind(spread)
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold"></span>    <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> i = <span style="color:#ff0;font-weight:bold">1</span>; i &lt; Ny - <span style="color:#ff0;font-weight:bold">1</span>; ++i) {
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> j = <span style="color:#ff0;font-weight:bold">1</span>; j &lt; Nx - <span style="color:#ff0;font-weight:bold">1</span>; ++j) {
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">int</span> neighbors = sum[i][j] + sum[i][j - <span style="color:#ff0;font-weight:bold">1</span>] + sum[i][j + <span style="color:#ff0;font-weight:bold">1</span>] - a[i][j];
+</span></span><span style="display:flex;"><span>        <span style="color:#fff;font-weight:bold">if</span> (neighbors == <span style="color:#ff0;font-weight:bold">3</span>) {
+</span></span><span style="display:flex;"><span>          a[i][j] = <span style="color:#ff0;font-weight:bold">1</span>;
+</span></span><span style="display:flex;"><span>        } <span style="color:#fff;font-weight:bold">else</span> <span style="color:#fff;font-weight:bold">if</span> (neighbors &lt; <span style="color:#ff0;font-weight:bold">2</span> || neighbors &gt; <span style="color:#ff0;font-weight:bold">3</span>) {
+</span></span><span style="display:flex;"><span>          a[i][j] = <span style="color:#ff0;font-weight:bold">0</span>;
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (iter == <span style="color:#ff0;font-weight:bold">0</span>) {
+</span></span><span style="display:flex;"><span>      memset(a[<span style="color:#ff0;font-weight:bold">0</span>], <span style="color:#ff0;font-weight:bold">0</span>, <span style="color:#fff;font-weight:bold">sizeof</span>(a[<span style="color:#ff0;font-weight:bold">0</span>]));
+</span></span><span style="display:flex;"><span>      memset(a[Ny - <span style="color:#ff0;font-weight:bold">1</span>], <span style="color:#ff0;font-weight:bold">0</span>, <span style="color:#fff;font-weight:bold">sizeof</span>(a[Ny - <span style="color:#ff0;font-weight:bold">1</span>]));
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">for</span> (<span style="color:#fff;font-weight:bold">int</span> i = <span style="color:#ff0;font-weight:bold">0</span>; i &lt; Ny; ++i) {
+</span></span><span style="display:flex;"><span>        a[i][Nx - <span style="color:#ff0;font-weight:bold">1</span>] = <span style="color:#ff0;font-weight:bold">0</span>;
+</span></span><span style="display:flex;"><span>        a[i][<span style="color:#ff0;font-weight:bold">0</span>] = <span style="color:#ff0;font-weight:bold">0</span>;
+</span></span><span style="display:flex;"><span>      }
+</span></span><span style="display:flex;"><span>    }
+</span></span></code></pre></div><p>在本地的 64 核心集群上运行时间为 <strong>247.119000 ms</strong></p>
+<blockquote>
+<p>本地由于单核弱而核数多，跑到 3000x 没什么鸟用，不具备参考价值😭</p>
+</blockquote>
+<p>在北京超级云计算中心上运行时间为 <strong>318.769000 ms</strong> ，加速比约为 <strong>1990x</strong> 。</p>
+<h2 id="总结">总结<a hidden class="anchor" aria-hidden="true" href="#总结">#</a></h2>
+<p>之前打高性能比赛都是组队参加，总是需要大佬的指导和安排任务，这次个人赛暴露了很多不足，完全没有发挥出机器的全部性能。</p>
+<p><del>不过往好处想，整体的优化思路是短时间内就想出来了的，都怪愚蠢的 baseline ，我花了很多时间在解决正确性的问题。</del></p>
+<p>这次比赛没有机会尝试使用 MPI ，有时间的话用 MPI 继续做做这道题。</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://vaaandark.top/tags/%E9%AB%98%E6%80%A7%E8%83%BD/">高性能</a></li>
+      <li><a href="https://vaaandark.top/tags/c%E8%AF%AD%E8%A8%80/">C语言</a></li>
+      <li><a href="https://vaaandark.top/tags/%E5%B9%B6%E8%A1%8C/">并行</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://vaaandark.top/posts/football-team-bill/">
+    <span class="title">« 上一页</span>
+    <br>
+    <span>足球队账单</span>
+  </a>
+  <a class="next" href="https://vaaandark.top/posts/review-for-database-on-relation-algebra/">
+    <span class="title">下一页 »</span>
+    <br>
+    <span>数据库复习之关系代数</span>
+  </a>
+</nav>
+
+
+<ul class="share-buttons">
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share PAC2023娱乐赛 on x"
+            href="https://x.com/intent/tweet/?text=PAC2023%e5%a8%b1%e4%b9%90%e8%b5%9b&amp;url=https%3a%2f%2fvaaandark.top%2fposts%2fpac2023-game%2f&amp;hashtags=%e9%ab%98%e6%80%a7%e8%83%bd%2cC%e8%af%ad%e8%a8%80%2c%e5%b9%b6%e8%a1%8c">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M512 62.554 L 512 449.446 C 512 483.97 483.97 512 449.446 512 L 62.554 512 C 28.03 512 0 483.97 0 449.446 L 0 62.554 C 0 28.03 28.029 0 62.554 0 L 449.446 0 C 483.971 0 512 28.03 512 62.554 Z M 269.951 190.75 L 182.567 75.216 L 56 75.216 L 207.216 272.95 L 63.9 436.783 L 125.266 436.783 L 235.9 310.383 L 332.567 436.783 L 456 436.783 L 298.367 228.367 L 432.367 75.216 L 371.033 75.216 Z M 127.633 110 L 164.101 110 L 383.481 400.065 L 349.5 400.065 Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share PAC2023娱乐赛 on linkedin"
+            href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fvaaandark.top%2fposts%2fpac2023-game%2f&amp;title=PAC2023%e5%a8%b1%e4%b9%90%e8%b5%9b&amp;summary=PAC2023%e5%a8%b1%e4%b9%90%e8%b5%9b&amp;source=https%3a%2f%2fvaaandark.top%2fposts%2fpac2023-game%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share PAC2023娱乐赛 on reddit"
+            href="https://reddit.com/submit?url=https%3a%2f%2fvaaandark.top%2fposts%2fpac2023-game%2f&title=PAC2023%e5%a8%b1%e4%b9%90%e8%b5%9b">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share PAC2023娱乐赛 on facebook"
+            href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fvaaandark.top%2fposts%2fpac2023-game%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share PAC2023娱乐赛 on whatsapp"
+            href="https://api.whatsapp.com/send?text=PAC2023%e5%a8%b1%e4%b9%90%e8%b5%9b%20-%20https%3a%2f%2fvaaandark.top%2fposts%2fpac2023-game%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share PAC2023娱乐赛 on telegram"
+            href="https://telegram.me/share/url?text=PAC2023%e5%a8%b1%e4%b9%90%e8%b5%9b&amp;url=https%3a%2f%2fvaaandark.top%2fposts%2fpac2023-game%2f">
+            <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share PAC2023娱乐赛 on ycombinator"
+            href="https://news.ycombinator.com/submitlink?t=PAC2023%e5%a8%b1%e4%b9%90%e8%b5%9b&u=https%3a%2f%2fvaaandark.top%2fposts%2fpac2023-game%2f">
+            <svg version="1.1" xml:space="preserve" width="30px" height="30px" viewBox="0 0 512 512" fill="currentColor"
+                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
+                <path
+                    d="M449.446 0C483.971 0 512 28.03 512 62.554L512 449.446C512 483.97 483.97 512 449.446 512L62.554 512C28.03 512 0 483.97 0 449.446L0 62.554C0 28.03 28.029 0 62.554 0L449.446 0ZM183.8767 87.9921H121.8427L230.6673 292.4508V424.0079H281.3328V292.4508L390.1575 87.9921H328.1233L256 238.2489z" />
+            </svg>
+        </a>
+    </li>
+</ul>
+
+  </footer><script src="https://giscus.app/client.js"
+        data-repo="vaaandark/vaaandark.github.io"
+        data-repo-id="R_kgDOGsxTxw"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOGsxTx84CmAQ1"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+</script>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://vaaandark.top/">vaaandark&#39;s blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

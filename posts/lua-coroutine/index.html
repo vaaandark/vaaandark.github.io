@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Lua Coroutine | vaaandark&#39;s blog</title>
+<meta name="keywords" content="Lua, 数据结构, 协程, 线程">
+<meta name="description" content="Lua 的一大特色就是协程的使用，在解释型语言中，如果不考虑嵌入到较为低级的语言（如 C 语言）中，就只需要操作调用栈并保存好上下文状态即可。但是 Lua 并不是一门纯粹依靠字节码的解释型语言，它常常与 C 语言反复嵌套，甚至出现 C 中调用 Lua ，Lua 中再调用 C 代码，，，的情况。一旦 Lua 调用的 C 库企图中断线程，再想恢复，就会是一个难题。好在 Lua 巧妙地解决了这些问题。">
+<meta name="author" content="vaaandark">
+<link rel="canonical" href="https://vaaandark.top/posts/lua-coroutine/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.556a50c7c92c2556e588f602528ac3c41884cdb6e537ce0647b5e200cd1c2094.css" integrity="sha256-VWpQx8ksJVbliPYCUorDxBiEzbblN84GR7XiAM0cIJQ=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="apple-touch-icon" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="mask-icon" href="https://vaaandark.top/image/vaaandark.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://vaaandark.top/posts/lua-coroutine/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://vaaandark.top/posts/lua-coroutine/">
+  <meta property="og:site_name" content="vaaandark&#39;s blog">
+  <meta property="og:title" content="Lua Coroutine">
+  <meta property="og:description" content="Lua 的一大特色就是协程的使用，在解释型语言中，如果不考虑嵌入到较为低级的语言（如 C 语言）中，就只需要操作调用栈并保存好上下文状态即可。但是 Lua 并不是一门纯粹依靠字节码的解释型语言，它常常与 C 语言反复嵌套，甚至出现 C 中调用 Lua ，Lua 中再调用 C 代码，，，的情况。一旦 Lua 调用的 C 库企图中断线程，再想恢复，就会是一个难题。好在 Lua 巧妙地解决了这些问题。">
+  <meta property="og:locale" content="zh-CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2022-05-13T15:19:09+00:00">
+    <meta property="article:modified_time" content="2022-05-13T15:19:09+00:00">
+    <meta property="article:tag" content="Lua">
+    <meta property="article:tag" content="数据结构">
+    <meta property="article:tag" content="协程">
+    <meta property="article:tag" content="线程">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Lua Coroutine">
+<meta name="twitter:description" content="Lua 的一大特色就是协程的使用，在解释型语言中，如果不考虑嵌入到较为低级的语言（如 C 语言）中，就只需要操作调用栈并保存好上下文状态即可。但是 Lua 并不是一门纯粹依靠字节码的解释型语言，它常常与 C 语言反复嵌套，甚至出现 C 中调用 Lua ，Lua 中再调用 C 代码，，，的情况。一旦 Lua 调用的 C 库企图中断线程，再想恢复，就会是一个难题。好在 Lua 巧妙地解决了这些问题。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://vaaandark.top/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Lua Coroutine",
+      "item": "https://vaaandark.top/posts/lua-coroutine/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Lua Coroutine",
+  "name": "Lua Coroutine",
+  "description": "Lua 的一大特色就是协程的使用，在解释型语言中，如果不考虑嵌入到较为低级的语言（如 C 语言）中，就只需要操作调用栈并保存好上下文状态即可。但是 Lua 并不是一门纯粹依靠字节码的解释型语言，它常常与 C 语言反复嵌套，甚至出现 C 中调用 Lua ，Lua 中再调用 C 代码，，，的情况。一旦 Lua 调用的 C 库企图中断线程，再想恢复，就会是一个难题。好在 Lua 巧妙地解决了这些问题。\n",
+  "keywords": [
+    "Lua", "数据结构", "协程", "线程"
+  ],
+  "articleBody": "Lua 的一大特色就是协程的使用，在解释型语言中，如果不考虑嵌入到较为低级的语言（如 C 语言）中，就只需要操作调用栈并保存好上下文状态即可。但是 Lua 并不是一门纯粹依靠字节码的解释型语言，它常常与 C 语言反复嵌套，甚至出现 C 中调用 Lua ，Lua 中再调用 C 代码，，，的情况。一旦 Lua 调用的 C 库企图中断线程，再想恢复，就会是一个难题。好在 Lua 巧妙地解决了这些问题。\nLua 虚拟机重要结构体 global_State global_State 由所有线程共享，其中包含字符串内部化保存的哈希表、垃圾回收、异常处理等信息。\nlua_State lua_State 表示一个 Lua 线程的执行状态，它有着自己独立的数据栈和函数调用栈。每个 lua_State 都有一个指向 global_State 的指针。\n/* ** 'per thread' state */ struct lua_State { CommonHeader; lu_byte status; lu_byte allowhook; unsigned short nci; /* number of items in 'ci' list */ StkId top; /* first free slot in the stack */ global_State *l_G; CallInfo *ci; /* call info for current function */ StkId stack_last; /* end of stack (last element + 1) */ StkId stack; /* stack base */ UpVal *openupval; /* list of open upvalues in this stack */ StkId tbclist; /* list of to-be-closed variables */ GCObject *gclist; struct lua_State *twups; /* list of threads with open upvalues */ struct lua_longjmp *errorJmp; /* current error recover point */ CallInfo base_ci; /* CallInfo for first level (C calling Lua) */ volatile lua_Hook hook; ptrdiff_t errfunc; /* current error handling function (stack index) */ l_uint32 nCcalls; /* number of nested (non-yieldable | C) calls */ int oldpc; /* last pc traced */ int basehookcount; int hookcount; volatile l_signalT hookmask; }; 数据栈 对数据栈初始化和释放分别调用 stack_init 和 free_stack 函数：\nstatic void stack_init (lua_State *L1, lua_State *L); static void freestack (lua_State *L); 数据栈初始大小是 Lua 内置栈结构的两倍，随着数据的增多需要调用 growstack 进行栈的扩展。因为有些数据包含了对栈中元素的引用，在栈中元素移位之后，在扩展之中要对栈进行修正。\n#define BASIC_STACK_SIZE (2*LUA_MINSTACK) static void correctstack (lua_State *L, StkId oldstack, StkId newstack); int luaD_reallocstack (lua_State *L, int newsize, int raiseerror); int luaD_growstack (lua_State *L, int n, int raiseerror); 通过源代码中的注释可以很清晰知晓这些函数的作用，再结合源码，可以发现这三个函数的调用关系为：\nluaD_growstack ---\u003e luaD_reallocstack ---\u003e correctstack 调用栈 函数调用栈使用的是一个双向链表结构体 CallInfo ：\ntypedef struct CallInfo { StkId func; /* function index in the stack */ StkId\ttop; /* top for this function */ struct CallInfo *previous, *next; /* dynamic call link */ union { struct { /* only for Lua functions */ const Instruction *savedpc; volatile l_signalT trap; int nextraargs; /* # of extra arguments in vararg functions */ } l; struct { /* only for C functions */ lua_KFunction k; /* continuation in case of yields */ ptrdiff_t old_errfunc; lua_KContext ctx; /* context info. in case of yields */ } c; } u; union { // ... } u2; short nresults; /* expected number of results from this function */ unsigned short callstatus; } CallInfo; 在联合体 u 中：字段 l 用于调用 Lua 函数，字段 c 用于调用 C 函数，callstatus 用于标志是 Lua 函数还是 c 函数；联合体 u2 和保护模式、钩子函数等有关，暂不考虑。\n需要注意到的是，既有 func 又有 base 的原因是，Lua 传入一个函数的参数个数可能不定，通过函数位置和栈底位置相减可以计算出参数个数。\nLua 线程 创建线程 在 Lua 中也有线程的概念，但它并不是系统线程，而且由于所有的 lua_State 都共享了 global_State ，因此多线程操作较难。在 Lua 中，协程才是最强大的武器。\nLua 给 C/C++ 保留了很多 API ，其中关于创建线程的 API 很有意思：\nLUA_API lua_State *lua_newthread (lua_State *L) { // ... /* create new thread */ L1 = \u0026cast(LX *, luaM_newobject(L, LUA_TTHREAD, sizeof(LX)))-\u003el; //... } 创建线程结构体时分配空间的大小不是 Lua_State 的大小，而是 LX 的大小，而且将 Lua_State 放在了 LX 所在内存的后一部分，这既是给自定义 Lua 代码留下了空间，也是为了防止向用户暴露 Lua_State 的大小。\n举个例子，在多线程操作中，访问 lua_State 结构中注册表是线程不安全的，但是如果你将一些信息放在 lua_State 的前面，就可以既方便访问又在数据竞争中保持安全（不够这也增加了代码的复杂度）。\n线程中断及异常处理 Lua 全部源码都由标准 C 写成而且只使用了标准库，因此它的线程中断和错误处理都使用的是标准库中的 setjmp.h 来实现的。\n异常 我在之前的一篇博文中讲到过 C语言接口与实现 中实现 C 语言异常处理的方法，也是通过 setjmp.h 来实现的。而 Lua 源码更进一步，通过宏定义将异常处理和 C++ 中的原生异常处理 try/catch 联系起来，也方便了开发者使用 C++ 开发 Lua 程序。\nLua 中的异常是一个单向链表（链栈），它的行为也很好理解：出现异常，将异常串到链表上并抛出，在处理完后再使用 longjmp 跳回来。\n/* chain list of long jump buffers */ struct lua_longjmp { struct lua_longjmp *previous; luai_jmpbuf b; volatile int status; /* error code */ }; 函数 Lua 的函数调用过程分为 precall 和 poscall 两个部分：对于 C 语言函数来说，precall 调用了它；而对于 Lua 函数来说，precall 是为了它的调用做准备，只是改变了 Lua 虚拟机（lua_State）的状态而已，并没有真正调用。poscall 处理了它的返回，对数据栈进行了调整。\nCallInfo *luaD_precall (lua_State *L, StkId func, int nresults) { retry: switch (ttypetag(s2v(func))) { case LUA_VCCL: /* C closure */ // ... case LUA_VLCF: /* light C function */ // ... case LUA_VLCL: { /* Lua function */ // ... } default: { /* not a function */ func = luaD_tryfuncTM(L, func); /* try to get '__call' metamethod */ /* return luaD_precall(L, func, nresults); */ goto retry; /* try again with metamethod */ } } } void luaD_poscall (lua_State *L, CallInfo *ci, int nres); StkId luaD_tryfuncTM (lua_State *L, StkId func); 可以看到 precall 里面 switch/case 中的 default 分支，里面调用了 luaD_tryfuncTM 函数，这涉及了 Lua 中的元表（Meta Table），简单来说就是，当在表中找不到元素时就会尝试在表对应的元表中寻找。Lua 就是利用元表实现了类似于 Java 中的接口、C++ 中的虚函数、Rust 中的 Trait，以及重载运算符等操作。\n当我们使用 C 语言开发并将 Lua 代码嵌入其中时，可以使用 API luaD_call ，它是 ccall 的一个包装。\nvoid luaD_call (lua_State *L, StkId func, int nResults) { ccall(L, func, nResults, 1); } l_sinline void ccall (lua_State *L, StkId func, int nResults, int inc) { CallInfo *ci; L-\u003enCcalls += inc; if (l_unlikely(getCcalls(L) \u003e= LUAI_MAXCCALLS)) luaE_checkcstack(L); if ((ci = luaD_precall(L, func, nResults)) != NULL) { /* Lua function? */ ci-\u003ecallstatus = CIST_FRESH; /* mark that it is a \"fresh\" execute */ luaV_execute(L, ci); /* call it */ } L-\u003enCcalls -= inc; } 参数 inc 代表的是在 C 函数栈中递归函数的个数，而 lua_State 实例 L 中的 nCcalls 代表的是在调用过程中被中断后就不能恢复的 C 函数（non-yielded，在老版本中名字叫做 nny)。\n从中断中恢复 终于到了如何解决从中断中恢复这个问题了。Lua 给出的解决方案其实也不难，就是让编写 C 程序的开发者辛苦一点而已，也就是让他们自己提供一个延续函数 k 。\n我们可以回顾一下 CallInfo 结构体中的 c 字段：\n// ... struct { /* only for C functions */ lua_KFunction k; /* continuation in case of yields */ ptrdiff_t old_errfunc; lua_KContext ctx; /* context info. in case of yields */ } c; // ... k 就是延续函数，而 ctx 就保存有 yield 时的上下文。\n在使用 k 时，只需要把它当作回调函数，将它和虚拟机实例 L 一起传入 API lua_callk 中即可。\n在 C 线程需要挂起时就要调用 lua_yieldk 来保存恢复时需要的上下文等信息：\nLUA_API int lua_yieldk (lua_State *L, int nresults, lua_KContext ctx, lua_KFunction k); 在 lua_yieldk 中保存信息前要进行 lua_lock(L)，之后要 lua_unlock(L) 释放锁，但是在源码中 这两个宏都是不完整的，都被拓展为(void (0))，在需要同步的时候要注意对它们进行补充。\nLua 协程让出时也需要调用 lua_yieldk ，这放在协程部分讨论。\n在恢复时 Lua 内部调用的函数是 resume 函数：\nstatic void resume (lua_State *L, void *ud) { // ... if (isLua(ci)) { /* yielded inside a hook? */ L-\u003etop = firstArg; /* discard arguments */ luaV_execute(L, ci); /* just continue running Lua code */ } else { /* 'common' yield */ if (ci-\u003eu.c.k != NULL) { /* does it have a continuation function? */ lua_unlock(L); n = (*ci-\u003eu.c.k)(L, LUA_YIELD, ci-\u003eu.c.ctx); /* call continuation */ lua_lock(L); api_checknelems(L, n); } luaD_poscall(L, ci, n); /* finish 'luaD_call' */ } unroll(L, NULL); /* run continuation */ // ... } 可以看到如果是要恢复一个 Lua 函数就直接继续执行就可以了，如果是一个 C 函数则需要调用延续函数，再使用 poscall 处理返回值。\n与 resume 相关的 API 有 lua_resume，只是对 resume 的包装而已，较为简单。\nLua 协程 讨论完了上面的线程问题，现在需要讲的协程就是小菜一碟了。Lua 的协程实际上就是 Lua 线程间的切换（而非系统线程，故性能损失较少），需要考虑的只有错误信息的 move 以及新切换到的线程的 resume 问题，而 resume 的实现在前文已经讨论过了。\n协程的创建 对应 Lua 语句： lua coroutine.create()\n由于 Lua 协程是不对称的，故创建协程时有一个参数会是创建协程的协程 L ，并从 L 中 move 函数信息到新创建的 NL 中：\nstatic int luaB_cocreate (lua_State *L) { lua_State *NL; luaL_checktype(L, 1, LUA_TFUNCTION); NL = lua_newthread(L); lua_pushvalue(L, 1); /* move function to top */ lua_xmove(L, NL, 1); /* move function from L to NL */ return 1; } luaB_cowrap 是对函数 luaB_coreate 的一层封装：\nstatic int luaB_cowrap (lua_State *L) { luaB_cocreate(L); lua_pushcclosure(L, luaB_auxwrap, 1); return 1; } 协程的让出 对应 Lua 语句： lua coroutine.yield()\n#define lua_yield(L,n)\tlua_yieldk(L, (n), 0, NULL) static int luaB_yield (lua_State *L) { return lua_yield(L, lua_gettop(L)); } 协程的恢复 对应 Lua 语句：lua coroutine.resume()\n启动协程和协程的恢复类似，都离不开以下两个函数：\nstatic int luaB_coresume (lua_State *L); static int auxresume (lua_State *L, lua_State *co, int narg); 函数调用链如下：\nluaB_coresume ---\u003e auxresume ---\u003e lua_resume(API) ---\u003e resume 总结 Lua 的异常处理和线程机制为了和 C 语言互相嵌入经过了反复的权衡，代码的复杂度较大，最后使用延续函数的设计其实只能算是一个妥协的结果，但是这其中的设计还是很值得我们去学习。\n但 Lua 的协程库的代码非常之短小，总共两百行出头，而核心部分只有接近百行，原因之一就是它只需要调用 ldo.h 中提供的 API ，线程中断和恢复部分的代码已经给协程实现打下了良好的基础。\n参考资料 Lua 5.4.4 源码\nLua-Users-Wiki\n云风的 BLOG\nvaaandark’s blog\nNotes on the Implementation of Lua 5.3\n",
+  "wordCount" : "2978",
+  "inLanguage": "zh",
+  "datePublished": "2022-05-13T15:19:09Z",
+  "dateModified": "2022-05-13T15:19:09Z",
+  "author":{
+    "@type": "Person",
+    "name": "vaaandark"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://vaaandark.top/posts/lua-coroutine/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "vaaandark's blog",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://vaaandark.top/image/vaaandark.png"
+    }
+  }
+}
+</script>
+
+
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://vaaandark.top/" accesskey="h" title="vaaandark&#39;s blog (Alt + H)">
+                <img src="https://vaaandark.top/image/vaaandark.png" alt="" aria-label="logo"
+                    height="35">vaaandark&#39;s blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://vaaandark.top/" title="🏠主页">
+                    <span>🏠主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/posts/" title="Posts">
+                    <span>📄 归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/categories/" title="categories">
+                    <span>📂 分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/tags/" title="tags">
+                    <span>🔖 标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/about/" title="关于我">
+                    <span>🙋 关于</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/links/" title="友链">
+                    <span>🤝 友链</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://vaaandark.top/">主页</a>&nbsp;»&nbsp;<a href="https://vaaandark.top/posts/">Posts</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Lua Coroutine
+    </h1>
+    <div class="post-meta"><span title='2022-05-13 15:19:09 +0000 UTC'>2022 5月 13</span>&nbsp;·&nbsp;6 分钟&nbsp;·&nbsp;vaaandark
+
+</div>
+  </header> <div class="toc">
+    <details  open>
+        <summary accesskey="c" title="(Alt + C)">
+            <span class="details">目录</span>
+        </summary>
+
+        <div class="inner"><ul>
+                <li>
+                    <a href="#lua-%e8%99%9a%e6%8b%9f%e6%9c%ba%e9%87%8d%e8%a6%81%e7%bb%93%e6%9e%84%e4%bd%93" aria-label="Lua 虚拟机重要结构体">Lua 虚拟机重要结构体</a></li>
+                <li>
+                    <a href="#lua-%e7%ba%bf%e7%a8%8b" aria-label="Lua 线程">Lua 线程</a><ul>
+                        
+                <li>
+                    <a href="#%e5%88%9b%e5%bb%ba%e7%ba%bf%e7%a8%8b" aria-label="创建线程">创建线程</a></li>
+                <li>
+                    <a href="#%e7%ba%bf%e7%a8%8b%e4%b8%ad%e6%96%ad%e5%8f%8a%e5%bc%82%e5%b8%b8%e5%a4%84%e7%90%86" aria-label="线程中断及异常处理">线程中断及异常处理</a><ul>
+                        
+                <li>
+                    <a href="#%e5%bc%82%e5%b8%b8" aria-label="异常">异常</a></li>
+                <li>
+                    <a href="#%e5%87%bd%e6%95%b0" aria-label="函数">函数</a></li>
+                <li>
+                    <a href="#%e4%bb%8e%e4%b8%ad%e6%96%ad%e4%b8%ad%e6%81%a2%e5%a4%8d" aria-label="从中断中恢复">从中断中恢复</a></li></ul>
+                </li></ul>
+                </li>
+                <li>
+                    <a href="#lua-%e5%8d%8f%e7%a8%8b" aria-label="Lua 协程">Lua 协程</a><ul>
+                        
+                <li>
+                    <a href="#%e5%8d%8f%e7%a8%8b%e7%9a%84%e5%88%9b%e5%bb%ba" aria-label="协程的创建">协程的创建</a></li>
+                <li>
+                    <a href="#%e5%8d%8f%e7%a8%8b%e7%9a%84%e8%ae%a9%e5%87%ba" aria-label="协程的让出">协程的让出</a></li>
+                <li>
+                    <a href="#%e5%8d%8f%e7%a8%8b%e7%9a%84%e6%81%a2%e5%a4%8d" aria-label="协程的恢复">协程的恢复</a></li></ul>
+                </li>
+                <li>
+                    <a href="#%e6%80%bb%e7%bb%93" aria-label="总结">总结</a></li>
+                <li>
+                    <a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99" aria-label="参考资料">参考资料</a>
+                </li>
+            </ul>
+        </div>
+    </details>
+</div>
+
+  <div class="post-content"><p>Lua 的一大特色就是协程的使用，在解释型语言中，如果不考虑嵌入到较为低级的语言（如 C 语言）中，就只需要操作调用栈并保存好上下文状态即可。但是 Lua 并不是一门纯粹依靠字节码的解释型语言，它常常与 C 语言反复嵌套，甚至出现 C 中调用 Lua ，Lua 中再调用 C 代码，，，的情况。一旦 Lua 调用的 C 库企图中断线程，再想恢复，就会是一个难题。好在 Lua 巧妙地解决了这些问题。</p>
+<!-- more -->
+<h2 id="lua-虚拟机重要结构体">Lua 虚拟机重要结构体<a hidden class="anchor" aria-hidden="true" href="#lua-虚拟机重要结构体">#</a></h2>
+<ul>
+<li>global_State</li>
+</ul>
+<p>global_State 由所有线程共享，其中包含字符串内部化保存的哈希表、垃圾回收、异常处理等信息。</p>
+<ul>
+<li>lua_State</li>
+</ul>
+<p>lua_State 表示一个 Lua 线程的执行状态，它有着自己独立的数据栈和函数调用栈。每个 lua_State 都有一个指向 global_State 的指针。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#007f7f">/*
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">** &#39;per thread&#39; state
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f">*/</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">struct</span> lua_State {
+</span></span><span style="display:flex;"><span>  CommonHeader;
+</span></span><span style="display:flex;"><span>  lu_byte status;
+</span></span><span style="display:flex;"><span>  lu_byte allowhook;
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">unsigned</span> <span style="color:#fff;font-weight:bold">short</span> nci;  <span style="color:#007f7f">/* number of items in &#39;ci&#39; list */</span>
+</span></span><span style="display:flex;"><span>  StkId top;  <span style="color:#007f7f">/* first free slot in the stack */</span>
+</span></span><span style="display:flex;"><span>  global_State *l_G;
+</span></span><span style="display:flex;"><span>  CallInfo *ci;  <span style="color:#007f7f">/* call info for current function */</span>
+</span></span><span style="display:flex;"><span>  StkId stack_last;  <span style="color:#007f7f">/* end of stack (last element + 1) */</span>
+</span></span><span style="display:flex;"><span>  StkId stack;  <span style="color:#007f7f">/* stack base */</span>
+</span></span><span style="display:flex;"><span>  UpVal *openupval;  <span style="color:#007f7f">/* list of open upvalues in this stack */</span>
+</span></span><span style="display:flex;"><span>  StkId tbclist;  <span style="color:#007f7f">/* list of to-be-closed variables */</span>
+</span></span><span style="display:flex;"><span>  GCObject *gclist;
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">struct</span> lua_State *twups;  <span style="color:#007f7f">/* list of threads with open upvalues */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">struct</span> lua_longjmp *errorJmp;  <span style="color:#007f7f">/* current error recover point */</span>
+</span></span><span style="display:flex;"><span>  CallInfo base_ci;  <span style="color:#007f7f">/* CallInfo for first level (C calling Lua) */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">volatile</span> lua_Hook hook;
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">ptrdiff_t</span> errfunc;  <span style="color:#007f7f">/* current error handling function (stack index) */</span>
+</span></span><span style="display:flex;"><span>  l_uint32 nCcalls;  <span style="color:#007f7f">/* number of nested (non-yieldable | C)  calls */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">int</span> oldpc;  <span style="color:#007f7f">/* last pc traced */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">int</span> basehookcount;
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">int</span> hookcount;
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">volatile</span> l_signalT hookmask;
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><ul>
+<li>数据栈</li>
+</ul>
+<p>对数据栈初始化和释放分别调用 stack_init 和 free_stack 函数：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">static</span> <span style="color:#fff;font-weight:bold">void</span> stack_init (lua_State *L1, lua_State *L);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">static</span> <span style="color:#fff;font-weight:bold">void</span> freestack (lua_State *L);
+</span></span></code></pre></div><p>数据栈初始大小是 Lua 内置栈结构的两倍，随着数据的增多需要调用 growstack 进行栈的扩展。因为有些数据包含了对栈中元素的引用，在栈中元素移位之后，在扩展之中要对栈进行修正。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold">#define BASIC_STACK_SIZE        (2*LUA_MINSTACK)
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold"></span><span style="color:#fff;font-weight:bold">static</span> <span style="color:#fff;font-weight:bold">void</span> correctstack (lua_State *L, StkId oldstack, StkId newstack);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">int</span> luaD_reallocstack (lua_State *L, <span style="color:#fff;font-weight:bold">int</span> newsize, <span style="color:#fff;font-weight:bold">int</span> raiseerror);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">int</span> luaD_growstack (lua_State *L, <span style="color:#fff;font-weight:bold">int</span> n, <span style="color:#fff;font-weight:bold">int</span> raiseerror);
+</span></span></code></pre></div><p>通过源代码中的注释可以很清晰知晓这些函数的作用，再结合源码，可以发现这三个函数的调用关系为：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>luaD_growstack ---&gt; luaD_reallocstack ---&gt; correctstack
+</span></span></code></pre></div><ul>
+<li>调用栈</li>
+</ul>
+<p>函数调用栈使用的是一个双向链表结构体 CallInfo ：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">typedef</span> <span style="color:#fff;font-weight:bold">struct</span> CallInfo {
+</span></span><span style="display:flex;"><span>  StkId func;  <span style="color:#007f7f">/* function index in the stack */</span>
+</span></span><span style="display:flex;"><span>  StkId	top;  <span style="color:#007f7f">/* top for this function */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">struct</span> CallInfo *previous, *next;  <span style="color:#007f7f">/* dynamic call link */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">union</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">struct</span> {  <span style="color:#007f7f">/* only for Lua functions */</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">const</span> Instruction *savedpc;
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">volatile</span> l_signalT trap;
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">int</span> nextraargs;  <span style="color:#007f7f">/* # of extra arguments in vararg functions */</span>
+</span></span><span style="display:flex;"><span>    } l;
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">struct</span> {  <span style="color:#007f7f">/* only for C functions */</span>
+</span></span><span style="display:flex;"><span>      lua_KFunction k;  <span style="color:#007f7f">/* continuation in case of yields */</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">ptrdiff_t</span> old_errfunc;
+</span></span><span style="display:flex;"><span>      lua_KContext ctx;  <span style="color:#007f7f">/* context info. in case of yields */</span>
+</span></span><span style="display:flex;"><span>    } c;
+</span></span><span style="display:flex;"><span>  } u;
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">union</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#007f7f">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  } u2;
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">short</span> nresults;  <span style="color:#007f7f">/* expected number of results from this function */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">unsigned</span> <span style="color:#fff;font-weight:bold">short</span> callstatus;
+</span></span><span style="display:flex;"><span>} CallInfo;
+</span></span></code></pre></div><p>在联合体 u 中：字段 l 用于调用 Lua 函数，字段 c 用于调用 C 函数，callstatus 用于标志是 Lua 函数还是 c 函数；联合体 u2 和保护模式、钩子函数等有关，暂不考虑。</p>
+<p>需要注意到的是，既有 func 又有 base 的原因是，Lua 传入一个函数的参数个数可能不定，通过函数位置和栈底位置相减可以计算出参数个数。</p>
+<h2 id="lua-线程">Lua 线程<a hidden class="anchor" aria-hidden="true" href="#lua-线程">#</a></h2>
+<h3 id="创建线程">创建线程<a hidden class="anchor" aria-hidden="true" href="#创建线程">#</a></h3>
+<p>在 Lua 中也有线程的概念，但它并不是系统线程，而且由于所有的 lua_State 都共享了 global_State ，因此多线程操作较难。在 Lua 中，协程才是最强大的武器。</p>
+<p>Lua 给 C/C++ 保留了很多 API ，其中关于创建线程的 API 很有意思：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>LUA_API lua_State *lua_newthread (lua_State *L) {
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  <span style="color:#007f7f">/* create new thread */</span>
+</span></span><span style="display:flex;"><span>  L1 = &amp;cast(LX *, luaM_newobject(L, LUA_TTHREAD, <span style="color:#fff;font-weight:bold">sizeof</span>(LX)))-&gt;l;
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">//...
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>}
+</span></span></code></pre></div><p>创建线程结构体时分配空间的大小不是 Lua_State 的大小，而是 LX 的大小，而且将 Lua_State 放在了 LX 所在内存的后一部分，这既是给自定义 Lua 代码留下了空间，也是为了防止向用户暴露 Lua_State 的大小。</p>
+<p>举个例子，在多线程操作中，访问 lua_State 结构中注册表是线程不安全的，但是如果你将一些信息放在 lua_State 的前面，就可以既方便访问又在数据竞争中保持安全（不够这也增加了代码的复杂度）。</p>
+<h3 id="线程中断及异常处理">线程中断及异常处理<a hidden class="anchor" aria-hidden="true" href="#线程中断及异常处理">#</a></h3>
+<p>Lua 全部源码都由标准 C 写成而且只使用了标准库，因此它的线程中断和错误处理都使用的是标准库中的 setjmp.h 来实现的。</p>
+<h4 id="异常">异常<a hidden class="anchor" aria-hidden="true" href="#异常">#</a></h4>
+<p>我在之前的一篇博文中讲到过 C语言接口与实现 中实现 C 语言异常处理的方法，也是通过 setjmp.h 来实现的。而 Lua 源码更进一步，通过宏定义将异常处理和 C++ 中的原生异常处理 try/catch 联系起来，也方便了开发者使用 C++ 开发 Lua 程序。</p>
+<p>Lua 中的异常是一个单向链表（链栈），它的行为也很好理解：出现异常，将异常串到链表上并抛出，在处理完后再使用 longjmp 跳回来。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#007f7f">/* chain list of long jump buffers */</span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">struct</span> lua_longjmp {
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">struct</span> lua_longjmp *previous;
+</span></span><span style="display:flex;"><span>  luai_jmpbuf b;
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">volatile</span> <span style="color:#fff;font-weight:bold">int</span> status;  <span style="color:#007f7f">/* error code */</span>
+</span></span><span style="display:flex;"><span>};
+</span></span></code></pre></div><h4 id="函数">函数<a hidden class="anchor" aria-hidden="true" href="#函数">#</a></h4>
+<p>Lua 的函数调用过程分为 precall 和 poscall 两个部分：对于 C 语言函数来说，precall 调用了它；而对于 Lua 函数来说，precall 是为了它的调用做准备，只是改变了 Lua 虚拟机（lua_State）的状态而已，并没有真正调用。poscall 处理了它的返回，对数据栈进行了调整。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>CallInfo *luaD_precall (lua_State *L, StkId func, <span style="color:#fff;font-weight:bold">int</span> nresults) {
+</span></span><span style="display:flex;"><span> retry:
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">switch</span> (ttypetag(s2v(func))) {
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">case</span> LUA_VCCL:  <span style="color:#007f7f">/* C closure */</span>
+</span></span><span style="display:flex;"><span>	  <span style="color:#007f7f">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    <span style="color:#fff;font-weight:bold">case</span> LUA_VLCF:  <span style="color:#007f7f">/* light C function */</span>
+</span></span><span style="display:flex;"><span>	  <span style="color:#007f7f">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    <span style="color:#fff;font-weight:bold">case</span> LUA_VLCL: {  <span style="color:#007f7f">/* Lua function */</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#007f7f">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">default</span>: {  <span style="color:#007f7f">/* not a function */</span>
+</span></span><span style="display:flex;"><span>      func = luaD_tryfuncTM(L, func);  <span style="color:#007f7f">/* try to get &#39;__call&#39; metamethod */</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#007f7f">/* return luaD_precall(L, func, nresults); */</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#fff;font-weight:bold">goto</span> retry;  <span style="color:#007f7f">/* try again with metamethod */</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">void</span> luaD_poscall (lua_State *L, CallInfo *ci, <span style="color:#fff;font-weight:bold">int</span> nres);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>StkId luaD_tryfuncTM (lua_State *L, StkId func);
+</span></span></code></pre></div><p>可以看到 precall 里面 switch/case 中的 default 分支，里面调用了 luaD_tryfuncTM 函数，这涉及了 Lua 中的元表（Meta Table），简单来说就是，当在表中找不到元素时就会尝试在表对应的元表中寻找。Lua 就是利用元表实现了类似于 Java 中的接口、C++ 中的虚函数、Rust 中的 Trait，以及重载运算符等操作。</p>
+<p>当我们使用 C 语言开发并将 Lua 代码嵌入其中时，可以使用 API luaD_call ，它是 ccall 的一个包装。</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">void</span> luaD_call (lua_State *L, StkId func, <span style="color:#fff;font-weight:bold">int</span> nResults) {
+</span></span><span style="display:flex;"><span>  ccall(L, func, nResults, <span style="color:#ff0;font-weight:bold">1</span>);
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>l_sinline <span style="color:#fff;font-weight:bold">void</span> ccall (lua_State *L, StkId func, <span style="color:#fff;font-weight:bold">int</span> nResults, <span style="color:#fff;font-weight:bold">int</span> inc) {
+</span></span><span style="display:flex;"><span>  CallInfo *ci;
+</span></span><span style="display:flex;"><span>  L-&gt;nCcalls += inc;
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">if</span> (l_unlikely(getCcalls(L) &gt;= LUAI_MAXCCALLS))
+</span></span><span style="display:flex;"><span>    luaE_checkcstack(L);
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">if</span> ((ci = luaD_precall(L, func, nResults)) != <span style="color:#fff;font-weight:bold">NULL</span>) {  <span style="color:#007f7f">/* Lua function? */</span>
+</span></span><span style="display:flex;"><span>    ci-&gt;callstatus = CIST_FRESH;  <span style="color:#007f7f">/* mark that it is a &#34;fresh&#34; execute */</span>
+</span></span><span style="display:flex;"><span>    luaV_execute(L, ci);  <span style="color:#007f7f">/* call it */</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  L-&gt;nCcalls -= inc;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>参数 inc 代表的是在 C 函数栈中递归函数的个数，而 lua_State 实例 L 中的 nCcalls 代表的是在调用过程中被中断后就不能恢复的 C 函数（non-yielded，在老版本中名字叫做 nny)。</p>
+<h4 id="从中断中恢复">从中断中恢复<a hidden class="anchor" aria-hidden="true" href="#从中断中恢复">#</a></h4>
+<p>终于到了如何解决从中断中恢复这个问题了。Lua 给出的解决方案其实也不难，就是让编写 C 程序的开发者辛苦一点而已，也就是让他们自己提供一个延续函数 k 。</p>
+<p>我们可以回顾一下 CallInfo 结构体中的 c 字段：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#007f7f">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span><span style="color:#fff;font-weight:bold">struct</span> {  <span style="color:#007f7f">/* only for C functions */</span>
+</span></span><span style="display:flex;"><span>  lua_KFunction k;  <span style="color:#007f7f">/* continuation in case of yields */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">ptrdiff_t</span> old_errfunc;
+</span></span><span style="display:flex;"><span>  lua_KContext ctx;  <span style="color:#007f7f">/* context info. in case of yields */</span>
+</span></span><span style="display:flex;"><span>} c;
+</span></span><span style="display:flex;"><span><span style="color:#007f7f">// ...
+</span></span></span></code></pre></div><p>k 就是延续函数，而 ctx 就保存有 yield 时的上下文。</p>
+<p>在使用 k 时，只需要把它当作回调函数，将它和虚拟机实例 L 一起传入 API lua_callk 中即可。</p>
+<p>在 C 线程需要挂起时就要调用 lua_yieldk 来保存恢复时需要的上下文等信息：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>LUA_API <span style="color:#fff;font-weight:bold">int</span> lua_yieldk (lua_State *L, <span style="color:#fff;font-weight:bold">int</span> nresults, lua_KContext ctx, lua_KFunction k);
+</span></span></code></pre></div><p>在 lua_yieldk 中保存信息前要进行 lua_lock(L)，之后要 lua_unlock(L) 释放锁，但是在源码中 这两个宏都是不完整的，都被拓展为<code>(void (0))</code>，在需要同步的时候要注意对它们进行补充。</p>
+<blockquote>
+<p>Lua 协程让出时也需要调用 lua_yieldk ，这放在协程部分讨论。</p>
+</blockquote>
+<p>在恢复时 Lua 内部调用的函数是 resume 函数：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">static</span> <span style="color:#fff;font-weight:bold">void</span> resume (lua_State *L, <span style="color:#fff;font-weight:bold">void</span> *ud) {
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>  <span style="color:#fff;font-weight:bold">if</span> (isLua(ci)) {  <span style="color:#007f7f">/* yielded inside a hook? */</span>
+</span></span><span style="display:flex;"><span>    L-&gt;top = firstArg;  <span style="color:#007f7f">/* discard arguments */</span>
+</span></span><span style="display:flex;"><span>    luaV_execute(L, ci);  <span style="color:#007f7f">/* just continue running Lua code */</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">else</span> {  <span style="color:#007f7f">/* &#39;common&#39; yield */</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#fff;font-weight:bold">if</span> (ci-&gt;u.c.k != <span style="color:#fff;font-weight:bold">NULL</span>) {  <span style="color:#007f7f">/* does it have a continuation function? */</span>
+</span></span><span style="display:flex;"><span>      lua_unlock(L);
+</span></span><span style="display:flex;"><span>      n = (*ci-&gt;u.c.k)(L, LUA_YIELD, ci-&gt;u.c.ctx); <span style="color:#007f7f">/* call continuation */</span>
+</span></span><span style="display:flex;"><span>      lua_lock(L);
+</span></span><span style="display:flex;"><span>      api_checknelems(L, n);
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    luaD_poscall(L, ci, n);  <span style="color:#007f7f">/* finish &#39;luaD_call&#39; */</span>
+</span></span><span style="display:flex;"><span>  }
+</span></span><span style="display:flex;"><span>  unroll(L, <span style="color:#fff;font-weight:bold">NULL</span>);  <span style="color:#007f7f">/* run continuation */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#007f7f">// ...
+</span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>}
+</span></span></code></pre></div><p>可以看到如果是要恢复一个 Lua 函数就直接继续执行就可以了，如果是一个 C 函数则需要调用延续函数，再使用 poscall 处理返回值。</p>
+<p>与 resume 相关的 API 有 lua_resume，只是对 resume 的包装而已，较为简单。</p>
+<h2 id="lua-协程">Lua 协程<a hidden class="anchor" aria-hidden="true" href="#lua-协程">#</a></h2>
+<p>讨论完了上面的线程问题，现在需要讲的协程就是小菜一碟了。Lua 的协程实际上就是 Lua 线程间的切换（而非系统线程，故性能损失较少），需要考虑的只有错误信息的 move 以及新切换到的线程的 resume 问题，而 resume 的实现在前文已经讨论过了。</p>
+<h3 id="协程的创建">协程的创建<a hidden class="anchor" aria-hidden="true" href="#协程的创建">#</a></h3>
+<p>对应 Lua 语句： <code>lua coroutine.create()</code></p>
+<p>由于 Lua 协程是不对称的，故创建协程时有一个参数会是创建协程的协程 L ，并从 L 中 move 函数信息到新创建的 NL 中：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">static</span> <span style="color:#fff;font-weight:bold">int</span> luaB_cocreate (lua_State *L) {
+</span></span><span style="display:flex;"><span>  lua_State *NL;
+</span></span><span style="display:flex;"><span>  luaL_checktype(L, <span style="color:#ff0;font-weight:bold">1</span>, LUA_TFUNCTION);
+</span></span><span style="display:flex;"><span>  NL = lua_newthread(L);
+</span></span><span style="display:flex;"><span>  lua_pushvalue(L, <span style="color:#ff0;font-weight:bold">1</span>);  <span style="color:#007f7f">/* move function to top */</span>
+</span></span><span style="display:flex;"><span>  lua_xmove(L, NL, <span style="color:#ff0;font-weight:bold">1</span>);  <span style="color:#007f7f">/* move function from L to NL */</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">return</span> <span style="color:#ff0;font-weight:bold">1</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>luaB_cowrap 是对函数 luaB_coreate 的一层封装：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">static</span> <span style="color:#fff;font-weight:bold">int</span> luaB_cowrap (lua_State *L) {
+</span></span><span style="display:flex;"><span>  luaB_cocreate(L);
+</span></span><span style="display:flex;"><span>  lua_pushcclosure(L, luaB_auxwrap, <span style="color:#ff0;font-weight:bold">1</span>);
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">return</span> <span style="color:#ff0;font-weight:bold">1</span>;
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="协程的让出">协程的让出<a hidden class="anchor" aria-hidden="true" href="#协程的让出">#</a></h3>
+<p>对应 Lua 语句： <code>lua coroutine.yield()</code></p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold">#define lua_yield(L,n)		lua_yieldk(L, (n), 0, NULL)
+</span></span></span><span style="display:flex;"><span><span style="color:#0f0;font-weight:bold"></span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">static</span> <span style="color:#fff;font-weight:bold">int</span> luaB_yield (lua_State *L) {
+</span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">return</span> lua_yield(L, lua_gettop(L));
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h3 id="协程的恢复">协程的恢复<a hidden class="anchor" aria-hidden="true" href="#协程的恢复">#</a></h3>
+<p>对应 Lua 语句：<code>lua coroutine.resume()</code></p>
+<p>启动协程和协程的恢复类似，都离不开以下两个函数：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">static</span> <span style="color:#fff;font-weight:bold">int</span> luaB_coresume (lua_State *L);
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">static</span> <span style="color:#fff;font-weight:bold">int</span> auxresume (lua_State *L, lua_State *co, <span style="color:#fff;font-weight:bold">int</span> narg);
+</span></span></code></pre></div><p>函数调用链如下：</p>
+<div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-fallback" data-lang="fallback"><span style="display:flex;"><span>luaB_coresume ---&gt; auxresume ---&gt; lua_resume(API) ---&gt; resume
+</span></span></code></pre></div><h2 id="总结">总结<a hidden class="anchor" aria-hidden="true" href="#总结">#</a></h2>
+<p>Lua 的异常处理和线程机制为了和 C 语言互相嵌入经过了反复的权衡，代码的复杂度较大，最后使用延续函数的设计其实只能算是一个妥协的结果，但是这其中的设计还是很值得我们去学习。</p>
+<p>但 Lua 的协程库的代码非常之短小，总共两百行出头，而核心部分只有接近百行，原因之一就是它只需要调用 ldo.h 中提供的 API ，线程中断和恢复部分的代码已经给协程实现打下了良好的基础。</p>
+<h2 id="参考资料">参考资料<a hidden class="anchor" aria-hidden="true" href="#参考资料">#</a></h2>
+<ul>
+<li>
+<p><a href="https://github.com/lua/lua">Lua 5.4.4 源码</a></p>
+</li>
+<li>
+<p><a href="http://lua-users.org/wiki/LuaDirectory">Lua-Users-Wiki</a></p>
+</li>
+<li>
+<p><a href="https://blog.codingnow.com">云风的 BLOG</a></p>
+</li>
+<li>
+<p><a href="https://vaaandark.top/2022/05/03/C%E8%AF%AD%E8%A8%80%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/">vaaandark&rsquo;s blog</a></p>
+</li>
+<li>
+<p><a href="https://poga.github.io/lua53-notes/coroutine.html">Notes on the Implementation of Lua 5.3</a></p>
+</li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+      <li><a href="https://vaaandark.top/tags/lua/">Lua</a></li>
+      <li><a href="https://vaaandark.top/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/">数据结构</a></li>
+      <li><a href="https://vaaandark.top/tags/%E5%8D%8F%E7%A8%8B/">协程</a></li>
+      <li><a href="https://vaaandark.top/tags/%E7%BA%BF%E7%A8%8B/">线程</a></li>
+    </ul>
+<nav class="paginav">
+  <a class="prev" href="https://vaaandark.top/posts/essay-in-july/">
+    <span class="title">« 上一页</span>
+    <br>
+    <span>七月随笔</span>
+  </a>
+  <a class="next" href="https://vaaandark.top/posts/lua-table/">
+    <span class="title">下一页 »</span>
+    <br>
+    <span>Lua Table</span>
+  </a>
+</nav>
+
+
+<ul class="share-buttons">
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Lua Coroutine on x"
+            href="https://x.com/intent/tweet/?text=Lua%20Coroutine&amp;url=https%3a%2f%2fvaaandark.top%2fposts%2flua-coroutine%2f&amp;hashtags=Lua%2c%e6%95%b0%e6%8d%ae%e7%bb%93%e6%9e%84%2c%e5%8d%8f%e7%a8%8b%2c%e7%ba%bf%e7%a8%8b">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M512 62.554 L 512 449.446 C 512 483.97 483.97 512 449.446 512 L 62.554 512 C 28.03 512 0 483.97 0 449.446 L 0 62.554 C 0 28.03 28.029 0 62.554 0 L 449.446 0 C 483.971 0 512 28.03 512 62.554 Z M 269.951 190.75 L 182.567 75.216 L 56 75.216 L 207.216 272.95 L 63.9 436.783 L 125.266 436.783 L 235.9 310.383 L 332.567 436.783 L 456 436.783 L 298.367 228.367 L 432.367 75.216 L 371.033 75.216 Z M 127.633 110 L 164.101 110 L 383.481 400.065 L 349.5 400.065 Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Lua Coroutine on linkedin"
+            href="https://www.linkedin.com/shareArticle?mini=true&amp;url=https%3a%2f%2fvaaandark.top%2fposts%2flua-coroutine%2f&amp;title=Lua%20Coroutine&amp;summary=Lua%20Coroutine&amp;source=https%3a%2f%2fvaaandark.top%2fposts%2flua-coroutine%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-288.985,423.278l0,-225.717l-75.04,0l0,225.717l75.04,0Zm270.539,0l0,-129.439c0,-69.333 -37.018,-101.586 -86.381,-101.586c-39.804,0 -57.634,21.891 -67.617,37.266l0,-31.958l-75.021,0c0.995,21.181 0,225.717 0,225.717l75.02,0l0,-126.056c0,-6.748 0.486,-13.492 2.474,-18.315c5.414,-13.475 17.767,-27.434 38.494,-27.434c27.135,0 38.007,20.707 38.007,51.037l0,120.768l75.024,0Zm-307.552,-334.556c-25.674,0 -42.448,16.879 -42.448,39.002c0,21.658 16.264,39.002 41.455,39.002l0.484,0c26.165,0 42.452,-17.344 42.452,-39.002c-0.485,-22.092 -16.241,-38.954 -41.943,-39.002Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Lua Coroutine on reddit"
+            href="https://reddit.com/submit?url=https%3a%2f%2fvaaandark.top%2fposts%2flua-coroutine%2f&title=Lua%20Coroutine">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-3.446,265.638c0,-22.964 -18.616,-41.58 -41.58,-41.58c-11.211,0 -21.361,4.457 -28.841,11.666c-28.424,-20.508 -67.586,-33.757 -111.204,-35.278l18.941,-89.121l61.884,13.157c0.756,15.734 13.642,28.29 29.56,28.29c16.407,0 29.706,-13.299 29.706,-29.701c0,-16.403 -13.299,-29.702 -29.706,-29.702c-11.666,0 -21.657,6.792 -26.515,16.578l-69.105,-14.69c-1.922,-0.418 -3.939,-0.042 -5.585,1.036c-1.658,1.073 -2.811,2.761 -3.224,4.686l-21.152,99.438c-44.258,1.228 -84.046,14.494 -112.837,35.232c-7.468,-7.164 -17.589,-11.591 -28.757,-11.591c-22.965,0 -41.585,18.616 -41.585,41.58c0,16.896 10.095,31.41 24.568,37.918c-0.639,4.135 -0.99,8.328 -0.99,12.576c0,63.977 74.469,115.836 166.33,115.836c91.861,0 166.334,-51.859 166.334,-115.836c0,-4.218 -0.347,-8.387 -0.977,-12.493c14.564,-6.47 24.735,-21.034 24.735,-38.001Zm-119.474,108.193c-20.27,20.241 -59.115,21.816 -70.534,21.816c-11.428,0 -50.277,-1.575 -70.522,-21.82c-3.007,-3.008 -3.007,-7.882 0,-10.889c3.003,-2.999 7.882,-3.003 10.885,0c12.777,12.781 40.11,17.317 59.637,17.317c19.522,0 46.86,-4.536 59.657,-17.321c3.016,-2.999 7.886,-2.995 10.885,0.008c3.008,3.011 3.003,7.882 -0.008,10.889Zm-5.23,-48.781c-16.373,0 -29.701,-13.324 -29.701,-29.698c0,-16.381 13.328,-29.714 29.701,-29.714c16.378,0 29.706,13.333 29.706,29.714c0,16.374 -13.328,29.698 -29.706,29.698Zm-160.386,-29.702c0,-16.381 13.328,-29.71 29.714,-29.71c16.369,0 29.689,13.329 29.689,29.71c0,16.373 -13.32,29.693 -29.689,29.693c-16.386,0 -29.714,-13.32 -29.714,-29.693Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Lua Coroutine on facebook"
+            href="https://facebook.com/sharer/sharer.php?u=https%3a%2f%2fvaaandark.top%2fposts%2flua-coroutine%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-106.468,0l0,-192.915l66.6,0l12.672,-82.621l-79.272,0l0,-53.617c0,-22.603 11.073,-44.636 46.58,-44.636l36.042,0l0,-70.34c0,0 -32.71,-5.582 -63.982,-5.582c-65.288,0 -107.96,39.569 -107.96,111.204l0,62.971l-72.573,0l0,82.621l72.573,0l0,192.915l-191.104,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Lua Coroutine on whatsapp"
+            href="https://api.whatsapp.com/send?text=Lua%20Coroutine%20-%20https%3a%2f%2fvaaandark.top%2fposts%2flua-coroutine%2f">
+            <svg version="1.1" viewBox="0 0 512 512" xml:space="preserve" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M449.446,0c34.525,0 62.554,28.03 62.554,62.554l0,386.892c0,34.524 -28.03,62.554 -62.554,62.554l-386.892,0c-34.524,0 -62.554,-28.03 -62.554,-62.554l0,-386.892c0,-34.524 28.029,-62.554 62.554,-62.554l386.892,0Zm-58.673,127.703c-33.842,-33.881 -78.847,-52.548 -126.798,-52.568c-98.799,0 -179.21,80.405 -179.249,179.234c-0.013,31.593 8.241,62.428 23.927,89.612l-25.429,92.884l95.021,-24.925c26.181,14.28 55.659,21.807 85.658,21.816l0.074,0c98.789,0 179.206,-80.413 179.247,-179.243c0.018,-47.895 -18.61,-92.93 -52.451,-126.81Zm-126.797,275.782l-0.06,0c-26.734,-0.01 -52.954,-7.193 -75.828,-20.767l-5.441,-3.229l-56.386,14.792l15.05,-54.977l-3.542,-5.637c-14.913,-23.72 -22.791,-51.136 -22.779,-79.287c0.033,-82.142 66.867,-148.971 149.046,-148.971c39.793,0.014 77.199,15.531 105.329,43.692c28.128,28.16 43.609,65.592 43.594,105.4c-0.034,82.149 -66.866,148.983 -148.983,148.984Zm81.721,-111.581c-4.479,-2.242 -26.499,-13.075 -30.604,-14.571c-4.105,-1.495 -7.091,-2.241 -10.077,2.241c-2.986,4.483 -11.569,14.572 -14.182,17.562c-2.612,2.988 -5.225,3.364 -9.703,1.12c-4.479,-2.241 -18.91,-6.97 -36.017,-22.23c-13.314,-11.876 -22.304,-26.542 -24.916,-31.026c-2.612,-4.484 -0.279,-6.908 1.963,-9.14c2.016,-2.007 4.48,-5.232 6.719,-7.847c2.24,-2.615 2.986,-4.484 4.479,-7.472c1.493,-2.99 0.747,-5.604 -0.374,-7.846c-1.119,-2.241 -10.077,-24.288 -13.809,-33.256c-3.635,-8.733 -7.327,-7.55 -10.077,-7.688c-2.609,-0.13 -5.598,-0.158 -8.583,-0.158c-2.986,0 -7.839,1.121 -11.944,5.604c-4.105,4.484 -15.675,15.32 -15.675,37.364c0,22.046 16.048,43.342 18.287,46.332c2.24,2.99 31.582,48.227 76.511,67.627c10.685,4.615 19.028,7.371 25.533,9.434c10.728,3.41 20.492,2.929 28.209,1.775c8.605,-1.285 26.499,-10.833 30.231,-21.295c3.732,-10.464 3.732,-19.431 2.612,-21.298c-1.119,-1.869 -4.105,-2.99 -8.583,-5.232Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Lua Coroutine on telegram"
+            href="https://telegram.me/share/url?text=Lua%20Coroutine&amp;url=https%3a%2f%2fvaaandark.top%2fposts%2flua-coroutine%2f">
+            <svg version="1.1" xml:space="preserve" viewBox="2 2 28 28" height="30px" width="30px" fill="currentColor">
+                <path
+                    d="M26.49,29.86H5.5a3.37,3.37,0,0,1-2.47-1,3.35,3.35,0,0,1-1-2.47V5.48A3.36,3.36,0,0,1,3,3,3.37,3.37,0,0,1,5.5,2h21A3.38,3.38,0,0,1,29,3a3.36,3.36,0,0,1,1,2.46V26.37a3.35,3.35,0,0,1-1,2.47A3.38,3.38,0,0,1,26.49,29.86Zm-5.38-6.71a.79.79,0,0,0,.85-.66L24.73,9.24a.55.55,0,0,0-.18-.46.62.62,0,0,0-.41-.17q-.08,0-16.53,6.11a.59.59,0,0,0-.41.59.57.57,0,0,0,.43.52l4,1.24,1.61,4.83a.62.62,0,0,0,.63.43.56.56,0,0,0,.4-.17L16.54,20l4.09,3A.9.9,0,0,0,21.11,23.15ZM13.8,20.71l-1.21-4q8.72-5.55,8.78-5.55c.15,0,.23,0,.23.16a.18.18,0,0,1,0,.06s-2.51,2.3-7.52,6.8Z" />
+            </svg>
+        </a>
+    </li>
+    <li>
+        <a target="_blank" rel="noopener noreferrer" aria-label="share Lua Coroutine on ycombinator"
+            href="https://news.ycombinator.com/submitlink?t=Lua%20Coroutine&u=https%3a%2f%2fvaaandark.top%2fposts%2flua-coroutine%2f">
+            <svg version="1.1" xml:space="preserve" width="30px" height="30px" viewBox="0 0 512 512" fill="currentColor"
+                xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape">
+                <path
+                    d="M449.446 0C483.971 0 512 28.03 512 62.554L512 449.446C512 483.97 483.97 512 449.446 512L62.554 512C28.03 512 0 483.97 0 449.446L0 62.554C0 28.03 28.029 0 62.554 0L449.446 0ZM183.8767 87.9921H121.8427L230.6673 292.4508V424.0079H281.3328V292.4508L390.1575 87.9921H328.1233L256 238.2489z" />
+            </svg>
+        </a>
+    </li>
+</ul>
+
+  </footer><script src="https://giscus.app/client.js"
+        data-repo="vaaandark/vaaandark.github.io"
+        data-repo-id="R_kgDOGsxTxw"
+        data-category="Announcements"
+        data-category-id="DIC_kwDOGsxTx84CmAQ1"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="zh-CN"
+        crossorigin="anonymous"
+        async>
+</script>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://vaaandark.top/">vaaandark&#39;s blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+<script>
+    document.querySelectorAll('pre > code').forEach((codeblock) => {
+        const container = codeblock.parentNode.parentNode;
+
+        const copybutton = document.createElement('button');
+        copybutton.classList.add('copy-code');
+        copybutton.innerHTML = '复制';
+
+        function copyingDone() {
+            copybutton.innerHTML = '已复制！';
+            setTimeout(() => {
+                copybutton.innerHTML = '复制';
+            }, 2000);
+        }
+
+        copybutton.addEventListener('click', (cb) => {
+            if ('clipboard' in navigator) {
+                navigator.clipboard.writeText(codeblock.textContent);
+                copyingDone();
+                return;
+            }
+
+            const range = document.createRange();
+            range.selectNodeContents(codeblock);
+            const selection = window.getSelection();
+            selection.removeAllRanges();
+            selection.addRange(range);
+            try {
+                document.execCommand('copy');
+                copyingDone();
+            } catch (e) { };
+            selection.removeRange(range);
+        });
+
+        if (container.classList.contains("highlight")) {
+            container.appendChild(copybutton);
+        } else if (container.parentNode.firstChild == container) {
+            
+        } else if (codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.nodeName == "TABLE") {
+            
+            codeblock.parentNode.parentNode.parentNode.parentNode.parentNode.appendChild(copybutton);
+        } else {
+            
+            codeblock.parentNode.appendChild(copybutton);
+        }
+    });
+</script>
+</body>
+
+</html>

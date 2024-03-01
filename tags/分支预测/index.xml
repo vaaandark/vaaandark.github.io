@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>分支预测 on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/%E5%88%86%E6%94%AF%E9%A2%84%E6%B5%8B/</link>
+    <description>Recent content in 分支预测 on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 18 Feb 2024 12:44:41 +0800</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/%E5%88%86%E6%94%AF%E9%A2%84%E6%B5%8B/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>恶补 CPU 知识之分支预测</title>
+      <link>https://vaaandark.top/posts/relearning-cpu-1-branch-prediction/</link>
+      <pubDate>Sun, 18 Feb 2024 12:44:41 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/relearning-cpu-1-branch-prediction/</guid>
+      <description>&lt;h2 id=&#34;前因&#34;&gt;前因&lt;/h2&gt;
+&lt;p&gt;最近看了一篇介绍 Ventana 的 Veyron V1 核心的博客 &lt;a href=&#34;https://blog.eastonman.com/blog/2024/02/hot-chips-2023-ventanas-unconventional-veyron-v1/&#34;&gt;HotChips 2023: Ventana 不寻常的 Veyron V1&lt;/a&gt; ，里面出现了很多我没听说过或者不甚了解的名词，在阅读这篇博客和查找资料的过程中，我学到了很多新的 CPU 知识。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

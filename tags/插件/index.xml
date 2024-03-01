@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>插件 on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/%E6%8F%92%E4%BB%B6/</link>
+    <description>Recent content in 插件 on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 18 Aug 2022 17:18:42 +0000</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/%E6%8F%92%E4%BB%B6/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>如何使用Lua写一个NeoVim插件</title>
+      <link>https://vaaandark.top/posts/how-to-write-a-plugin-for-neovim-in-lua/</link>
+      <pubDate>Thu, 18 Aug 2022 17:18:42 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/how-to-write-a-plugin-for-neovim-in-lua/</guid>
+      <description>&lt;p&gt;之前学习了如何写 Lua 程序，又因为 NeoVim 的插件可以用 Lua 写，所以想学习一下插件开发。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;插件目录结构&#34;&gt;插件目录结构&lt;/h2&gt;
+&lt;p&gt;我们的插件应当有至少两个目录：&lt;code&gt;plugin&lt;/code&gt;用于放&lt;code&gt;main&lt;/code&gt;代码文件，&lt;code&gt;lua&lt;/code&gt;放其余的所有代码。当然，如果我们真的想把所有代码放在同一个文件里面，这也是可以的。但是请不要这样。因此，使用&lt;code&gt;plugin/whid.vim&lt;/code&gt;和&lt;code&gt;lua/whid.lua&lt;/code&gt;这两个文件就可以了。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

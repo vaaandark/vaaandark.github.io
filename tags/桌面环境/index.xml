@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>桌面环境 on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/%E6%A1%8C%E9%9D%A2%E7%8E%AF%E5%A2%83/</link>
+    <description>Recent content in 桌面环境 on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 25 Feb 2023 13:26:44 +0800</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/%E6%A1%8C%E9%9D%A2%E7%8E%AF%E5%A2%83/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Awesome WM 基于迭代器的小组件</title>
+      <link>https://vaaandark.top/posts/awesomewm-widget-with-iterator/</link>
+      <pubDate>Sat, 25 Feb 2023 13:26:44 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/awesomewm-widget-with-iterator/</guid>
+      <description>&lt;p&gt;由于 i3wm 支持的功能有限，定制性并没有那么强大，最近换成使用 Awesome WM 了，它使用 Lua 作为配置语言，所以可配置性极强。举个例子，i3wm 配置无法像真正的编程语言一样使用 &lt;code&gt;if ... else&lt;/code&gt; 语句等，但 Awesome WM 可以，对于同一个快捷键就可以在不同时候有不同的功能。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

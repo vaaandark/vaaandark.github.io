@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>IO on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/io/</link>
+    <description>Recent content in IO on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Thu, 30 Nov 2023 16:45:58 +0800</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>为什么 Rust std fs 慢于 Python</title>
+      <link>https://vaaandark.top/posts/rust-slower-than-python/</link>
+      <pubDate>Thu, 30 Nov 2023 16:45:58 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/rust-slower-than-python/</guid>
+      <description>&lt;p&gt;看到了 &lt;a href=&#34;https://github.com/Xuanwo/&#34;&gt;xuanwo&lt;/a&gt; 的一篇 &lt;a href=&#34;https://xuanwo.io/2023/04-rust-std-fs-slower-than-python/&#34;&gt;博客&lt;/a&gt;，感觉很有意思。&lt;/p&gt;
+&lt;p&gt;完整读一遍也可以，不过也可以看我的省流。&lt;/p&gt;
+&lt;h2 id=&#34;python-io-比-c--rust-io-更快&#34;&gt;Python IO 比 C / Rust IO 更快&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;有人发现在 AMD Ryzen 9 5900X 和 AMD Ryzen 7 5700X 上访问页对齐的前10个 byte 会比其他偏移有更多的 L1 prefetch 和 load 的 miss 。&lt;/li&gt;
+&lt;li&gt;学过 x86 汇编的应该知道不同于 RISC ，x86 是有专门用于复制字符串的指令的。有人发现上述问题的底层原因来自于 AMD 对 FSRM(Fast Short REP MOV) 的实现，&lt;strong&gt;逆天的是在 Zen 3 上，访问页对齐的数据比不对齐慢&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;更有趣的事情&#34;&gt;更有趣的事情&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;作者发现将 C 的分配器换成 jemalloc 后速度就可以击败 Python 了，我个人猜测可能是 mmap 后分配的页对齐的内存使用了更多（也就是大于 glibc 的 10 byte）来存 meta data ，恰巧避免了这个硬件 bug 。&lt;/li&gt;
+&lt;li&gt;有人使用 eBPF profile 发现 Rust 和 Python 的 fs read 在系统调用的延迟上存在差距，Rust 更慢。&lt;/li&gt;
+&lt;li&gt;为了解决这个奇怪的性能问题，作者（开源大手子漩涡）和他的开源伙伴（包括了热心网友、国内开源大佬依云和一些内核开发者）使用了 strace, perf, eBPF 等各种性能分析工具，以及分析了各种可能导致性能问题的原因（内存大页、CPU 核亲和性、mmap 分配匿名内存、Linux 启动选项例如 Enable Mitigations、系统调用延迟等）。&lt;/li&gt;
+&lt;li&gt;有 &lt;a href=&#34;https://github.com/Enter-tainer&#34;&gt;朋友&lt;/a&gt; 告诉我「Intel 前几天刚出了 &lt;code&gt;rep mov&lt;/code&gt; 导致的 Dos 漏洞」。&lt;/li&gt;
+&lt;li&gt;好消息是 FSRM 是微码实现，也许在未来的某一次更新就修好了🥰。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;相关链接&#34;&gt;相关链接&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://bugs.launchpad.net/ubuntu/+source/glibc/+bug/2030515&#34;&gt;Terrible memcpy performance on Zen 3 when using rep movsb&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</description>
+    </item>
+  </channel>
+</rss>

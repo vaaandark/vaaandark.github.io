@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>汇编语言 on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/</link>
+    <description>Recent content in 汇编语言 on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sat, 02 Mar 2024 01:32:50 +0800</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>华科 OS 实验的 RISC-V 代理内核是如何启动的？</title>
+      <link>https://vaaandark.top/posts/how-riscv-pke-startup/</link>
+      <pubDate>Sat, 02 Mar 2024 01:32:50 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/how-riscv-pke-startup/</guid>
+      <description>&lt;p&gt;代码仓库为 &lt;a href=&#34;https://gitee.com/hustos/riscv-pke&#34;&gt;hustos riscv-pke&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;以下内容基于 lab2 代码&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h3 id=&#34;入口在哪&#34;&gt;入口在哪？&lt;/h3&gt;
+&lt;p&gt;入口为 &lt;code&gt;kernel/machine/mentry.S&lt;/code&gt; 的 &lt;code&gt;_mentry&lt;/code&gt; ，它调用了 &lt;code&gt;kernel/machine/minit.c&lt;/code&gt; 的 &lt;code&gt;m_start(uintptr_t hartid, uintptr_t dtb)&lt;/code&gt; ，两个参数并没有在 &lt;code&gt;_mentry&lt;/code&gt; 中设置，这是因为 spike 会自动设置 &lt;code&gt;a0&lt;/code&gt; 寄存器为 CPU id ，设置 &lt;code&gt;a1&lt;/code&gt; 寄存器为设备树字符串，这刚好也符合 RV 的传参规则。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>内联汇编</title>
+      <link>https://vaaandark.top/posts/inline-assembly/</link>
+      <pubDate>Mon, 02 Jan 2023 16:27:19 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/inline-assembly/</guid>
+      <description>&lt;p&gt;高中第一次看到在 C 语言中嵌入汇编语言时，我就觉得它非常好玩，到大学刚开学的时候，我甚至有使用它的需求，可惜直到现在我才抽出时间开始学习它。&lt;/p&gt;
+&lt;h2 id=&#34;分类&#34;&gt;分类&lt;/h2&gt;
+&lt;p&gt;在 GNU 的 GCC 中，内联汇编被分为两类：&lt;strong&gt;Basic asm&lt;/strong&gt; 和 &lt;strong&gt;Extended asm&lt;/strong&gt; 。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>ARM与80X86的异同</title>
+      <link>https://vaaandark.top/posts/differences-between-arm-and-80x86/</link>
+      <pubDate>Tue, 08 Nov 2022 20:35:20 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/differences-between-arm-and-80x86/</guid>
+      <description>&lt;p&gt;今天初步认识了 ARM 汇编。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;cpu-内寄存器&#34;&gt;CPU 内寄存器&lt;/h2&gt;
+&lt;p&gt;aarch64 有 31 个 64 位通用寄存器，它们的名字是为 xn（n 为 0-30 的整数），不像 80X86 一样暗示了它们的用途。&lt;/p&gt;
+&lt;p&gt;类似 rax 和 eax 的关系，它们对应的 32 位寄存器叫做 wn（n 为 0-30 的整数）。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>CSAPP Bomb Lab</title>
+      <link>https://vaaandark.top/posts/csapp-bomb-lab/</link>
+      <pubDate>Sat, 29 Oct 2022 22:24:22 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/csapp-bomb-lab/</guid>
+      <description>&lt;p&gt;之前的 Bomb Lab 没有做，现在刚好在上计算机系统基础这门课，学校使用了 CSAPP 的 Bomb Lab ，可以补交一下 CSAPP 的作业，也可以学习一下 GDB 的使用。&lt;/p&gt;
+&lt;h2 id=&#34;实验简述&#34;&gt;实验简述&lt;/h2&gt;
+&lt;p&gt;遗憾地，CSAPP 的 Bomb Lab 早已提供的是 Linux 的 64 位可执行程序，而我校的 Lab 还是 32 位的 Windows PE32 。不过我还是找老师要到了它的 Linux 版本，不过也是 ELF32 ，可执行文件的名字叫&lt;code&gt;bomb_32&lt;/code&gt;。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>稍微深入VLA</title>
+      <link>https://vaaandark.top/posts/dive-in-vla/</link>
+      <pubDate>Thu, 20 Oct 2022 10:50:10 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/dive-in-vla/</guid>
+      <description>&lt;p&gt;最近在学习汇编语言，和朋友聊天时聊到了 C 语言中的变长数组，想知道在汇编后是什么样子的。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;变长数组variable-length-array&#34;&gt;变长数组(Variable-length array)&lt;/h2&gt;
+&lt;p&gt;可变长数组是指在计算机程序设计中，数组对象的长度在运行时（而不是编译时）确定。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>80X86汇编语言学习</title>
+      <link>https://vaaandark.top/posts/80x86-learning/</link>
+      <pubDate>Tue, 27 Sep 2022 14:47:57 +0000</pubDate>
+      <guid>https://vaaandark.top/posts/80x86-learning/</guid>
+      <description>&lt;p&gt;汇编语言学习笔记&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h2 id=&#34;预备知识&#34;&gt;预备知识&lt;/h2&gt;
+&lt;h3 id=&#34;intel-机器&#34;&gt;Intel 机器&lt;/h3&gt;
+&lt;h4 id=&#34;微型计算机的构成&#34;&gt;微型计算机的构成&lt;/h4&gt;
+&lt;p&gt;&lt;img alt=&#34;微型计算机的构成&#34; loading=&#34;lazy&#34; src=&#34;https://vaaandark.top/image/asm-intel-x86.png&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;80x86-微处理器的基本结构&#34;&gt;80X86 微处理器的基本结构&lt;/h4&gt;
+&lt;p&gt;&lt;img alt=&#34;80X86微处理器的基本结构&#34; loading=&#34;lazy&#34; src=&#34;https://vaaandark.top/image/asm-80x86.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;数据寄存器组&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;数据寄存器组&#34; loading=&#34;lazy&#34; src=&#34;https://vaaandark.top/image/asm-data-registers.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;段寄存器组&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;段寄存器组&#34; loading=&#34;lazy&#34; src=&#34;https://vaaandark.top/image/asm-seg-registers.png&#34;&gt;&lt;/p&gt;
+&lt;h4 id=&#34;80x86-的三种工作方式&#34;&gt;80X86 的三种工作方式&lt;/h4&gt;
+&lt;ol&gt;
+&lt;li&gt;实地址模式&lt;/li&gt;
+&lt;li&gt;保护模式&lt;/li&gt;
+&lt;li&gt;虚拟 8086 方式（V86方式）&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;数据在计算机内的表示形式&#34;&gt;数据在计算机内的表示形式&lt;/h3&gt;
+&lt;blockquote&gt;
+&lt;p&gt;有符号数、无符号数、浮点数等相关知识见 CSAPP&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

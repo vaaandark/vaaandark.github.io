@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>CPU on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/cpu/</link>
+    <description>Recent content in CPU on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Sun, 18 Feb 2024 21:30:43 +0800</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/cpu/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>恶补 CPU 知识之 Cache 和 TLB</title>
+      <link>https://vaaandark.top/posts/relearning-cpu-2-cache-and-tlb/</link>
+      <pubDate>Sun, 18 Feb 2024 21:30:43 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/relearning-cpu-2-cache-and-tlb/</guid>
+      <description>&lt;p&gt;即是知识回顾，也是最近学到知识的拓展延伸。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;ARMv6 Manual: &amp;ldquo;The only architecturally-guaranteed way to invalidate all aliases of a physical address from a VIPT instruction cache is to invalidate the entire instruction cache.&amp;rdquo;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;cache-的基本情况&#34;&gt;Cache 的基本情况&lt;/h2&gt;
+&lt;p&gt;Cache 也就是缓存，作为高速的 CPU 和低速的内存之间的缓冲，用于加速访问。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>恶补 CPU 知识之分支预测</title>
+      <link>https://vaaandark.top/posts/relearning-cpu-1-branch-prediction/</link>
+      <pubDate>Sun, 18 Feb 2024 12:44:41 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/relearning-cpu-1-branch-prediction/</guid>
+      <description>&lt;h2 id=&#34;前因&#34;&gt;前因&lt;/h2&gt;
+&lt;p&gt;最近看了一篇介绍 Ventana 的 Veyron V1 核心的博客 &lt;a href=&#34;https://blog.eastonman.com/blog/2024/02/hot-chips-2023-ventanas-unconventional-veyron-v1/&#34;&gt;HotChips 2023: Ventana 不寻常的 Veyron V1&lt;/a&gt; ，里面出现了很多我没听说过或者不甚了解的名词，在阅读这篇博客和查找资料的过程中，我学到了很多新的 CPU 知识。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>CPU 流水线</title>
+      <link>https://vaaandark.top/posts/cpu-pipeline/</link>
+      <pubDate>Sat, 22 Apr 2023 17:29:49 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/cpu-pipeline/</guid>
+      <description>&lt;h1 id=&#34;流水线级&#34;&gt;流水线级&lt;/h1&gt;
+&lt;blockquote&gt;
+&lt;p&gt;一条流水线的每个分步骤被称为流水线级。它们被流水线寄存器分开。下文中没有说明是流水线寄存器的都是普通 CPU 寄存器。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;现代计算机流水线级数已经达到了 10-20 级，在 2000-2010 年间，流水线级数的竞赛达到了最高峰，那时候的处理器甚至可以有高达 31 级的流水线。但是超深的流水线带来的是结构上的复杂和显著增大的动态调度模块设计难度，因此，从那以后就没有再出现过使用这么多级流水线的 CPU 了。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

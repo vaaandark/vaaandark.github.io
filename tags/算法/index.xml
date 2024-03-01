@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>算法 on vaaandark&#39;s blog</title>
+    <link>https://vaaandark.top/tags/%E7%AE%97%E6%B3%95/</link>
+    <description>Recent content in 算法 on vaaandark&#39;s blog</description>
+    <generator>Hugo -- 0.140.2</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Wed, 27 Mar 2024 20:02:33 +0800</lastBuildDate>
+    <atom:link href="https://vaaandark.top/tags/%E7%AE%97%E6%B3%95/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>求 n 个数中前 k 小的数</title>
+      <link>https://vaaandark.top/posts/the-smallest-k-numbers/</link>
+      <pubDate>Wed, 27 Mar 2024 20:02:33 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/the-smallest-k-numbers/</guid>
+      <description>&lt;p&gt;面试时遇到的一道题：给出给出 n 个数，求出前 k 小的数字。&lt;/p&gt;
+&lt;p&gt;输入是 n + 1 行：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;第一行是 n 和 k&lt;/li&gt;
+&lt;li&gt;之后 n 行是这个数列&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;输出是 k 个数。&lt;/p&gt;
+&lt;p&gt;当时没想出来怎么做，直接嗯排序，然后输出，OJ 的时限比较宽容，竟然过了😄。&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

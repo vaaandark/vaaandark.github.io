@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>C语言 | vaaandark&#39;s blog</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="vaaandark">
+<link rel="canonical" href="https://vaaandark.top/tags/c%E8%AF%AD%E8%A8%80/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.556a50c7c92c2556e588f602528ac3c41884cdb6e537ce0647b5e200cd1c2094.css" integrity="sha256-VWpQx8ksJVbliPYCUorDxBiEzbblN84GR7XiAM0cIJQ=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="icon" type="image/png" sizes="16x16" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="apple-touch-icon" href="https://vaaandark.top/image/vaaandark.png">
+<link rel="mask-icon" href="https://vaaandark.top/image/vaaandark.png">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="https://vaaandark.top/tags/c%E8%AF%AD%E8%A8%80/index.xml">
+<link rel="alternate" hreflang="zh" href="https://vaaandark.top/tags/c%E8%AF%AD%E8%A8%80/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://vaaandark.top/tags/c%E8%AF%AD%E8%A8%80/">
+  <meta property="og:site_name" content="vaaandark&#39;s blog">
+  <meta property="og:title" content="C语言">
+  <meta property="og:locale" content="zh-CN">
+  <meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="C语言">
+<meta name="twitter:description" content="">
+
+
+
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://vaaandark.top/" accesskey="h" title="vaaandark&#39;s blog (Alt + H)">
+                <img src="https://vaaandark.top/image/vaaandark.png" alt="" aria-label="logo"
+                    height="35">vaaandark&#39;s blog</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://vaaandark.top/" title="🏠主页">
+                    <span>🏠主页</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/posts/" title="Posts">
+                    <span>📄 归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/categories/" title="categories">
+                    <span>📂 分类</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/tags/" title="tags">
+                    <span>🔖 标签</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/about/" title="关于我">
+                    <span>🙋 关于</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://vaaandark.top/links/" title="友链">
+                    <span>🤝 友链</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header"><div class="breadcrumbs"><a href="https://vaaandark.top/">主页</a>&nbsp;»&nbsp;<a href="https://vaaandark.top/tags/">tags</a></div>
+  <h1>
+    C语言
+  </h1>
+</header>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">华科 OS 实验的 RISC-V 代理内核是如何启动的？
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>代码仓库为 hustos riscv-pke
+以下内容基于 lab2 代码
+入口在哪？ 入口为 kernel/machine/mentry.S 的 _mentry ，它调用了 kernel/machine/minit.c 的 m_start(uintptr_t hartid, uintptr_t dtb) ，两个参数并没有在 _mentry 中设置，这是因为 spike 会自动设置 a0 寄存器为 CPU id ，设置 a1 寄存器为设备树字符串，这刚好也符合 RV 的传参规则。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-03-02 01:32:50 +0800 CST'>2024 3月 02</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;vaaandark</footer>
+  <a class="entry-link" aria-label="post link to 华科 OS 实验的 RISC-V 代理内核是如何启动的？" href="https://vaaandark.top/posts/how-riscv-pke-startup/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">MIT6.S081 Lab:Fixup Xargs
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>昨天朋友跟我说我的 MIT6.S081 lab1 的 xargs 命令的代码无法通过，看到他的测试方法才知道原来是这样测试的，感觉之前写的测的都太简略了。
+例如测试 xargs 命令这一关可以这样测试：
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-02-26 23:41:18 +0800 CST'>2024 2月 26</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;vaaandark</footer>
+  <a class="entry-link" aria-label="post link to MIT6.S081 Lab:Fixup Xargs" href="https://vaaandark.top/posts/mit6.s081-labfixup-xargs/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">PAC2023娱乐赛
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>7.6 举办了 PAC2023 的开幕赛，以轻松娱乐为主，我还没有体验过在短时间内完成优化工作（不过今天的工作量倒也不大）。这场娱乐赛给了我别样的体验，也让我发现了我有好的好多不足，以及一些以前没有注意到的坏习惯。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-07-06 23:55:08 +0800 CST'>2023 7月 06</span>&nbsp;·&nbsp;4 分钟&nbsp;·&nbsp;vaaandark</footer>
+  <a class="entry-link" aria-label="post link to PAC2023娱乐赛" href="https://vaaandark.top/posts/pac2023-game/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">MIT6.S081 Lab: Xv6 and Unix Utilities
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>这是 MIT6.S081 的第一个 Lab ，目的是为了让学生熟悉 Xv6 和 Unix 的一些实用程序，例如 sleep find xargs 等。
+sleep 这一关是实现 sleep 命令。由于在 user/user.h 目录中给出来了可以直接由 C 语言调用的函数 int sleep(int) ，这一关非常简单：
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-03-02 23:14:38 +0800 CST'>2023 3月 02</span>&nbsp;·&nbsp;3 分钟&nbsp;·&nbsp;vaaandark</footer>
+  <a class="entry-link" aria-label="post link to MIT6.S081 Lab: Xv6 and Unix Utilities" href="https://vaaandark.top/posts/mit6.s081-labxv6-and-unix-utilities/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">MIT6.S081 实验环境配置
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>最近开始学习操作系统的相关知识，选择学 MIT6.S081 的课程。
+首先在 课程官方网站 上拉取仓库配置环境。
+$ git clone git://g.csail.mit.edu/xv6-labs-2020 $ cd xv6-labs-2020 $ git checkout util $ make qemu make 时发现有报错：
+user/sh.c: In function ‘runcmd’: user/sh.c:58:1: error: infinite recursion detected [-Werror=infinite-recursion] 58 | runcmd(struct cmd *cmd) | ^~~~~~ 打开该文件发现：
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-02-21 14:59:14 +0800 CST'>2023 2月 21</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;vaaandark</footer>
+  <a class="entry-link" aria-label="post link to MIT6.S081 实验环境配置" href="https://vaaandark.top/posts/mit6.s081-setup-environment/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">内联汇编
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>高中第一次看到在 C 语言中嵌入汇编语言时，我就觉得它非常好玩，到大学刚开学的时候，我甚至有使用它的需求，可惜直到现在我才抽出时间开始学习它。
+分类 在 GNU 的 GCC 中，内联汇编被分为两类：Basic asm 和 Extended asm 。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-01-02 16:27:19 +0800 CST'>2023 1月 02</span>&nbsp;·&nbsp;6 分钟&nbsp;·&nbsp;vaaandark</footer>
+  <a class="entry-link" aria-label="post link to 内联汇编" href="https://vaaandark.top/posts/inline-assembly/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">稍微深入VLA
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>最近在学习汇编语言，和朋友聊天时聊到了 C 语言中的变长数组，想知道在汇编后是什么样子的。
+变长数组(Variable-length array) 可变长数组是指在计算机程序设计中，数组对象的长度在运行时（而不是编译时）确定。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-10-20 10:50:10 +0000 UTC'>2022 10月 20</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;vaaandark</footer>
+  <a class="entry-link" aria-label="post link to 稍微深入VLA" href="https://vaaandark.top/posts/dive-in-vla/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+<figure class="entry-cover"><img loading="lazy" src="https://vaaandark.top/image/linked-list.jpg" alt="">
+</figure>
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">说说链表
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>最近看到了一些关于侵入式和非侵入式链表的讨论，决定研究一下它们两个。
+侵入式和非侵入式链表的区别 这里的侵入是相对于链表的指针域来说，所以最主要的区别就是非侵入式的链表容器中保存了一份用户传入的值。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-08-14 16:01:24 +0000 UTC'>2022 8月 14</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;vaaandark</footer>
+  <a class="entry-link" aria-label="post link to 说说链表" href="https://vaaandark.top/posts/facts-about-linklist/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">OpenMP进阶
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>继续学习 OpenMP 的使用，尤其是一些较新版本。
+OpenMP 4.0 Controlling OpenMP thread Affinity 因为很多硬件如今是 NUMA 结构，分配线程的位置可以很大程度上影响性能。
+与核绑定有关的 OpenMP 结构 proc_bind (master | close | spread)
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-08-02 22:08:34 +0000 UTC'>2022 8月 02</span>&nbsp;·&nbsp;4 分钟&nbsp;·&nbsp;vaaandark</footer>
+  <a class="entry-link" aria-label="post link to OpenMP进阶" href="https://vaaandark.top/posts/openmp-advance/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">OpenMP入门
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>写 OpenMP 的时候总是感觉怪怪的，不知道什么时候该用什么，所以最近系统化地看一遍 OpenMP 的使用，主体为 OpenMP 2.0 和 3.0。
+What is OpenMP? OpenMP Model 每个线程都有可以访问全局的共享内存。 数据可以是共享的也可以是私有的。 共享的数据可以被所有线程访问。 私有数据只能被拥有它的线程访问。 数据的传递对于编程者是透明的。 同步会发生，但是它大部分时候是隐式的。 ...</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-07-29 09:03:18 +0000 UTC'>2022 7月 29</span>&nbsp;·&nbsp;3 分钟&nbsp;·&nbsp;vaaandark</footer>
+  <a class="entry-link" aria-label="post link to OpenMP入门" href="https://vaaandark.top/posts/openmp-introduction/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="next" href="https://vaaandark.top/tags/c%E8%AF%AD%E8%A8%80/page/2/">下一页&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://vaaandark.top/">vaaandark&#39;s blog</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
