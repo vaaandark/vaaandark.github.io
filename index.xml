@@ -36,7 +36,7 @@
 &lt;li&gt;（热迁移源节点）watch 与热迁移有关的 CRD，根据其操作 kubelet，生成 checkpoint&lt;/li&gt;
 &lt;li&gt;（热迁移源节点）把 checkpoint 文件传输到目标节点&lt;/li&gt;
 &lt;li&gt;（热迁移目标节点）根据 checkpoint 文件生成镜像文件&lt;/li&gt;
-&lt;li&gt;（热迁移目标文件）作为&lt;strong&gt;镜像服务器&lt;/strong&gt;，直接在&lt;strong&gt;本地&lt;/strong&gt;为容器运行时提供镜像（这样可以避免把 checkpoint 上传到其他镜像服务这一多余步骤）&lt;/li&gt;
+&lt;li&gt;（热迁移目标节点）作为&lt;strong&gt;镜像服务器&lt;/strong&gt;，直接在&lt;strong&gt;本地&lt;/strong&gt;为容器运行时提供镜像（这样可以避免把 checkpoint 上传到其他镜像服务这一多余步骤）&lt;/li&gt;
 &lt;/ol&gt;
 &lt;h3 id=&#34;可能的优化&#34;&gt;可能的优化&lt;/h3&gt;
 &lt;p&gt;不要使用 kubelet 生成 checkpoint，因为如此一来的时间线会是：&lt;/p&gt;
