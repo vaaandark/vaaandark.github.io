@@ -389,16 +389,14 @@
 </span></span><span style="display:flex;"><span>	print(k .. <span style="color:#0ff;font-weight:bold">&#34; : &#34;</span> .. v)
 </span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">end</span>
 </span></span></code></pre></div><blockquote>
-<p>Lua 中表的默认初始索引为1</p>
-</blockquote>
+<p>Lua 中表的默认初始索引为1</p></blockquote>
 <ul>
 <li>function</li>
 </ul>
 <p>在 Lua 中，function 是第一类值，可以作为对象传递，也可以作为函数返回的值，可以存在变量之中。</p>
 <p>function 可以使用匿名函数，也可以使用闭包。</p>
 <blockquote>
-<p>事实上，Lua 全部的函数都是匿名函数，函数名是对其的引用。</p>
-</blockquote>
+<p>事实上，Lua 全部的函数都是匿名函数，函数名是对其的引用。</p></blockquote>
 <ul>
 <li>thread</li>
 </ul>
@@ -474,16 +472,13 @@
 </span></span><span style="display:flex;"><span>	<span style="color:#fff;font-weight:bold">return</span> res
 </span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">end</span>
 </span></span></code></pre></div><blockquote>
-<p>函数 select(&quot;#&quot;, &hellip;) 可以返回可变参数的数量</p>
-</blockquote>
+<p>函数 select(&quot;#&quot;, &hellip;) 可以返回可变参数的数量</p></blockquote>
 <blockquote>
-<p>select(n, &hellip;) 可以返回从起点 n 开始到结束位置的所有参数列表</p>
-</blockquote>
+<p>select(n, &hellip;) 可以返回从起点 n 开始到结束位置的所有参数列表</p></blockquote>
 <h2 id="运算符">运算符<a hidden class="anchor" aria-hidden="true" href="#运算符">#</a></h2>
 <p>与 C 语言基本相同，逻辑运算为<code>and</code> <code>or</code> <code>not</code>，此外还有乘幂运算<code>^</code>和整除运算<code>//</code>，关系运算符中不等于为<code>~=</code>。</p>
 <blockquote>
-<p>Lua5.3 之后才支持整除运算</p>
-</blockquote>
+<p>Lua5.3 之后才支持整除运算</p></blockquote>
 <h2 id="字符串">字符串<a hidden class="anchor" aria-hidden="true" href="#字符串">#</a></h2>
 <p>在 string 模块中有很多方法可以操作字符串，以下函数原型可以望文生义：</p>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-lua" data-lang="lua"><span style="display:flex;"><span>string.upper(str)
@@ -528,8 +523,7 @@
 </span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">end</span>
 </span></span></code></pre></div><p>explist 只会被计算一次。它返回三个值，一个迭代器函数 f ，一个状态 s ，一个迭代器的初始值 var 。</p>
 <blockquote>
-<p>参考：http://cloudwu.github.io/lua53doc/manual.html#3.3.5</p>
-</blockquote>
+<p>参考：http://cloudwu.github.io/lua53doc/manual.html#3.3.5</p></blockquote>
 <h3 id="无状态的迭代器">无状态的迭代器<a hidden class="anchor" aria-hidden="true" href="#无状态的迭代器">#</a></h3>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-lua" data-lang="lua"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">function</span> _square_iter(ending, current)
 </span></span><span style="display:flex;"><span>	<span style="color:#fff;font-weight:bold">if</span> current &lt; ending <span style="color:#fff;font-weight:bold">then</span>

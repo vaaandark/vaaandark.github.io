@@ -10,7 +10,6 @@
 <meta name="description" content="即是知识回顾，也是最近学到知识的拓展延伸。
 
 ARMv6 Manual: &ldquo;The only architecturally-guaranteed way to invalidate all aliases of a physical address from a VIPT instruction cache is to invalidate the entire instruction cache.&rdquo;
-
 Cache 的基本情况
 Cache 也就是缓存，作为高速的 CPU 和低速的内存之间的缓冲，用于加速访问。">
 <meta name="author" content="vaaandark">
@@ -82,7 +81,6 @@ Cache 的基本情况 Cache 也就是缓存，作为高速的 CPU 和低速的�
 <meta name="twitter:description" content="即是知识回顾，也是最近学到知识的拓展延伸。
 
 ARMv6 Manual: &ldquo;The only architecturally-guaranteed way to invalidate all aliases of a physical address from a VIPT instruction cache is to invalidate the entire instruction cache.&rdquo;
-
 Cache 的基本情况
 Cache 也就是缓存，作为高速的 CPU 和低速的内存之间的缓冲，用于加速访问。">
 
@@ -285,17 +283,14 @@ Cache 也就是缓存，作为高速的 CPU 和低速的内存之间的缓冲，
 
   <div class="post-content"><p>即是知识回顾，也是最近学到知识的拓展延伸。</p>
 <blockquote>
-<p>ARMv6 Manual: &ldquo;The only architecturally-guaranteed way to invalidate all aliases of a physical address from a VIPT instruction cache is to invalidate the entire instruction cache.&rdquo;</p>
-</blockquote>
+<p>ARMv6 Manual: &ldquo;The only architecturally-guaranteed way to invalidate all aliases of a physical address from a VIPT instruction cache is to invalidate the entire instruction cache.&rdquo;</p></blockquote>
 <h2 id="cache-的基本情况">Cache 的基本情况<a hidden class="anchor" aria-hidden="true" href="#cache-的基本情况">#</a></h2>
 <p>Cache 也就是缓存，作为高速的 CPU 和低速的内存之间的缓冲，用于加速访问。</p>
 <p>一个内存地址一般分为三个部分，由高到低分别为 tag, index 和 offset 。index 用于索引缓存行，offset 用于确定在缓存行的位置。</p>
 <blockquote>
-<p>为什么需要 tag 呢？这是因为缓存的大小是远远小于内存大小的，所以不同的 index 可能对应同一个缓存行，所以需要使用 tag 来区分。</p>
-</blockquote>
+<p>为什么需要 tag 呢？这是因为缓存的大小是远远小于内存大小的，所以不同的 index 可能对应同一个缓存行，所以需要使用 tag 来区分。</p></blockquote>
 <blockquote>
-<p>那为什么 tag 是高位，而 index 是低位呢？这是因为一般情况下访问的内存都是若干块连续的，处于不同块的内存地址低位可能重复而高位不重复。</p>
-</blockquote>
+<p>那为什么 tag 是高位，而 index 是低位呢？这是因为一般情况下访问的内存都是若干块连续的，处于不同块的内存地址低位可能重复而高位不重复。</p></blockquote>
 <p>有三种 Cache 组织方式，分别是全相连、组相连和直接相连，其中全相连不划分 index ，直接比对 tag 。</p>
 <h2 id="多级-cache">多级 Cache<a hidden class="anchor" aria-hidden="true" href="#多级-cache">#</a></h2>
 <p>为了进一步提升访存速度，人们引入了多级 Cache 。现代 CPU 一般有 3 级，以 Cortex-A53 为例，它的 L1 cache 是 CPU 私有的，L2 cache 是同一个 cluster 共享的，L3 cache 是所有 CPU 共享的，并以总线与内存相连。</p>
@@ -314,8 +309,7 @@ Cache 也就是缓存，作为高速的 CPU 和低速的内存之间的缓冲，
 <p>由于页面大小一般为 4KB ，因此 TLB 不需要管最低的 12 位。而且 TLB 的一个 entry 只存一个物理地址，所以也不需要类似 cache 的 offset 字段，虚拟地址只需要分成 tag 和 index 两个部分。</p>
 <h2 id="vivt-vs-vipt-vs-pipt">VIVT vs VIPT vs PIPT<a hidden class="anchor" aria-hidden="true" href="#vivt-vs-vipt-vs-pipt">#</a></h2>
 <blockquote>
-<p>这里的 V 代表 virtual ， P 代表 physical ， I 和 T 分别代表 index(ed) 和 tag(ged) 。</p>
-</blockquote>
+<p>这里的 V 代表 virtual ， P 代表 physical ， I 和 T 分别代表 index(ed) 和 tag(ged) 。</p></blockquote>
 <p>前面说了通过 tag 和 index 在 cache 中查找，但是这里的 tag 和 index 位于虚拟地址还是物理地址呢？</p>
 <h3 id="歧义和别名">歧义和别名<a hidden class="anchor" aria-hidden="true" href="#歧义和别名">#</a></h3>
 <p>我们也可以先注意两个问题：歧义(ambiguity)和别名(aliasing)。</p>

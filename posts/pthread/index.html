@@ -9,7 +9,6 @@
 <meta name="keywords" content="Linux, glibc, HPC">
 <meta name="description" content="
 赛博考古：Linux 支持 POSIX 线程标准的前世今生
-
 线程是什么
 操作系统能够进行运算调度的最小单位。在一般的操作系统上，它被包含在进程之中，是进程中的实际运作单位。">
 <meta name="author" content="vaaandark">
@@ -76,7 +75,6 @@
 <meta name="twitter:title" content="Pthread">
 <meta name="twitter:description" content="
 赛博考古：Linux 支持 POSIX 线程标准的前世今生
-
 线程是什么
 操作系统能够进行运算调度的最小单位。在一般的操作系统上，它被包含在进程之中，是进程中的实际运作单位。">
 
@@ -301,8 +299,7 @@
 </div>
 
   <div class="post-content"><blockquote>
-<p>赛博考古：Linux 支持 POSIX 线程标准的前世今生</p>
-</blockquote>
+<p>赛博考古：Linux 支持 POSIX 线程标准的前世今生</p></blockquote>
 <h2 id="线程是什么">线程是什么<a hidden class="anchor" aria-hidden="true" href="#线程是什么">#</a></h2>
 <p>操作系统能够进行运算调度的最小单位。在一般的操作系统上，它被包含在进程之中，是进程中的实际运作单位。</p>
 <h3 id="线程共享了什么">线程共享了什么<a hidden class="anchor" aria-hidden="true" href="#线程共享了什么">#</a></h3>
@@ -323,8 +320,7 @@
 </ul>
 <h3 id="值得注意的问题pid-vs-tgid-getpid-vs-gettid">值得注意的问题(pid vs tgid, getpid vs gettid)<a hidden class="anchor" aria-hidden="true" href="#值得注意的问题pid-vs-tgid-getpid-vs-gettid">#</a></h3>
 <blockquote>
-<p>tg for thread group</p>
-</blockquote>
+<p>tg for thread group</p></blockquote>
 <p><code>getpid</code> 是 man 3 里面的，因此它是 Library call ；<code>gettid</code> 是 man 2 里面的，因此它是 System Call 。</p>
 <p>我们使用 <code>unistd.h</code> 中的 <code>getpid()</code> 实际上获取的是 tgid ，而 <code>syscall(SYS_gettid)</code> 实际上获取的是 pid 。</p>
 <p>如图所示，每个线程都有独一无二的 pid ，有可能重复的 tgid 。当一个进程属于一个单线程程序时，它的 pid 就等于 tgid ；当它创建了一个线程时，新的线程拥有一个新的 pid ，同时继承了同一线程组的 tgid 。</p>
@@ -344,8 +340,7 @@
 </span></span><span style="display:flex;"><span>                        KERNEL VIEW
 </span></span></code></pre></div><h2 id="posix-thread">POSIX Thread<a hidden class="anchor" aria-hidden="true" href="#posix-thread">#</a></h2>
 <blockquote>
-<p>与其说是 pthread 的历史，不如说是 kernel 变得更大更强，对线程模型支持得更好的历史。</p>
-</blockquote>
+<p>与其说是 pthread 的历史，不如说是 kernel 变得更大更强，对线程模型支持得更好的历史。</p></blockquote>
 <ul>
 <li>LinuxThreads（早期）</li>
 <li>NPTL(Native POSIX Thread Library)（现在）</li>
@@ -372,8 +367,7 @@
 </ul>
 <p>LinuxThreads 实现的线程，本质上是共享了内存、文件描述符的进程，它们有着不同的 pid ，它们并不作为进程的一个整体：</p>
 <blockquote>
-<p>这里的 pid 是抽象概念，当时的 Kernel 并没有 pid 和 tgid 的区别。</p>
-</blockquote>
+<p>这里的 pid 是抽象概念，当时的 Kernel 并没有 pid 和 tgid 的区别。</p></blockquote>
 <ul>
 <li>发送到线程 pid 的信号只能由该线程处理。只要没有线程阻塞该信号，该行为就符合标准：程序的一个（未指定）线程处理该信号。</li>
 <li>但是，如果向 pid 发送信号的线程阻塞了信号，那么 LinuxThreads 将简单地在该线程中排队，仅当该线程解除阻塞信号时才执行处理程序，而不是立即在不阻塞信号的另一个线程中执行。</li>
@@ -394,8 +388,7 @@
 <p>多对多模型能成功避免两种模型的最坏情况。在上下文切换成本高昂的内核 Digital Unix 上多对多模型几乎可以说是唯一选择。</p>
 <p>但是，多对多模型的实现相当复杂，并且需要 Linux 增加支持很多新的功能。另一方面，Linus Torvalds 和其他 Linux 内核开发人员一直以整体简单性的名义推动一对一模型，更何况 Linux 的上下文切换效率相当出色。</p>
 <blockquote>
-<p>虽然多对多模型在 pthread 中被放弃，但是它在一些编程语言的运行时中大放异彩。</p>
-</blockquote>
+<p>虽然多对多模型在 pthread 中被放弃，但是它在一些编程语言的运行时中大放异彩。</p></blockquote>
 <h5 id="管理线程与一对一模型结合导致的问题">管理线程与一对一模型结合导致的问题<a hidden class="anchor" aria-hidden="true" href="#管理线程与一对一模型结合导致的问题">#</a></h5>
 <ul>
 <li>管理线程只能在一个核上运行，这导致加速比变低，性能变差。</li>

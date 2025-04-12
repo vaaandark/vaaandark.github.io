@@ -4,7 +4,7 @@
     <title>汇编语言 on vaaandark&#39;s blog</title>
     <link>https://vaaandark.top/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/</link>
     <description>Recent content in 汇编语言 on vaaandark&#39;s blog</description>
-    <generator>Hugo -- 0.140.2</generator>
+    <generator>Hugo -- 0.144.2</generator>
     <language>zh-CN</language>
     <lastBuildDate>Sat, 02 Mar 2024 01:32:50 +0800</lastBuildDate>
     <atom:link href="https://vaaandark.top/tags/%E6%B1%87%E7%BC%96%E8%AF%AD%E8%A8%80/index.xml" rel="self" type="application/rss+xml" />
@@ -15,8 +15,7 @@
       <guid>https://vaaandark.top/posts/how-riscv-pke-startup/</guid>
       <description>&lt;p&gt;代码仓库为 &lt;a href=&#34;https://gitee.com/hustos/riscv-pke&#34;&gt;hustos riscv-pke&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;以下内容基于 lab2 代码&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;以下内容基于 lab2 代码&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h3 id=&#34;入口在哪&#34;&gt;入口在哪？&lt;/h3&gt;
 &lt;p&gt;入口为 &lt;code&gt;kernel/machine/mentry.S&lt;/code&gt; 的 &lt;code&gt;_mentry&lt;/code&gt; ，它调用了 &lt;code&gt;kernel/machine/minit.c&lt;/code&gt; 的 &lt;code&gt;m_start(uintptr_t hartid, uintptr_t dtb)&lt;/code&gt; ，两个参数并没有在 &lt;code&gt;_mentry&lt;/code&gt; 中设置，这是因为 spike 会自动设置 &lt;code&gt;a0&lt;/code&gt; 寄存器为 CPU id ，设置 &lt;code&gt;a1&lt;/code&gt; 寄存器为设备树字符串，这刚好也符合 RV 的传参规则。&lt;/p&gt;</description>
     </item>

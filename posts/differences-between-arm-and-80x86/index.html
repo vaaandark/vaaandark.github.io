@@ -295,8 +295,7 @@ aarch64 有 31 个 64 位通用寄存器，它们的名字是为 xn（n 为 0-30
 <p>提供了 8 个通用寄存器（r0-r7）用于传递函数参数，一次对应<code>arg1</code>到<code>arg8</code>，超过 8 个的参数会存放在堆栈中。</p>
 <p>GCC 生成的汇编依然是 Caller Save 。</p>
 <blockquote>
-<p>使用 GCC 编译时，发现虽然传递到寄存器的顺序不会对函数调用有影响，但是 GCC 还是逆序传入寄存器，可能是为了结构化生成代码。</p>
-</blockquote>
+<p>使用 GCC 编译时，发现虽然传递到寄存器的顺序不会对函数调用有影响，但是 GCC 还是逆序传入寄存器，可能是为了结构化生成代码。</p></blockquote>
 <h3 id="返回值">返回值<a hidden class="anchor" aria-hidden="true" href="#返回值">#</a></h3>
 <p>如果返回值是整型，则是 x0 。</p>
 <h2 id="与-c-语言混合编程">与 C 语言混合编程<a hidden class="anchor" aria-hidden="true" href="#与-c-语言混合编程">#</a></h2>

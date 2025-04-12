@@ -4,7 +4,7 @@
     <title>CSAPP on vaaandark&#39;s blog</title>
     <link>https://vaaandark.top/tags/csapp/</link>
     <description>Recent content in CSAPP on vaaandark&#39;s blog</description>
-    <generator>Hugo -- 0.140.2</generator>
+    <generator>Hugo -- 0.144.2</generator>
     <language>zh-CN</language>
     <lastBuildDate>Sat, 22 Apr 2023 17:29:49 +0800</lastBuildDate>
     <atom:link href="https://vaaandark.top/tags/csapp/index.xml" rel="self" type="application/rss+xml" />
@@ -15,8 +15,7 @@
       <guid>https://vaaandark.top/posts/cpu-pipeline/</guid>
       <description>&lt;h1 id=&#34;流水线级&#34;&gt;流水线级&lt;/h1&gt;
 &lt;blockquote&gt;
-&lt;p&gt;一条流水线的每个分步骤被称为流水线级。它们被流水线寄存器分开。下文中没有说明是流水线寄存器的都是普通 CPU 寄存器。&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;一条流水线的每个分步骤被称为流水线级。它们被流水线寄存器分开。下文中没有说明是流水线寄存器的都是普通 CPU 寄存器。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;现代计算机流水线级数已经达到了 10-20 级，在 2000-2010 年间，流水线级数的竞赛达到了最高峰，那时候的处理器甚至可以有高达 31 级的流水线。但是超深的流水线带来的是结构上的复杂和显著增大的动态调度模块设计难度，因此，从那以后就没有再出现过使用这么多级流水线的 CPU 了。&lt;/p&gt;</description>
     </item>

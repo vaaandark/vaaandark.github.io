@@ -4,18 +4,27 @@
     <title>Linux on vaaandark&#39;s blog</title>
     <link>https://vaaandark.top/tags/linux/</link>
     <description>Recent content in Linux on vaaandark&#39;s blog</description>
-    <generator>Hugo -- 0.140.2</generator>
+    <generator>Hugo -- 0.144.2</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Sat, 23 Dec 2023 22:03:25 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 12 Apr 2025 19:55:13 +0800</lastBuildDate>
     <atom:link href="https://vaaandark.top/tags/linux/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>容器热迁移技术基础</title>
+      <link>https://vaaandark.top/posts/container-live-migration-basics/</link>
+      <pubDate>Sat, 12 Apr 2025 19:55:13 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/container-live-migration-basics/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;容器热迁移是我这次毕业设计的题目，也和我目前在云厂商的工作比较接近。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;技术基础&#34;&gt;技术基础&lt;/h2&gt;
+&lt;p&gt;一开始的参考资料是 CIRU 的官网和相关的一些论文，但是后来看到了 Kubernetes 的 2022 年的一篇&lt;a href=&#34;https://kubernetes.io/blog/2022/12/05/forensic-container-checkpointing-alpha/&#34;&gt;官方博客&lt;/a&gt;，发现 checkpoint 功能已经在 1.30 版本稳定了，我将以此功能为基础实现容器热迁移。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Pthread</title>
       <link>https://vaaandark.top/posts/pthread/</link>
       <pubDate>Sat, 23 Dec 2023 22:03:25 +0800</pubDate>
       <guid>https://vaaandark.top/posts/pthread/</guid>
       <description>&lt;blockquote&gt;
-&lt;p&gt;赛博考古：Linux 支持 POSIX 线程标准的前世今生&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;赛博考古：Linux 支持 POSIX 线程标准的前世今生&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h2 id=&#34;线程是什么&#34;&gt;线程是什么&lt;/h2&gt;
 &lt;p&gt;操作系统能够进行运算调度的最小单位。在一般的操作系统上，它被包含在进程之中，是进程中的实际运作单位。&lt;/p&gt;</description>
     </item>
@@ -59,8 +68,7 @@
       <guid>https://vaaandark.top/posts/linux-startup/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;pull oneself up by one&amp;rsquo;s bootstraps.&amp;rdquo;&lt;/p&gt;
-&lt;p&gt;拽着鞋带把自己拉起来&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;拽着鞋带把自己拉起来&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;大家在安装 Arch Linux 或者其他 Linux 发行版时，可能会看到很多有关启动或者引导的名词，例如 BIOS 、UEFI 、GRUB 、ESP 、GPT 、LBA 、MBR 等等。有些名词比较熟悉，有些就会一头雾水，今天就来讲讲这些名词。&lt;/p&gt;</description>
     </item>
     <item>

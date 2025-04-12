@@ -153,6 +153,20 @@
 
 <article class="post-entry tag-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Lua 打印 Table
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>之前在 Lua 代码的编写中写过一些打印表的函数用于调试，这次在看 z.lua 的实现中看到了非常完美的打印表的方法，于是在将代码改得更规范后记录一下：
+使用 luacheck 检查 Lua 代码中的错误和不规范之处
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-02-11 14:36:27 +0800 CST'>2023 2月 11</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;vaaandark</footer>
+  <a class="entry-link" aria-label="post link to Lua 打印 Table" href="https://vaaandark.top/posts/lua-print-table/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Lua 中的三目运算
     </h2>
   </header>
@@ -276,20 +290,6 @@ CPU 内寄存器 aarch64 有 31 个 64 位通用寄存器，它们的名字是�
   </div>
   <footer class="entry-footer"><span title='2022-11-08 20:35:20 +0800 CST'>2022 11月 08</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;vaaandark</footer>
   <a class="entry-link" aria-label="post link to ARM与80X86的异同" href="https://vaaandark.top/posts/differences-between-arm-and-80x86/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">QEMU配置openEuler的aarch64开发环境
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>还是计算机系统基础，即将对 arm 架构展开学习，使用的是华为的打开欧拉(openEuler)操作发行版。
-进入镜像 首先下载虚拟机镜像，老师发的我安装不了，就在清华的镜像站下载了。 $ aria2c -x 15 -s 2 &#34;https://mirrors.tuna.tsinghua.edu.cn/openeuler/openEuler-20.03-LTS/virtual_machine_img/aarch64/openEuler-20.03-LTS.aarch64.qcow2.xz&#34; 先调整一下镜像的磁盘大小。 $ qemu-img resize openEuler-20.03-LTS.aarch64.qcow2 &#43;20G 启动镜像，注意需要使用引导文件。 qemu-system-aarch64 -m 4096 \ -cpu cortex-a57 \ -smp 4 \ -M virt \ -bios edk2-aarch64-code.fd \ -hda openEuler-20.03-LTS.aarch64.qcow2 \ -nographic \ 配置网络 配置网络这部分，尤其是网卡那部分我不是很懂，基本上是照着教程来做。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2022-11-07 16:43:28 +0800 CST'>2022 11月 07</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;vaaandark</footer>
-  <a class="entry-link" aria-label="post link to QEMU配置openEuler的aarch64开发环境" href="https://vaaandark.top/posts/setup-qemu-for-openeuler-aarch64/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

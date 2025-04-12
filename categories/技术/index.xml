@@ -4,10 +4,20 @@
     <title>技术 on vaaandark&#39;s blog</title>
     <link>https://vaaandark.top/categories/%E6%8A%80%E6%9C%AF/</link>
     <description>Recent content in 技术 on vaaandark&#39;s blog</description>
-    <generator>Hugo -- 0.140.2</generator>
+    <generator>Hugo -- 0.144.2</generator>
     <language>zh-CN</language>
-    <lastBuildDate>Wed, 27 Mar 2024 20:02:33 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 12 Apr 2025 19:55:13 +0800</lastBuildDate>
     <atom:link href="https://vaaandark.top/categories/%E6%8A%80%E6%9C%AF/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>容器热迁移技术基础</title>
+      <link>https://vaaandark.top/posts/container-live-migration-basics/</link>
+      <pubDate>Sat, 12 Apr 2025 19:55:13 +0800</pubDate>
+      <guid>https://vaaandark.top/posts/container-live-migration-basics/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;容器热迁移是我这次毕业设计的题目，也和我目前在云厂商的工作比较接近。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;技术基础&#34;&gt;技术基础&lt;/h2&gt;
+&lt;p&gt;一开始的参考资料是 CIRU 的官网和相关的一些论文，但是后来看到了 Kubernetes 的 2022 年的一篇&lt;a href=&#34;https://kubernetes.io/blog/2022/12/05/forensic-container-checkpointing-alpha/&#34;&gt;官方博客&lt;/a&gt;，发现 checkpoint 功能已经在 1.30 版本稳定了，我将以此功能为基础实现容器热迁移。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>求 n 个数中前 k 小的数</title>
       <link>https://vaaandark.top/posts/the-smallest-k-numbers/</link>
@@ -29,8 +39,7 @@
       <guid>https://vaaandark.top/posts/how-riscv-pke-startup/</guid>
       <description>&lt;p&gt;代码仓库为 &lt;a href=&#34;https://gitee.com/hustos/riscv-pke&#34;&gt;hustos riscv-pke&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;以下内容基于 lab2 代码&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;以下内容基于 lab2 代码&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h3 id=&#34;入口在哪&#34;&gt;入口在哪？&lt;/h3&gt;
 &lt;p&gt;入口为 &lt;code&gt;kernel/machine/mentry.S&lt;/code&gt; 的 &lt;code&gt;_mentry&lt;/code&gt; ，它调用了 &lt;code&gt;kernel/machine/minit.c&lt;/code&gt; 的 &lt;code&gt;m_start(uintptr_t hartid, uintptr_t dtb)&lt;/code&gt; ，两个参数并没有在 &lt;code&gt;_mentry&lt;/code&gt; 中设置，这是因为 spike 会自动设置 &lt;code&gt;a0&lt;/code&gt; 寄存器为 CPU id ，设置 &lt;code&gt;a1&lt;/code&gt; 寄存器为设备树字符串，这刚好也符合 RV 的传参规则。&lt;/p&gt;</description>
     </item>
@@ -49,8 +58,7 @@
       <guid>https://vaaandark.top/posts/relearning-cpu-2-cache-and-tlb/</guid>
       <description>&lt;p&gt;即是知识回顾，也是最近学到知识的拓展延伸。&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;ARMv6 Manual: &amp;ldquo;The only architecturally-guaranteed way to invalidate all aliases of a physical address from a VIPT instruction cache is to invalidate the entire instruction cache.&amp;rdquo;&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;ARMv6 Manual: &amp;ldquo;The only architecturally-guaranteed way to invalidate all aliases of a physical address from a VIPT instruction cache is to invalidate the entire instruction cache.&amp;rdquo;&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h2 id=&#34;cache-的基本情况&#34;&gt;Cache 的基本情况&lt;/h2&gt;
 &lt;p&gt;Cache 也就是缓存，作为高速的 CPU 和低速的内存之间的缓冲，用于加速访问。&lt;/p&gt;</description>
     </item>
@@ -68,8 +76,7 @@
       <pubDate>Sat, 23 Dec 2023 22:03:25 +0800</pubDate>
       <guid>https://vaaandark.top/posts/pthread/</guid>
       <description>&lt;blockquote&gt;
-&lt;p&gt;赛博考古：Linux 支持 POSIX 线程标准的前世今生&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;赛博考古：Linux 支持 POSIX 线程标准的前世今生&lt;/p&gt;&lt;/blockquote&gt;
 &lt;h2 id=&#34;线程是什么&#34;&gt;线程是什么&lt;/h2&gt;
 &lt;p&gt;操作系统能够进行运算调度的最小单位。在一般的操作系统上，它被包含在进程之中，是进程中的实际运作单位。&lt;/p&gt;</description>
     </item>
@@ -121,8 +128,7 @@
       <guid>https://vaaandark.top/posts/linux-startup/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;pull oneself up by one&amp;rsquo;s bootstraps.&amp;rdquo;&lt;/p&gt;
-&lt;p&gt;拽着鞋带把自己拉起来&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;拽着鞋带把自己拉起来&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;大家在安装 Arch Linux 或者其他 Linux 发行版时，可能会看到很多有关启动或者引导的名词，例如 BIOS 、UEFI 、GRUB 、ESP 、GPT 、LBA 、MBR 等等。有些名词比较熟悉，有些就会一头雾水，今天就来讲讲这些名词。&lt;/p&gt;</description>
     </item>
     <item>
@@ -148,8 +154,7 @@
       <guid>https://vaaandark.top/posts/cpu-pipeline/</guid>
       <description>&lt;h1 id=&#34;流水线级&#34;&gt;流水线级&lt;/h1&gt;
 &lt;blockquote&gt;
-&lt;p&gt;一条流水线的每个分步骤被称为流水线级。它们被流水线寄存器分开。下文中没有说明是流水线寄存器的都是普通 CPU 寄存器。&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;一条流水线的每个分步骤被称为流水线级。它们被流水线寄存器分开。下文中没有说明是流水线寄存器的都是普通 CPU 寄存器。&lt;/p&gt;&lt;/blockquote&gt;
 &lt;blockquote&gt;
 &lt;p&gt;现代计算机流水线级数已经达到了 10-20 级，在 2000-2010 年间，流水线级数的竞赛达到了最高峰，那时候的处理器甚至可以有高达 31 级的流水线。但是超深的流水线带来的是结构上的复杂和显著增大的动态调度模块设计难度，因此，从那以后就没有再出现过使用这么多级流水线的 CPU 了。&lt;/p&gt;</description>
     </item>

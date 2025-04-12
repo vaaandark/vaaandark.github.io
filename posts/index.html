@@ -167,6 +167,22 @@
 </header>
 
 <article class="post-entry"> 
+<figure class="entry-cover"><img loading="lazy" src="https://vaaandark.top/image/criu.png" alt="">
+</figure>
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">容器热迁移技术基础
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p> 容器热迁移是我这次毕业设计的题目，也和我目前在云厂商的工作比较接近。
+技术基础 一开始的参考资料是 CIRU 的官网和相关的一些论文，但是后来看到了 Kubernetes 的 2022 年的一篇官方博客，发现 checkpoint 功能已经在 1.30 版本稳定了，我将以此功能为基础实现容器热迁移。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-04-12 19:55:13 +0800 CST'>2025 4月 12</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;vaaandark</footer>
+  <a class="entry-link" aria-label="post link to 容器热迁移技术基础" href="https://vaaandark.top/posts/container-live-migration-basics/"></a>
+</article>
+
+<article class="post-entry"> 
 <figure class="entry-cover"><img loading="lazy" src="https://vaaandark.top/image/blue.jpg" alt="">
 </figure>
   <header class="entry-header">
@@ -294,20 +310,6 @@ Python IO 比 C / Rust IO 更快 有人发现在 AMD Ryzen 9 5900X 和 AMD Ryzen
   </div>
   <footer class="entry-footer"><span title='2023-11-30 16:45:58 +0800 CST'>2023 11月 30</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;vaaandark</footer>
   <a class="entry-link" aria-label="post link to 为什么 Rust std fs 慢于 Python" href="https://vaaandark.top/posts/rust-slower-than-python/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Cargo Runner
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>最近在完成一个使用 Rust 语言编写 Linux 内核引导程序的项目 lboot ，其核心代码和原理在之前的博客中介绍过 UEFI 如何启动 Linux 。
-因为不可能直接在 UEFI 环境下进行代码开发，所以我使用的是交叉编译的方法，目标平台是 x86_64-unknown-uefi 和 aarch64-unknown-uefi 。这就带来了一个问题，使用命令 cargo run 不能直接运行代码，必须使用 qemu 来模拟目标架构的执行。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2023-10-22 11:36:13 +0800 CST'>2023 10月 22</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;vaaandark</footer>
-  <a class="entry-link" aria-label="post link to Cargo Runner" href="https://vaaandark.top/posts/cargo-runner/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

@@ -423,8 +423,7 @@
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span>LUA_API <span style="color:#fff;font-weight:bold">int</span> lua_yieldk (lua_State *L, <span style="color:#fff;font-weight:bold">int</span> nresults, lua_KContext ctx, lua_KFunction k);
 </span></span></code></pre></div><p>在 lua_yieldk 中保存信息前要进行 lua_lock(L)，之后要 lua_unlock(L) 释放锁，但是在源码中 这两个宏都是不完整的，都被拓展为<code>(void (0))</code>，在需要同步的时候要注意对它们进行补充。</p>
 <blockquote>
-<p>Lua 协程让出时也需要调用 lua_yieldk ，这放在协程部分讨论。</p>
-</blockquote>
+<p>Lua 协程让出时也需要调用 lua_yieldk ，这放在协程部分讨论。</p></blockquote>
 <p>在恢复时 Lua 内部调用的函数是 resume 函数：</p>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">static</span> <span style="color:#fff;font-weight:bold">void</span> resume (lua_State *L, <span style="color:#fff;font-weight:bold">void</span> *ud) {
 </span></span><span style="display:flex;"><span>  <span style="color:#007f7f">// ...

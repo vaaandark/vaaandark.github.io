@@ -10,7 +10,6 @@
 <meta name="description" content="代码仓库为 hustos riscv-pke
 
 以下内容基于 lab2 代码
-
 入口在哪？
 入口为 kernel/machine/mentry.S 的 _mentry ，它调用了 kernel/machine/minit.c 的 m_start(uintptr_t hartid, uintptr_t dtb) ，两个参数并没有在 _mentry 中设置，这是因为 spike 会自动设置 a0 寄存器为 CPU id ，设置 a1 寄存器为设备树字符串，这刚好也符合 RV 的传参规则。">
 <meta name="author" content="vaaandark">
@@ -82,7 +81,6 @@
 <meta name="twitter:description" content="代码仓库为 hustos riscv-pke
 
 以下内容基于 lab2 代码
-
 入口在哪？
 入口为 kernel/machine/mentry.S 的 _mentry ，它调用了 kernel/machine/minit.c 的 m_start(uintptr_t hartid, uintptr_t dtb) ，两个参数并没有在 _mentry 中设置，这是因为 spike 会自动设置 a0 寄存器为 CPU id ，设置 a1 寄存器为设备树字符串，这刚好也符合 RV 的传参规则。">
 
@@ -253,8 +251,7 @@
 
   <div class="post-content"><p>代码仓库为 <a href="https://gitee.com/hustos/riscv-pke">hustos riscv-pke</a></p>
 <blockquote>
-<p>以下内容基于 lab2 代码</p>
-</blockquote>
+<p>以下内容基于 lab2 代码</p></blockquote>
 <h3 id="入口在哪">入口在哪？<a hidden class="anchor" aria-hidden="true" href="#入口在哪">#</a></h3>
 <p>入口为 <code>kernel/machine/mentry.S</code> 的 <code>_mentry</code> ，它调用了 <code>kernel/machine/minit.c</code> 的 <code>m_start(uintptr_t hartid, uintptr_t dtb)</code> ，两个参数并没有在 <code>_mentry</code> 中设置，这是因为 spike 会自动设置 <code>a0</code> 寄存器为 CPU id ，设置 <code>a1</code> 寄存器为设备树字符串，这刚好也符合 RV 的传参规则。</p>
 <p>值得注意的是， spike 模拟执行 pke 代码时是从 M 模式开始的。</p>
@@ -267,8 +264,7 @@
 <p>将 MPP 设置成了 S 模式，这个 MPP(machine previous privilege) 是指进入 M 模式之前的模式，这样设置的目的是在之后的 <code>mret</code> 后能进入 S 模式。之后将 <code>mepc</code> 寄存器设置为 <code>s_start</code> ，这就能在之后的 <code>mret</code> 后不仅能进入 S 模式，还能从 <code>s_start</code> 开始执行。</p>
 <p>操作系统要在 M 模式执行系统调用，所以要设置系统调用时的入口，也就是把 <code>mtvec</code> 寄存器赋值为 <code>mtrapvec</code> 。之后分析如何进入系统调用时再详细介绍。</p>
 <blockquote>
-<p>值得注意的是 <code>mtrapvec</code> 要 4-byte 对齐， <code>mtvec</code> 寄存器虽然是 MXLEN 长度的，但是它后两位使用来标识是直接系统调用还是向量系统调用的，所以它只能存 4-byte 对齐的函数入口地址。</p>
-</blockquote>
+<p>值得注意的是 <code>mtrapvec</code> 要 4-byte 对齐， <code>mtvec</code> 寄存器虽然是 MXLEN 长度的，但是它后两位使用来标识是直接系统调用还是向量系统调用的，所以它只能存 4-byte 对齐的函数入口地址。</p></blockquote>
 <p>之后依次，打开 M 模式中断，将所有中断和异常委托到 S 模式执行，再打开 S 模式中断，初始化时钟中断。</p>
 <p>最后调用 <code>mret</code> 退出 M 模式，进入到预设好的 S 模式代码，也就是 <code>s_start</code> 。</p>
 <h3 id="s_start-函数里面做了什么"><code>s_start</code> 函数里面做了什么？<a hidden class="anchor" aria-hidden="true" href="#s_start-函数里面做了什么">#</a></h3>

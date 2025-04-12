@@ -286,11 +286,9 @@
 </span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> add_one_v3 = |x|             { x + <span style="color:#ff0;font-weight:bold">1</span> };
 </span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> add_one_v4 = |x|               x + <span style="color:#ff0;font-weight:bold">1</span>  ;
 </span></span></code></pre></div><blockquote>
-<p>需要注意的是，Rust 虽然有类型的自动推导，但是它只是一种语法糖，而不是泛型，当编译器推导出一种类型的闭包之后，它会一直使用该类型。</p>
-</blockquote>
+<p>需要注意的是，Rust 虽然有类型的自动推导，但是它只是一种语法糖，而不是泛型，当编译器推导出一种类型的闭包之后，它会一直使用该类型。</p></blockquote>
 <blockquote>
-<p>闭包本质上是一种词法绑定，故当闭包从环境中捕获一个值时，会分配内存去存储这些值。对于有些场景来说，这种额外的内存分配会成为一种负担。与之相比，函数就不会去捕获这些环境值，因此定义和使用函数不会拥有这种内存负担。</p>
-</blockquote>
+<p>闭包本质上是一种词法绑定，故当闭包从环境中捕获一个值时，会分配内存去存储这些值。对于有些场景来说，这种额外的内存分配会成为一种负担。与之相比，函数就不会去捕获这些环境值，因此定义和使用函数不会拥有这种内存负担。</p></blockquote>
 <h2 id="三种fn特征">三种<code>Fn</code>特征<a hidden class="anchor" aria-hidden="true" href="#三种fn特征">#</a></h2>
 <p>闭包有三种方式捕获自由变量，分别是：转移所有权、可变借用和不可变借用：</p>
 <ul>
@@ -316,8 +314,7 @@
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> v = vec![<span style="color:#ff0;font-weight:bold">1</span>, <span style="color:#ff0;font-weight:bold">2</span>, <span style="color:#ff0;font-weight:bold">3</span>];
 </span></span><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> print_vec = <span style="color:#fff;font-weight:bold">move</span> || println!(<span style="color:#0ff;font-weight:bold">&#34;</span><span style="color:#0ff;font-weight:bold">{:?}</span><span style="color:#0ff;font-weight:bold">&#34;</span>, v);
 </span></span></code></pre></div><blockquote>
-<p>除了<code>FnMut</code>需要在创建变量时使用<code>mut</code>，创建闭包时并不需要显式地指定它实现的特征，因此闭包的类型实际上是编译器推导出来的，只有将闭包当作参数传递需要类型标注时才需要显式标记类型。</p>
-</blockquote>
+<p>除了<code>FnMut</code>需要在创建变量时使用<code>mut</code>，创建闭包时并不需要显式地指定它实现的特征，因此闭包的类型实际上是编译器推导出来的，只有将闭包当作参数传递需要类型标注时才需要显式标记类型。</p></blockquote>
 <p>一个闭包实现了哪种 Fn 特征取决于该闭包如何使用被捕获的变量，而不是取决于闭包如何捕获它们。</p>
 <ul>
 <li>所有的闭包都自动实现了<code>FnOnce</code>特征，因此任何一个闭包都至少可以被调用一次</li>

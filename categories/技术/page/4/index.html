@@ -152,6 +152,20 @@
 </header>
 
 <article class="post-entry tag-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">QEMU配置openEuler的aarch64开发环境
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>还是计算机系统基础，即将对 arm 架构展开学习，使用的是华为的打开欧拉(openEuler)操作发行版。
+进入镜像 首先下载虚拟机镜像，老师发的我安装不了，就在清华的镜像站下载了。 $ aria2c -x 15 -s 2 &#34;https://mirrors.tuna.tsinghua.edu.cn/openeuler/openEuler-20.03-LTS/virtual_machine_img/aarch64/openEuler-20.03-LTS.aarch64.qcow2.xz&#34; 先调整一下镜像的磁盘大小。 $ qemu-img resize openEuler-20.03-LTS.aarch64.qcow2 &#43;20G 启动镜像，注意需要使用引导文件。 qemu-system-aarch64 -m 4096 \ -cpu cortex-a57 \ -smp 4 \ -M virt \ -bios edk2-aarch64-code.fd \ -hda openEuler-20.03-LTS.aarch64.qcow2 \ -nographic \ 配置网络 配置网络这部分，尤其是网卡那部分我不是很懂，基本上是照着教程来做。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2022-11-07 16:43:28 +0800 CST'>2022 11月 07</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;vaaandark</footer>
+  <a class="entry-link" aria-label="post link to QEMU配置openEuler的aarch64开发环境" href="https://vaaandark.top/posts/setup-qemu-for-openeuler-aarch64/"></a>
+</article>
+
+<article class="post-entry tag-entry"> 
 <figure class="entry-cover"><img loading="lazy" src="https://vaaandark.top/image/bomb.jpg" alt="">
 </figure>
   <header class="entry-header">
@@ -286,19 +300,6 @@ What is OpenMP? OpenMP Model 每个线程都有可以访问全局的共享内存
   </div>
   <footer class="entry-footer"><span title='2022-07-29 09:03:18 +0000 UTC'>2022 7月 29</span>&nbsp;·&nbsp;3 分钟&nbsp;·&nbsp;vaaandark</footer>
   <a class="entry-link" aria-label="post link to OpenMP入门" href="https://vaaandark.top/posts/openmp-introduction/"></a>
-</article>
-
-<article class="post-entry tag-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Lua Coroutine
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Lua 的一大特色就是协程的使用，在解释型语言中，如果不考虑嵌入到较为低级的语言（如 C 语言）中，就只需要操作调用栈并保存好上下文状态即可。但是 Lua 并不是一门纯粹依靠字节码的解释型语言，它常常与 C 语言反复嵌套，甚至出现 C 中调用 Lua ，Lua 中再调用 C 代码，，，的情况。一旦 Lua 调用的 C 库企图中断线程，再想恢复，就会是一个难题。好在 Lua 巧妙地解决了这些问题。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2022-05-13 15:19:09 +0000 UTC'>2022 5月 13</span>&nbsp;·&nbsp;6 分钟&nbsp;·&nbsp;vaaandark</footer>
-  <a class="entry-link" aria-label="post link to Lua Coroutine" href="https://vaaandark.top/posts/lua-coroutine/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

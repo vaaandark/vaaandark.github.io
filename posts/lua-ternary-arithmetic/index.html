@@ -255,8 +255,7 @@ os.path.sep = windows and &#39;\\&#39; or &#39;/&#39;
 </span></span></code></pre></div><p>Lua 将 <code>nil</code> 和 <code>false</code> 当作「假」，其余值都视作「真」（包括 0 ）。</p>
 <p><strong>然而，Lua 的布尔运算返回的是原值，而不是 <code>true</code> 或 <code>false</code> 。我推测这与 Lua 将 <code>nil</code> 和 <code>false</code> 都当作「假」有关，如果布尔运算返回了 <code>false</code> ，那 <code>nil</code> 的语意就变化了。</strong></p>
 <blockquote>
-<p>nil 是 Lua 特殊的类型，它可能的值只有 nil ，它不在本文讨论范围之中</p>
-</blockquote>
+<p>nil 是 Lua 特殊的类型，它可能的值只有 nil ，它不在本文讨论范围之中</p></blockquote>
 <h2 id="lua-三目运算的原理">Lua 三目运算的原理<a hidden class="anchor" aria-hidden="true" href="#lua-三目运算的原理">#</a></h2>
 <p>下面可以通过例子来说明 <code>a and b or c</code> ：</p>
 <ul>

@@ -2,13 +2,48 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>https://vaaandark.top/tags/go/</loc>
+    <lastmod>2025-04-12T19:55:13+08:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://vaaandark.top/tags/kubernetes/</loc>
+    <lastmod>2025-04-12T19:55:13+08:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://vaaandark.top/tags/linux/</loc>
+    <lastmod>2025-04-12T19:55:13+08:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url><url>
     <loc>https://vaaandark.top/posts/</loc>
-    <lastmod>2024-12-27T20:07:44+08:00</lastmod>
+    <lastmod>2025-04-12T19:55:13+08:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
   </url><url>
     <loc>https://vaaandark.top/</loc>
-    <lastmod>2024-12-27T20:07:44+08:00</lastmod>
+    <lastmod>2025-04-12T19:55:13+08:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://vaaandark.top/categories/%E6%8A%80%E6%9C%AF/</loc>
+    <lastmod>2025-04-12T19:55:13+08:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://vaaandark.top/tags/%E5%AE%B9%E5%99%A8/</loc>
+    <lastmod>2025-04-12T19:55:13+08:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://vaaandark.top/posts/container-live-migration-basics/</loc>
+    <lastmod>2025-04-12T19:55:13+08:00</lastmod>
+    <changefreq>always</changefreq>
+    <priority>0.5</priority>
+  </url><url>
+    <loc>https://vaaandark.top/tags/%E4%BA%91%E5%8E%9F%E7%94%9F/</loc>
+    <lastmod>2025-04-12T19:55:13+08:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
   </url><url>
@@ -53,11 +88,6 @@
     <priority>0.5</priority>
   </url><url>
     <loc>https://vaaandark.top/tags/c&#43;&#43;/</loc>
-    <lastmod>2024-03-27T20:02:33+08:00</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://vaaandark.top/categories/%E6%8A%80%E6%9C%AF/</loc>
     <lastmod>2024-03-27T20:02:33+08:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>
@@ -198,11 +228,6 @@
     <priority>0.5</priority>
   </url><url>
     <loc>https://vaaandark.top/tags/hpc/</loc>
-    <lastmod>2023-12-23T22:03:25+08:00</lastmod>
-    <changefreq>always</changefreq>
-    <priority>0.5</priority>
-  </url><url>
-    <loc>https://vaaandark.top/tags/linux/</loc>
     <lastmod>2023-12-23T22:03:25+08:00</lastmod>
     <changefreq>always</changefreq>
     <priority>0.5</priority>

@@ -279,11 +279,9 @@
 </span></span></code></pre></div><p>当使用<code>for a in b</code>语句遍历时，如果对象 b 实现了<code>IntoIterator</code>特性，我们便可以利用 Rust 给我们提供的语法糖，不必显式使用迭代器。</p>
 <p>迭代器是消耗性的，每遍历到一个元素就会消耗掉一个元素，最终迭代器中没有任何元素，只能返回<code>None</code>。</p>
 <blockquote>
-<p>要注意两个特征<code>Iterator</code>和<code>IntoIterator</code>的区别，一个是实现了迭代器的基本功能，一个是可以转化为迭代器。</p>
-</blockquote>
+<p>要注意两个特征<code>Iterator</code>和<code>IntoIterator</code>的区别，一个是实现了迭代器的基本功能，一个是可以转化为迭代器。</p></blockquote>
 <blockquote>
-<p>有趣的是，每个实现了<code>Iterator</code>的类型都实现了<code>IntoIterator</code>，调用<code>into_iter</code>时会返回自身。</p>
-</blockquote>
+<p>有趣的是，每个实现了<code>Iterator</code>的类型都实现了<code>IntoIterator</code>，调用<code>into_iter</code>时会返回自身。</p></blockquote>
 <h2 id="对iterator更进一步">对<code>Iterator</code>更进一步<a hidden class="anchor" aria-hidden="true" href="#对iterator更进一步">#</a></h2>
 <p><code>Iterator</code>的路径为<code>std::iter::Iterator</code>，拥有一个关联类型<code>Item</code>，和迭代的元素类型相同。</p>
 <p>该特性有 72 个方法，下面着重介绍几种常用方法：</p>
@@ -298,11 +296,9 @@
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">fn</span> size_hint(&amp;self) -&gt; (<span style="color:#fff;font-weight:bold">usize</span>, <span style="color:#fff;font-weight:bold">Option</span>&lt;<span style="color:#fff;font-weight:bold">usize</span>&gt;);
 </span></span></code></pre></div><p>返回一个元组<code>(lower, upper)</code>，<code>lower</code>为当前迭代器剩余元素个数的下界，	<code>upper</code>为其上界。</p>
 <blockquote>
-<p>如果上界很大，超过了<code>usize</code>的最大值，就会是<code>None</code>，因此<code>size_hint	</code>的默认实现返回的就是<code>(0, None)</code>，这满足任意一个迭代器。</p>
-</blockquote>
+<p>如果上界很大，超过了<code>usize</code>的最大值，就会是<code>None</code>，因此<code>size_hint	</code>的默认实现返回的就是<code>(0, None)</code>，这满足任意一个迭代器。</p></blockquote>
 <blockquote>
-<p>这个方法的主要作用是优化代码性能，可以通过该方法为迭代器的元素保留空间。在<code>std</code>的官方文档中提到，该实现应当提供正确的估计，不能因为实现不正确导致内存安全性原则。</p>
-</blockquote>
+<p>这个方法的主要作用是优化代码性能，可以通过该方法为迭代器的元素保留空间。在<code>std</code>的官方文档中提到，该实现应当提供正确的估计，不能因为实现不正确导致内存安全性原则。</p></blockquote>
 <ul>
 <li><code>enumerate</code>方法</li>
 </ul>
@@ -347,8 +343,7 @@
 </span></span><span style="display:flex;"><span>    U: <span style="color:#fff;font-weight:bold">IntoIterator</span>
 </span></span></code></pre></div><p>将两个迭代器压缩为成对的单个迭代器。</p>
 <blockquote>
-<p>如果任一迭代器返回<code>None</code>，则<code>zipped</code>迭代器中的<code>next</code>将返回<code>None</code>。如果第一个迭代器返回<code>None</code>，则<code>zip</code>将短路，并且不会在第二个迭代器上调用<code>next</code>。</p>
-</blockquote>
+<p>如果任一迭代器返回<code>None</code>，则<code>zipped</code>迭代器中的<code>next</code>将返回<code>None</code>。如果第一个迭代器返回<code>None</code>，则<code>zip</code>将短路，并且不会在第二个迭代器上调用<code>next</code>。</p></blockquote>
 <ul>
 <li><code>fold</code>方法</li>
 </ul>
@@ -368,8 +363,7 @@
 </span></span><span style="display:flex;"><span>    B: FromIterator&lt;Self::Item&gt;
 </span></span></code></pre></div><p>将迭代器转换为集合。</p>
 <blockquote>
-<p><code>collect</code>需要上下文让其知道按照什么方式收集，一种是通过直接显式地表明类型，一种是显式地指定<code>collect</code>调用时的类型。</p>
-</blockquote>
+<p><code>collect</code>需要上下文让其知道按照什么方式收集，一种是通过直接显式地表明类型，一种是显式地指定<code>collect</code>调用时的类型。</p></blockquote>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">let</span> v: vec&lt;_&gt; = (<span style="color:#ff0;font-weight:bold">1</span>..<span style="color:#ff0;font-weight:bold">5</span>).collect();
 </span></span><span style="display:flex;"><span><span style="color:#007f7f">// or
 </span></span></span><span style="display:flex;"><span><span style="color:#007f7f"></span>v = (<span style="color:#ff0;font-weight:bold">1</span>..<span style="color:#ff0;font-weight:bold">5</span>).collect::&lt;vec&lt;_&gt;&gt;();

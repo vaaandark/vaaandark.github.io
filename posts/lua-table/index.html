@@ -318,8 +318,7 @@ Lua Table 简介
 </span></span><span style="display:flex;"><span>  TValuefields;
 </span></span><span style="display:flex;"><span>} TValue;
 </span></span></code></pre></div><blockquote>
-<p>TValue 长度为 12 个字节，可以使用 NaN Trick 节约空间。</p>
-</blockquote>
+<p>TValue 长度为 12 个字节，可以使用 NaN Trick 节约空间。</p></blockquote>
 <p>联合体 Node 有两个字段，一个是结构体 NodeKey 依次包含了这个节点的值、键的类型、下一个节点的位置、键的值与类型，另一个字段是 TValue 类型的 i_val ，因为是联合体，所以可以通过直接访问 i_val 得到值的类型和类型：</p>
 <div class="highlight"><pre tabindex="0" style="color:#e5e5e5;background-color:#000;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-c" data-lang="c"><span style="display:flex;"><span><span style="color:#fff;font-weight:bold">typedef</span> <span style="color:#fff;font-weight:bold">union</span> Node {
 </span></span><span style="display:flex;"><span>  <span style="color:#fff;font-weight:bold">struct</span> NodeKey {
@@ -407,12 +406,10 @@ Lua Table 简介
 <p><img alt="如果不是主位置节点" loading="lazy" src="/image/table-03.png"></p>
 <p>调整不在主位置的冲突节点位置时要把它的前驱的 next 字段进行修改，对冲突节点的 next 字段也要修正。</p>
 <blockquote>
-<p>由于使用链接法时使用的是单向链表，因此想要获取冲突节点的前驱需要将冲突节点的键取出来求哈希，首先得到主位置，再通过一步一步地 next ，找到冲突节点之前的位置。</p>
-</blockquote>
+<p>由于使用链接法时使用的是单向链表，因此想要获取冲突节点的前驱需要将冲突节点的键取出来求哈希，首先得到主位置，再通过一步一步地 next ，找到冲突节点之前的位置。</p></blockquote>
 <p><img alt="解决哈希冲突" loading="lazy" src="/image/table-04.png"></p>
 <blockquote>
-<p>lastfree 的移动：初始化时指向 node 数组的最后一位。在这之后，一般情况下只会使用自减操作向左移动。</p>
-</blockquote>
+<p>lastfree 的移动：初始化时指向 node 数组的最后一位。在这之后，一般情况下只会使用自减操作向左移动。</p></blockquote>
 <h2 id="resize-操作">resize 操作<a hidden class="anchor" aria-hidden="true" href="#resize-操作">#</a></h2>
 <p>当表空间不足时就会进行 resize 操作。</p>
 <p>第一步是对 Key 为整数的部分进行统计，统计的是在区间 $(2^i, 2^{i+1}]$ 不为空的元素的个数，方便之后的 resize ，代码如下：</p>

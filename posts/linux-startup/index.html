@@ -10,7 +10,6 @@
 <meta name="description" content="
 &ldquo;pull oneself up by one&rsquo;s bootstraps.&rdquo;
 拽着鞋带把自己拉起来
-
 大家在安装 Arch Linux 或者其他 Linux 发行版时，可能会看到很多有关启动或者引导的名词，例如 BIOS 、UEFI 、GRUB 、ESP 、GPT 、LBA 、MBR 等等。有些名词比较熟悉，有些就会一头雾水，今天就来讲讲这些名词。">
 <meta name="author" content="vaaandark">
 <link rel="canonical" href="https://vaaandark.top/posts/linux-startup/">
@@ -77,7 +76,6 @@
 <meta name="twitter:description" content="
 &ldquo;pull oneself up by one&rsquo;s bootstraps.&rdquo;
 拽着鞋带把自己拉起来
-
 大家在安装 Arch Linux 或者其他 Linux 发行版时，可能会看到很多有关启动或者引导的名词，例如 BIOS 、UEFI 、GRUB 、ESP 、GPT 、LBA 、MBR 等等。有些名词比较熟悉，有些就会一头雾水，今天就来讲讲这些名词。">
 
 
@@ -267,8 +265,7 @@
 
   <div class="post-content"><blockquote>
 <p>&ldquo;pull oneself up by one&rsquo;s bootstraps.&rdquo;</p>
-<p>拽着鞋带把自己拉起来</p>
-</blockquote>
+<p>拽着鞋带把自己拉起来</p></blockquote>
 <p>大家在安装 Arch Linux 或者其他 Linux 发行版时，可能会看到很多有关启动或者引导的名词，例如 BIOS 、UEFI 、GRUB 、ESP 、GPT 、LBA 、MBR 等等。有些名词比较熟悉，有些就会一头雾水，今天就来讲讲这些名词。</p>
 <h2 id="bios-vs-uefi">BIOS vs UEFI<a hidden class="anchor" aria-hidden="true" href="#bios-vs-uefi">#</a></h2>
 <p>BIOS（Basic Input Output System，基本输入输出系统）是固化在计算机主板中的程序代码，其主要功能是在计算机上电时对硬件进行初始化配置，并将硬件操作封装为BIOS中断服务。这样，各种硬件间的差异便由 BIOS 负责维护，程序直接调用 BIOS 中断服务即可实现对硬件的控制。</p>
@@ -325,8 +322,7 @@
 <p>GPT 的 Protective MBR 引导扇区结构只使用一个分区记录表项，这个分区将占用 Protective MBR 之后的整个磁盘空间，剩余三个表项保留使用并填充 0 。</p>
 <p><img alt="pmbr" loading="lazy" src="/image/pmbr.png"></p>
 <blockquote>
-<p>可以看到备份分区表的顺序是相反的，这也非常符合我们对这种记录结构的直觉</p>
-</blockquote>
+<p>可以看到备份分区表的顺序是相反的，这也非常符合我们对这种记录结构的直觉</p></blockquote>
 <h3 id="guid">GUID<a hidden class="anchor" aria-hidden="true" href="#guid">#</a></h3>
 <table>
   <thead>
@@ -383,8 +379,7 @@
 </li>
 </ol>
 <blockquote>
-<p>还有一个问题，难道 Stage 1.5 不是放在文件系统中的吗？如果是，那么 Stage 1 同样不能找到 Stage 1.5。其实，Stage 1.5 还真没有放在文件系统中，而是在安装 GRUB 时，直接安装到紧跟 MBR 之后的 32KB 的空间中，这段硬盘空间是空白无用的，而且是没有文件系统的，所以 Stage 1 可以直接读取 Stage 1.5。读取了 Stage 1.5 就能识别不同的文件系统，才能加载 Stage 2。</p>
-</blockquote>
+<p>还有一个问题，难道 Stage 1.5 不是放在文件系统中的吗？如果是，那么 Stage 1 同样不能找到 Stage 1.5。其实，Stage 1.5 还真没有放在文件系统中，而是在安装 GRUB 时，直接安装到紧跟 MBR 之后的 32KB 的空间中，这段硬盘空间是空白无用的，而且是没有文件系统的，所以 Stage 1 可以直接读取 Stage 1.5。读取了 Stage 1.5 就能识别不同的文件系统，才能加载 Stage 2。</p></blockquote>
 <ol start="3">
 <li>Stage 2：加载GRUB的配置文件。Stage 2 阶段主要就是加载 GRUB 的配置文件 /boot/grub/grub.conf，然后根据配置文件中的定义，加载内核和虚拟文件系统。接下来内核就可以接管启动过程，继续自检与加载硬件模块了。</li>
 </ol>
@@ -392,8 +387,7 @@
 <p>grub2 是 grub 的重写版本，启动过程更简单明了。grub2 将 boot.img 转换后的内容安装到 MBR(VBR或EBR) 中的 boot loader 部分，将 diskboot.img 和 kernel.img 结合成为 core.img，同时还会嵌入一些模块或加载模块的代码到 core.img 中，然后将 core.img 转换后的内容安装到磁盘的指定位置处。</p>
 <p>grub2 的 core 阶段相当于 grub 的 stage1.5 和 stage2 的结合，它可以直接加载不同的文件系统和模块，而不需要额外的驱动程序。</p>
 <blockquote>
-<p>core 阶段通常存储在一个专门的 UEFI 分区或者 /boot/grub 目录中。</p>
-</blockquote>
+<p>core 阶段通常存储在一个专门的 UEFI 分区或者 /boot/grub 目录中。</p></blockquote>
 <ol>
 <li>
 <p>Stage 1：第一阶段为执行 boot loader 的主程序，这个主程序必须要被安装在引导区，也就是是 MBR 或者启动扇区。但因为 MBR 空间有限，所以，MBR 或启动扇区通常仅安装 boot loader 的最小主程序，并没有安装 loader 的相关配置文件。</p>

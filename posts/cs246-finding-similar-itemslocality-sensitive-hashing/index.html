@@ -314,8 +314,7 @@
 <h2 id="前置知识">前置知识<a hidden class="anchor" aria-hidden="true" href="#前置知识">#</a></h2>
 <p>数据之间的距离：</p>
 <blockquote>
-<p>也可以说是用数据之间的相似度，一般距离越远，相似度越低</p>
-</blockquote>
+<p>也可以说是用数据之间的相似度，一般距离越远，相似度越低</p></blockquote>
 <ul>
 <li>向量的思想：使用角度度量</li>
 <li>集合的思想：使用雅卡尔距离度量</li>
@@ -344,8 +343,7 @@ $$</p>
 <p>但以上两种方法都会损失掉单词的顺序信息。而这里要介绍的方法 Shingling 就可以避免。</p>
 <p>这里使用的单词 Shingling 意思为「叠瓦」，非常有意思。说起「叠瓦」，可能会让人想到「叠瓦盘」。</p>
 <blockquote>
-<p>SMR 叠瓦式磁盘是一种采用新型磁存储技术的高容量磁盘。SMR 盘将盘片上的数据磁道部分重叠，就像屋顶上的瓦片一样，这种技术被称为叠瓦式磁记录技术。该技术在制造工艺方面的变动非常微小，但却可以大幅提高磁盘存储密度。</p>
-</blockquote>
+<p>SMR 叠瓦式磁盘是一种采用新型磁存储技术的高容量磁盘。SMR 盘将盘片上的数据磁道部分重叠，就像屋顶上的瓦片一样，这种技术被称为叠瓦式磁记录技术。该技术在制造工艺方面的变动非常微小，但却可以大幅提高磁盘存储密度。</p></blockquote>
 <p><img alt="SMR" loading="lazy" src="/image/SMR.png"></p>
 <p>在这里的 Shingling 也是类似的，举个例子：</p>
 <p>文档 $D_1 = abcab$ ，使用 2-shingles 就可以获得 $S(D_1) = {ab, bc, ca}$</p>
@@ -354,15 +352,13 @@ $$</p>
 <p>由于两篇文档大部分的 Shingle 都会是不同的，因此可以使用 Hash 压缩 Shingle 到相同的宽度的数字类型。</p>
 <p>之后当我们需要比较两个 Shingle 集合的相似程度时，就可以使用之前的雅卡尔距离来估算。</p>
 <blockquote>
-<p>不过这样还是有很大的计算量，我们需要下文说的 Min-Hash 算法</p>
-</blockquote>
+<p>不过这样还是有很大的计算量，我们需要下文说的 Min-Hash 算法</p></blockquote>
 <ul>
 <li>对于短篇，k 可以取 5</li>
 <li>对于长篇，k 可以取 10</li>
 </ul>
 <blockquote>
-<p>仅作参考，要依据具体情况取舍</p>
-</blockquote>
+<p>仅作参考，要依据具体情况取舍</p></blockquote>
 <h2 id="min-hash-算法">Min-Hash 算法<a hidden class="anchor" aria-hidden="true" href="#min-hash-算法">#</a></h2>
 <h3 id="需求">需求<a hidden class="anchor" aria-hidden="true" href="#需求">#</a></h3>
 <p>使用雅卡尔算法比较 Shingle 的哈希依然是缓慢的。假设有 N 篇文档，则需要比较 $N(N-1)/2$ 次，当 $N = 1 million$ 时，需要比较 $5 * 10 ^11$ 次，以一天有 $10^5$ 秒，每秒可以比较 $10^6$ 估算，这将花费五天。如果 N 再大一个数量级，将会花费超过一年的时间。</p>
@@ -417,8 +413,7 @@ $$</p>
 <li>签名 $h(C_1)$ 与 $h(C_2)$ 的相似程度等同于 $sim(C_1, C_2)$</li>
 </ol>
 <blockquote>
-<p>$sim(C_1, C_2)$ 表示 $C_1$ 和 $C_2$ 的雅卡尔系数 $\frac{\lvert A \cap B\rvert}{\lvert B \cup A\rvert}$</p>
-</blockquote>
+<p>$sim(C_1, C_2)$ 表示 $C_1$ 和 $C_2$ 的雅卡尔系数 $\frac{\lvert A \cap B\rvert}{\lvert B \cup A\rvert}$</p></blockquote>
 <p>理想状态下，我们找到的函数 $h(\cdot)$ 满足：</p>
 <ul>
 <li>当 $sim(C_1, C_2)$ 很高时，有很大概率 $h(C_1) = h(C_2)$</li>
@@ -467,16 +462,14 @@ $$</p>
   </tbody>
 </table>
 <blockquote>
-<p>假设 [a-d] 表示这四类情况的个数</p>
-</blockquote>
+<p>假设 [a-d] 表示这四类情况的个数</p></blockquote>
 <p>可以发现 $sim(C_1, C_2) = a/(a +b +c)$</p>
 <p>如果将两个集合以相同的方式打乱，再从上向下扫描，第一个碰到的含有 1 的行是 A 类，则说明 $h(D_1) = h(D_2)$ 。</p>
 <h3 id="示例">示例<a hidden class="anchor" aria-hidden="true" href="#示例">#</a></h3>
 <p><img alt="example" loading="lazy" src="/image/min-hashing-example.png"></p>
 <p>如果我们取 100 个 $\pi$ 函数用来打乱，可以为每个文档生成 100 个签名，那就可以把大量的数据压缩到可以接受的程度了。</p>
 <blockquote>
-<p>在书中有关于 Min-Hash 实现时需要注意的问题，可以以后再水一篇博客</p>
-</blockquote>
+<p>在书中有关于 Min-Hash 实现时需要注意的问题，可以以后再水一篇博客</p></blockquote>
 <h2 id="locality-sensitive-hashing">Locality Sensitive Hashing<a hidden class="anchor" aria-hidden="true" href="#locality-sensitive-hashing">#</a></h2>
 <h3 id="基本思路-1">基本思路<a hidden class="anchor" aria-hidden="true" href="#基本思路-1">#</a></h3>
 <p>找到相似度至少为 $s$ 的文档。</p>
@@ -488,8 +481,7 @@ $$</p>
 </ul>
 <p>我们可以把一列分成不同的条带（band），然后进行多次哈希操作。</p>
 <blockquote>
-<p>分成更小的条带作用是提高效率</p>
-</blockquote>
+<p>分成更小的条带作用是提高效率</p></blockquote>
 <p><img alt="lsh-bands" loading="lazy" src="/image/lsh-bands.png"></p>
 <p>只要有一次被分配到相同的「桶」，就可以成为候选者</p>
 <p><img alt="lsh-bands1" loading="lazy" src="/image/lsh-bands_1.png"></p>
@@ -505,8 +497,7 @@ $$</p>
 <p>以 s 为横坐标，成为候选者的概率为纵座标，b 和 r 为常量，可以获得一条 S 型曲线。</p>
 <p><img alt="lsh-s-curve" loading="lazy" src="/image/lsh-s-curve.png"></p>
 <blockquote>
-<p>当 b 取值为 1 时，S 型曲线将会退化成为过原点的直线</p>
-</blockquote>
+<p>当 b 取值为 1 时，S 型曲线将会退化成为过原点的直线</p></blockquote>
 <p>取候选者概率为 0.5 ，即 $1 - (1 - s^r)^b = 1/2$</p>
 <p>计算得到 $s = (1 - (\frac{1}{2})^{\frac{1}{b}})^{\frac{1}{r}}$</p>
 <p>由于 $(\frac{1}{2})^{\frac{1}{b}}$ 比较接近 0 ，可以利用等价无穷小来估算 $s \sim (\frac{1}{b})^{\frac{1}{r}}$</p>

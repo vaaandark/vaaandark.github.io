@@ -4,7 +4,7 @@
     <title>UEFI on vaaandark&#39;s blog</title>
     <link>https://vaaandark.top/tags/uefi/</link>
     <description>Recent content in UEFI on vaaandark&#39;s blog</description>
-    <generator>Hugo -- 0.140.2</generator>
+    <generator>Hugo -- 0.144.2</generator>
     <language>zh-CN</language>
     <lastBuildDate>Sat, 30 Sep 2023 19:59:34 +0800</lastBuildDate>
     <atom:link href="https://vaaandark.top/tags/uefi/index.xml" rel="self" type="application/rss+xml" />
@@ -23,8 +23,7 @@
       <guid>https://vaaandark.top/posts/linux-startup/</guid>
       <description>&lt;blockquote&gt;
 &lt;p&gt;&amp;ldquo;pull oneself up by one&amp;rsquo;s bootstraps.&amp;rdquo;&lt;/p&gt;
-&lt;p&gt;拽着鞋带把自己拉起来&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;拽着鞋带把自己拉起来&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;大家在安装 Arch Linux 或者其他 Linux 发行版时，可能会看到很多有关启动或者引导的名词，例如 BIOS 、UEFI 、GRUB 、ESP 、GPT 、LBA 、MBR 等等。有些名词比较熟悉，有些就会一头雾水，今天就来讲讲这些名词。&lt;/p&gt;</description>
     </item>
   </channel>

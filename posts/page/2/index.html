@@ -168,6 +168,20 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Cargo Runner
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>最近在完成一个使用 Rust 语言编写 Linux 内核引导程序的项目 lboot ，其核心代码和原理在之前的博客中介绍过 UEFI 如何启动 Linux 。
+因为不可能直接在 UEFI 环境下进行代码开发，所以我使用的是交叉编译的方法，目标平台是 x86_64-unknown-uefi 和 aarch64-unknown-uefi 。这就带来了一个问题，使用命令 cargo run 不能直接运行代码，必须使用 qemu 来模拟目标架构的执行。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2023-10-22 11:36:13 +0800 CST'>2023 10月 22</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;vaaandark</footer>
+  <a class="entry-link" aria-label="post link to Cargo Runner" href="https://vaaandark.top/posts/cargo-runner/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">UEFI 如何启动 Linux
     </h2>
   </header>
@@ -290,20 +304,6 @@ sleep 这一关是实现 sleep 命令。由于在 user/user.h 目录中给出来
   </div>
   <footer class="entry-footer"><span title='2023-02-25 13:26:44 +0800 CST'>2023 2月 25</span>&nbsp;·&nbsp;2 分钟&nbsp;·&nbsp;vaaandark</footer>
   <a class="entry-link" aria-label="post link to Awesome WM 基于迭代器的小组件" href="https://vaaandark.top/posts/awesomewm-widget-with-iterator/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Btrfs 为什么是神？
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>最近发现 Windows 这几个月开机不超过 10 次，寻思着将 Windows 中的空间挪一点到 Linux 中来。说干就干，在 Windows 里面划出来了 80 GB 的空间。
-遗憾地，这 80 GB 空间物理上在我需要扩容的空间的前面，由于开头的扇区存放有很多元数据，因此是不能简单扩容的，只能寻求其他的方法。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2023-02-25 13:06:17 +0800 CST'>2023 2月 25</span>&nbsp;·&nbsp;1 分钟&nbsp;·&nbsp;vaaandark</footer>
-  <a class="entry-link" aria-label="post link to Btrfs 为什么是神？" href="https://vaaandark.top/posts/why-btrfs-is-awesome/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
